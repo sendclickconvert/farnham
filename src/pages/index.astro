@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { BUSINESS, AGENT, SERVICES, MEDICARE_2026 } from '../data/site';
+import { BUSINESS, AGENT, SERVICES, MEDICARE_2026, FORMS, DISCLAIMERS } from '../data/site';
 
 const tel = `tel:${BUSINESS.phoneClean}`;
 
@@ -57,11 +57,63 @@ const flagshipPoints = [
     </div>
 
     <div class="lg:col-span-6 relative">
-      <div class="aspect-[4/3] rounded-lg overflow-hidden shadow-2xl relative z-10">
-        <img src="/images/senior-couple.png" alt="Retired couple enjoying time together" class="w-full h-full object-cover" loading="eager" />
-      </div>
+      <!-- warmth behind the card -->
       <div class="absolute -bottom-8 -left-8 w-48 h-48 bg-terracotta rounded-full mix-blend-multiply opacity-20 blur-2xl z-0"></div>
       <div class="absolute -top-8 -right-8 w-64 h-64 bg-teal rounded-full mix-blend-multiply opacity-10 blur-3xl z-0"></div>
+
+      <!-- Lead-form card (soft, no-PHI; mirrors /contact submission + consent) -->
+      <div class="relative z-10 bg-white rounded-2xl shadow-2xl border border-sand p-6 sm:p-8 w-full max-w-md mx-auto lg:ml-auto">
+        <!-- Agent header (headshot avatar + graceful fallback) -->
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-full overflow-hidden bg-teal/10 shrink-0 flex items-center justify-center">
+            <img src={AGENT.photo} alt={AGENT.fullName} class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <span class="hidden w-full h-full items-center justify-center font-display text-teal" style="display:none;">JF</span>
+          </div>
+          <div>
+            <p class="font-display text-lg text-ink leading-tight">{AGENT.fullName}</p>
+            <p class="text-xs text-navy-500 font-heading">{AGENT.title}</p>
+          </div>
+        </div>
+
+        <h2 class="font-display text-2xl sm:text-3xl text-ink leading-tight mb-1.5">Get a free, no-obligation Medicare review</h2>
+        <p class="text-sm text-navy-600 font-heading mb-6">No cost, no pressure — I'll personally call you back.</p>
+
+        <form class="space-y-3" method="POST" action={FORMS.webhookUrl || '#'} data-form="lead">
+          <div>
+            <label for="hero-name" class="sr-only">Name</label>
+            <input id="hero-name" name="name" type="text" required autocomplete="name" placeholder="Name" class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-teal" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="hero-phone" class="sr-only">Phone</label>
+              <input id="hero-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone" class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-teal" />
+            </div>
+            <div>
+              <label for="hero-zip" class="sr-only">ZIP code</label>
+              <input id="hero-zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="ZIP" class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-teal" />
+            </div>
+          </div>
+          <div>
+            <label for="hero-status" class="sr-only">Your Medicare status</label>
+            <select id="hero-status" name="status" required class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-teal">
+              <option value="" disabled selected>I'm…</option>
+              <option value="turning-65">Turning 65 soon</option>
+              <option value="on-medicare">Already on Medicare</option>
+              <option value="exploring">Just exploring my options</option>
+            </select>
+          </div>
+
+          <!-- Consent (TCPA) — mirrors /contact exactly -->
+          <label class="flex items-start gap-2.5 text-xs text-navy-600 leading-snug">
+            <input type="checkbox" name="consent" required class="mt-0.5 shrink-0" />
+            <span>By submitting, I agree to be contacted by a licensed insurance agent by phone, text, email, or mail about Medicare plan options. Consent is not a condition of purchase.</span>
+          </label>
+
+          <button type="submit" class="btn-primary w-full justify-center">Request my free review</button>
+
+          <p class="text-[11px] text-navy-500 leading-snug pt-1">{DISCLAIMERS.noPHI}</p>
+        </form>
+      </div>
     </div>
   </section>
 
