@@ -1,0 +1,22 @@
+The soft review form it is. Let me look at how your existing contact form handles submission and consent, and how the homepage hero is built, so the new form matches your patterns exactly rather than inventing a new mechanism.Now the contact form's submission method and consent wording, so the hero form behaves identically.The soft form, built to mirror your contact form's exact submission and consent pattern — and I'll fold in the county deepening in the same pass. Starting with the hero.Hero form in place. Now deepening the four county pages, each with a distinct local angle.All edits in. Validating the hero form and the deepened pages together.The `&&` short-circuited on the zero count — let me confirm the form's `FORMS`/`DISCLAIMERS` references are actually present, plus Hero fences.Confirmed — hero fences balanced, imports correct, and the form carries `FORMS.webhookUrl` (same submission target as your contact form), the `status` and `consent` fields, `data-form="lead"`, and the no-PHI line. Form is structurally sound and matches your existing compliant pattern.
+
+Packaging the five changed files.Both done — **farm-hero-and-counties.zip** (5 files).
+
+**Hero lead form.** The homepage hero now leads with a clean white form card: *"Get a free, no-obligation Medicare review,"* with name, phone, ZIP, and a status dropdown (turning 65 / on Medicare / just exploring). It deliberately avoids the "do you qualify" framing and mirrors your contact form exactly — same TCPA consent checkbox wording, same no-PHI line, same `data-form="lead"` posting to `FORMS.webhookUrl`. So once Jim pastes his real CRM webhook into `site.ts`, both forms light up together; until then it behaves like the contact form (no live submit). The TPMO disclaimer stays site-wide in the footer.
+
+One thing to flag: I moved Jim's headshot **into the form-card header** as a small avatar (same photo path + graceful fallback). The photo's still there, just repositioned to personalize the form — if you'd rather have it large and prominent like before, that's a quick change, just say so.
+
+**County pages, deepened** to ~550–640 words each, with a genuinely distinct local angle per county rather than a repeated section: Ulster leans on rural provider-freedom (thin MA networks out west), Dutchess on the hospital-merger network volatility making Medigap's stability valuable, Orange on the county being too geographically spread for one network, and Westchester on the value of an independent second opinion in a market drowning in MA advertising.
+
+Validation across all five: fences balanced, imports resolve, form tags balanced, zero broken links site-wide, no superlatives, no carrier names.
+
+**Replit** — this replaces 5 files (no deletes this time):
+
+```
+Extract farm-hero-and-counties.zip at the project root and overwrite when prompted
+(src/components/Hero.astro plus the four src/pages/service-areas/*-county.astro files).
+Don't change anything else. Run npm run build, then start the dev server so I can see
+the new hero form on the homepage.
+```
+
+Two items still on Jim's side for these specifically: the **CRM webhook** in `site.ts` (so the form actually delivers leads), and an **E&O/FMO compliance pass** on the consent + disclaimer wording before launch, since it's now a live lead form. Want me to make the headshot more prominent, or is the form layout good as-is?
