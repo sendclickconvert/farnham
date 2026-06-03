@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 5000",
-    "start": "astro dev --host 0.0.0.0 --port 5000",
+    "start": "serve dist -p 5000 --no-clipboard",
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0 --port 5000",
     "astro": "astro"
@@ -14,6 +14,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/typography": "^0.5.19",
     "astro": "^4.16.0",
+    "serve": "^14.2.6",
     "sharp": "^0.33.0",
     "tailwindcss": "^3.4.0"
   }
