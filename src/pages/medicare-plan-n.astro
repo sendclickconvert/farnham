@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+
+const title = 'Medicare Plan N Explained (2026)';
+const description = 'Medicare Plan N is a lower-premium Medigap plan that trades small copays for a smaller monthly cost. See what it covers, how it differs from Plan G, and who it fits.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'What does Medicare Plan N cover?', a: 'Plan N covers most of the same gaps as Plan G — Part A hospital costs, Part B coinsurance, skilled nursing coinsurance, blood, hospice, and foreign travel emergencies — but you pay the Part B deductible, small copays for some office and emergency-room visits, and any Part B excess charges.' },
+  { q: 'What is the difference between Plan G and Plan N?', a: 'Plan N usually has a lower premium than Plan G, but it asks you to share a few costs: the Part B deductible, copays of up to about $20 for some office visits and up to $50 for emergency-room visits (waived if admitted), and Part B excess charges. Plan G covers those, for a higher premium.' },
+  { q: 'What are Part B excess charges?', a: 'Some providers who do not accept Medicare assignment can bill up to 15% above the Medicare-approved amount — an excess charge. Plan N does not cover these; Plan G does. They are uncommon in many areas, but worth knowing about.' },
+  { q: 'Is Plan N cheaper than Plan G?', a: 'Plan N typically has a lower monthly premium, but you take on small copays and the Part B deductible. Whether it costs less overall depends on how often you use care. Comparing your total expected annual cost is the way to decide.' },
+];
+
+const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: 'Medicare Plan N Explained (2026)', description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/medicare-plan-n` };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/medicare-plan-n#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Medicare Plan N Explained"
+    subtitle="A lower-premium Medigap plan that trades a few small copays for a smaller monthly cost. Here’s how it works and how it compares to Plan G."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Supplement', href: '/services/medicare-supplement' }, { label: 'Plan N' }]}
+  />
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Wondering if Plan N fits you?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          <strong>Medicare Plan N</strong> is a Medigap plan with a lower premium than Plan G. It covers most of the same gaps, but
+          asks you to share a few costs: the Part B deductible ({MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year}), small
+          copays for some office and emergency-room visits, and any Part B excess charges. For many people, the lower premium offsets
+          those small costs.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        Plan N is the plan to look at when you want strong coverage but a lower premium than Plan G — as long as you don’t mind a few
+        modest copays.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <h2>What Medicare Plan N covers</h2>
+      <p>
+        Plan N covers the Part A hospital deductible and coinsurance, Part B coinsurance, skilled nursing facility coinsurance, the
+        first three pints of blood, hospice coinsurance, and foreign travel emergencies up to plan limits. The trade-off is in what
+        it asks you to share.
+      </p>
+
+      <h2>What you pay with Plan N</h2>
+      <p>
+        With Plan N you pay the annual Part B deductible, a copay of up to about $20 for some office visits, a copay of up to $50 for
+        emergency-room visits (waived if you’re admitted), and any Part B excess charges. None of these are large on their own, but
+        they’re the reason the premium is lower than Plan G.
+      </p>
+
+      <h2>Plan N vs. Plan G</h2>
+      <p>
+        The choice comes down to premium versus predictability. <a href="/medicare-plan-g">Plan G</a> covers those small costs for a
+        higher premium; Plan N keeps the premium lower and asks you to handle the copays. If you’d rather lower the premium a
+        different way, <a href="/services/high-deductible-medicare-supplement">High-Deductible Plan G</a> is another option. See the
+        full grid in the <a href="/medicare-supplement-plans-comparison">plans comparison</a>.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Not sure between Plan N and Plan G?</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <p>
+        Related: <a href="/services/medicare-supplement">Medicare Supplement overview</a> and
+        <a href="/medicare-plan-g">Plan G explained</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Copay amounts are maximums set by Medicare and may change; {MEDICARE_2026.year} figures are used here. Plan availability
+          and pricing vary by insurer and location and are not guaranteed. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Plan N or Plan G? Let’s compare your numbers." />
+</BaseLayout>

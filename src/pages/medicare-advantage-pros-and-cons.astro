@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS } from '../data/site';
+
+const title = 'Medicare Advantage Pros and Cons (2026)';
+const description = 'A fair look at Medicare Advantage pros and cons — low premiums and bundled extras on one side, networks and yearly changes on the other — to help you decide.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'What are the main advantages of Medicare Advantage?', a: 'Often a low (sometimes $0) monthly premium, bundled coverage that usually includes Part D, extra benefits like dental, vision, or hearing, and a yearly cap on in-network out-of-pocket costs that Original Medicare alone does not have.' },
+  { q: 'What are the disadvantages of Medicare Advantage?', a: 'Plans typically use provider networks and may require referrals or prior authorization, your costs come as copays and coinsurance when you use care, and benefits, networks, and costs can change every year. Care outside the service area can be limited.' },
+  { q: 'Is Medicare Advantage a good choice?', a: 'It can be, depending on your priorities. It tends to fit people who want a low premium and bundled extras and are comfortable using a network. People who travel often or want to keep any doctor may prefer Medigap. There is no single right answer.' },
+  { q: 'Does Medicare Advantage have an out-of-pocket maximum?', a: 'Yes. Medicare Advantage plans include an annual limit on in-network out-of-pocket costs, after which the plan pays 100% of covered services for the rest of the year. Original Medicare by itself has no such cap, which is part of why people add Medigap.' },
+];
+
+const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: 'Medicare Advantage Pros and Cons (2026)', description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/medicare-advantage-pros-and-cons` };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/medicare-advantage-pros-and-cons#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Medicare Advantage Pros and Cons"
+    subtitle="An even-handed look at what Medicare Advantage does well and where it asks for trade-offs — so you can decide with clear eyes."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Advantage vs. Medigap', href: '/medicare-advantage-vs-medigap' }, { label: 'Advantage Pros & Cons' }]}
+  />
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Want help weighing this for your situation?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          <strong>Medicare Advantage</strong> bundles your coverage through a private plan, often with a low premium and extra
+          benefits — in exchange for using a network and accepting that benefits and costs can change each year. Whether the
+          trade-offs work for you depends on how you use care and how much you value flexibility.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        Medicare Advantage is a legitimate, popular choice — and like any choice, it has real strengths and real trade-offs. Here’s
+        the honest version of both.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <h2>The pros of Medicare Advantage</h2>
+      <ul>
+        <li><strong>Low premiums.</strong> Many plans have a low or even $0 monthly premium beyond your Part B premium.</li>
+        <li><strong>Bundled coverage.</strong> Most plans fold in Part D drug coverage, so it’s one plan to manage.</li>
+        <li><strong>Extra benefits.</strong> Many include dental, vision, hearing, or fitness benefits Original Medicare doesn’t.</li>
+        <li><strong>An out-of-pocket maximum.</strong> Plans cap your in-network out-of-pocket costs for the year.</li>
+      </ul>
+
+      <h2>The cons of Medicare Advantage</h2>
+      <ul>
+        <li><strong>Networks.</strong> You generally use the plan’s providers, and may need referrals or prior authorization.</li>
+        <li><strong>Costs when you use care.</strong> Low premiums come with copays and coinsurance as you go.</li>
+        <li><strong>Yearly changes.</strong> Benefits, costs, and networks can change each year, so it pays to review annually.</li>
+        <li><strong>Travel limits.</strong> Coverage away from your service area can be limited, apart from emergencies.</li>
+      </ul>
+
+      <h2>Who Medicare Advantage tends to fit</h2>
+      <p>
+        It often suits people who want a low premium, like bundled extras, mostly use local providers, and don’t mind reviewing
+        their plan each year. People who travel frequently, want any-doctor freedom, or prefer predictable costs may lean toward
+        Medigap instead — compare them in <a href="/medicare-advantage-vs-medigap">Medicare Advantage vs. Medigap</a> and see the
+        <a href="/medigap-pros-and-cons">Medigap pros and cons</a>.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Want an honest comparison for your situation?</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          This page is educational and general; specific plan benefits, networks, and costs vary by plan and location and are not
+          guaranteed. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov" rel="nofollow noopener" target="_blank">Medicare.gov</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Let’s weigh Medicare Advantage against your alternatives" />
+</BaseLayout>

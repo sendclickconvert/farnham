@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+
+const title = 'Connecticut Medicare Supplement Plans (2026)';
+const description = 'Connecticut is one of only two states with year-round, guaranteed-issue Medigap and community rating — buy or switch any time, no health questions, age can’t raise your rate.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'Can I switch Medicare Supplement plans anytime in Connecticut?', a: 'Yes. Connecticut has continuous, year-round enrollment, so you can change Medigap plans in any month, with no health questions and no waiting for an annual window. New York is the only other state that works this way.' },
+  { q: 'Is Medigap guaranteed issue in Connecticut?', a: 'Yes. Connecticut requires guaranteed-issue enrollment for Medicare Supplement plans, which means you cannot be turned down and do not have to pass medical underwriting to enroll.' },
+  { q: 'Are Connecticut Medigap premiums community-rated?', a: 'Yes. Connecticut uses community rating, so everyone with the same plan pays the same premium regardless of age or health. Premiums can look higher at 65 but do not rise as you age or if your health changes.' },
+  { q: 'Who offers Medicare Supplement plans in Connecticut?', a: 'Many private insurers offer standardized Medigap plans in Connecticut. Because benefits for each plan letter are set by law, the differences come down to price and service. A licensed independent agent can compare the options available to you.' },
+];
+
+const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/connecticut-medicare-supplement`, about: 'Medicare Supplement Insurance in Connecticut' };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/connecticut-medicare-supplement#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Connecticut Medicare Supplement Plans"
+    subtitle="Like New York, Connecticut lets you buy or switch Medigap any time of year — no health questions, and your age can’t raise your premium."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'New York Medicare Supplement', href: '/new-york-medicare-supplement' }, { label: 'Connecticut' }]}
+  />
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Connecticut Medicare questions?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          Connecticut is one of only two states (along with New York) that offer <strong>year-round, guaranteed-issue Medicare
+          Supplement enrollment with community rating</strong>. You can buy or switch a Medigap plan any time of year, with no
+          health questions, and your age and health can’t be used to raise your premium.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        If you live in Connecticut, you have flexibility most of the country doesn’t — and it’s worth understanding before you
+        choose a plan.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — a licensed independent agent serving Connecticut and New York.
+      </p>
+
+      <h2>How Medicare Supplement plans work in Connecticut</h2>
+      <p>
+        A Medicare Supplement (Medigap) plan pays the deductibles, copays, and coinsurance Original Medicare leaves to you. Medicare
+        pays its share first; your Medigap plan pays its share of the rest. You keep the freedom to use any doctor or hospital in the
+        country that accepts Medicare — no networks, no referrals. Benefits are standardized by law, so a given plan letter covers
+        the same things from any insurer.
+      </p>
+
+      <h2>Connecticut’s year-round guaranteed issue and community rating</h2>
+      <p>
+        These two rules are what set Connecticut apart. Guaranteed issue means you can’t be turned down. Community rating means
+        everyone with the same plan pays the same premium regardless of age or health. Together, they let you enroll or switch in
+        any month without a health review — and your premium won’t climb just because you’ve gotten older.
+      </p>
+
+      <h2>Switching plans anytime in Connecticut</h2>
+      <p>
+        Because enrollment is continuous, you’re never locked in. If your plan no longer fits, or a better-priced option appears, you
+        can change it without medical underwriting. That’s the same advantage New York residents have — see the
+        <a href="/new-york-medicare-supplement">New York Medicare Supplement overview</a> for a fuller walkthrough of how these
+        rules play out.
+      </p>
+
+      <h2>Why High-Deductible Plan G is worth a look in Connecticut</h2>
+      <p>
+        For the same reasons it works in New York: community rating tends to lift premiums, which makes the lower-premium
+        <a href="/services/high-deductible-medicare-supplement"> High-Deductible Plan G</a> save proportionally more, and the
+        freedom to switch anytime keeps the risk low. The {MEDICARE_2026.year} deductible is {MEDICARE_2026.hdDeductible}, with the
+        {' '}{MEDICARE_2026.partBDeductible} Part B deductible counting toward it.
+      </p>
+
+      <h2>How much do Connecticut Medigap plans cost?</h2>
+      <p>
+        Premiums vary by plan letter and insurer, and because of community rating they don’t depend on your age or health. Rather
+        than quote a figure that may not apply to you, Jim compares your real total annual cost across the plans available to you,
+        so you’re deciding on the full picture.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Want help comparing your Connecticut options?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure review by phone or Zoom.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <p>
+        Related: <a href="/new-york-medicare-supplement">Medicare Supplement plans in New York</a> and the
+        <a href="/services/high-deductible-medicare-supplement">guide to High-Deductible Plan G</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Connecticut guaranteed-issue and community-rating rules reflect state law as of {MEDICARE_2026.year} and may change.
+          High-Deductible Plan G is not suitable for everyone. Costs vary by plan and insurer and are not guaranteed.
+          NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Sources: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>;
+          Connecticut Insurance Department; and Connecticut’s SHIP (CHOICES) for free, unbiased counseling.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Connecticut Medicare Supplement — let’s find your fit" />
+</BaseLayout>

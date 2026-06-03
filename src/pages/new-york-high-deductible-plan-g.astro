@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+
+const title = 'High-Deductible Plan G in New York (2026)';
+const description = 'In New York, High-Deductible Plan G pairs a lower premium with community rating and year-round guaranteed issue — bigger savings, and you can switch anytime, no health questions.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'Is High-Deductible Plan G available in New York?', a: 'Yes. High-Deductible Plan G is available to New York Medicare beneficiaries, and like all Medigap in New York it is offered on a year-round, guaranteed-issue basis — you cannot be turned down and you do not answer health questions to enroll.' },
+  { q: 'Why does High-Deductible Plan G make particular sense in New York?', a: 'Because New York uses community rating, premiums tend to run higher than in many states, which makes the lower-premium high-deductible version save proportionally more. And because you can switch any time without underwriting, choosing it carries little long-term risk.' },
+  { q: 'Can I switch out of High-Deductible Plan G anytime in New York?', a: 'Yes. New York has continuous open enrollment, so you can move to standard Plan G or another Medigap plan in any month, with no health questions and no risk of being declined.' },
+  { q: 'How much is the High-Deductible Plan G deductible in 2026?', a: `It is ${MEDICARE_2026.hdDeductible} for ${MEDICARE_2026.year}. The Part B deductible (${MEDICARE_2026.partBDeductible}) counts toward it. After you meet the deductible, the plan pays 100% of Medicare-approved costs for the rest of the year.` },
+];
+
+const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/new-york-high-deductible-plan-g`, about: 'High-Deductible Plan G in New York' };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/new-york-high-deductible-plan-g#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="High-Deductible Plan G in New York"
+    subtitle="Where New York’s rules and a lower-premium plan line up — often bigger savings, with the freedom to change your mind anytime."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'New York Medicare Supplement', href: '/new-york-medicare-supplement' }, { label: 'High-Deductible Plan G' }]}
+  />
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Curious whether this fits you in New York?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          In New York, <strong>High-Deductible Plan G</strong> pairs a much lower premium with the state’s community rating and
+          year-round guaranteed issue. The result: the premium savings are often <strong>larger here</strong>, and you can switch
+          plans <strong>any time of year with no health questions</strong>. The {MEDICARE_2026.year} deductible is
+          {' '}{MEDICARE_2026.hdDeductible}.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        High-Deductible Plan G is appealing in a lot of states. In New York, the state’s rules make it appealing for an extra
+        reason — and lower-risk besides.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <h2>Why New York is a strong fit for High-Deductible Plan G</h2>
+      <p>
+        New York is one of only two states (with Connecticut) that require year-round, guaranteed-issue Medigap with community
+        rating. That combination changes the calculation for high-deductible plans in two helpful ways — one about savings, one
+        about risk.
+      </p>
+
+      <h2>How community rating makes the savings bigger</h2>
+      <div class="not-prose mb-5 rounded-lg bg-crst-light p-4">
+        <p class="m-0 text-navy-800 leading-relaxed">
+          Because community rating sets one premium for everyone regardless of age, New York Medigap premiums tend to run higher
+          than in age-rated states. Higher standard premiums mean the gap between standard and High-Deductible Plan G is wider — so
+          the high-deductible version’s monthly savings are often larger here than elsewhere.
+        </p>
+      </div>
+      <p>
+        For the full mechanics of the trade-off, see <a href="/high-deductible-plan-g-worth-it">Is High-Deductible Plan G worth
+        it?</a> and the <a href="/high-deductible-plan-g-deductible-2026">{MEDICARE_2026.year} deductible explained</a>.
+      </p>
+
+      <h2>No lock-in: switch any time with no underwriting</h2>
+      <p>
+        This is the part that lowers the risk. In most states, choosing a high-deductible plan can be hard to undo later without
+        passing medical underwriting. In New York, you can move to standard Plan G or another plan in any month, with no health
+        questions — so trying the high-deductible route doesn’t trap you. See
+        <a href="/switch-high-deductible-plan-g-to-plan-g">switching out of High-Deductible Plan G</a> and the broader
+        <a href="/new-york-medicare-supplement">New York Medicare Supplement rules</a>.
+      </p>
+
+      <h2>Is it right for you in New York?</h2>
+      <p>
+        It tends to fit New Yorkers who are generally healthy, want to lower monthly costs, and can cover up to
+        {' '}{MEDICARE_2026.hdDeductible} in a heavy-care year. It’s a weaker fit if you expect frequent, costly care. Because you
+        can change later without penalty, many New Yorkers find it low-risk to start here — but
+        <strong> it isn’t right for everyone</strong>, and the honest way to decide is to compare your real total annual cost.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Want the New York numbers run for you?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">No cost, no obligation, no pressure.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <p>
+        Start with the <a href="/services/high-deductible-medicare-supplement">complete guide to High-Deductible Plan G</a> or the
+        <a href="/new-york-medicare-supplement">New York Medicare Supplement overview</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          New York guaranteed-issue and community-rating rules reflect state law as of {MEDICARE_2026.year} and may change.
+          High-Deductible Plan G involves higher out-of-pocket costs before coverage begins and is not suitable for everyone.
+          Potential savings vary and are not guaranteed. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="High-Deductible Plan G in New York — let’s see if it fits" />
+</BaseLayout>
