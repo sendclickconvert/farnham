@@ -4,36 +4,51 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Warm Editorial — warm stone/ink ramp (semantic "navy" kept for
+        // backwards-compat across pages; now maps to warm neutrals).
         navy: {
-          50: '#E8F4FD',
-          100: '#D1E9FB',
-          200: '#A3D3F7',
-          300: '#75BDF3',
-          400: '#4A9FE5',
-          500: '#2E5A8F',
-          600: '#1E3A5F',
-          700: '#162D4A',
-          800: '#0F2035',
-          900: '#081420',
+          50: '#FAF6EF',
+          100: '#EAE3D6',
+          200: '#DAD0BF',
+          300: '#C2B6A2',
+          400: '#9A8E7C',
+          500: '#6E6A62',
+          600: '#4A4A4A',
+          700: '#333230',
+          800: '#1F1E1C',
+          900: '#141312',
         },
         accent: {
-          DEFAULT: '#3E6A9F',
-          light: '#5A8BC4',
-          dark: '#2E5A8F',
+          DEFAULT: '#1A5F6A',
+          light: '#2E8290',
+          dark: '#134952',
         },
         crst: {
-          primary: '#1E3A5F',
-          secondary: '#2E5A8F',
-          accent: '#3E6A9F',
-          light: '#E8F4FD',
-          gold: '#C8A44E',
+          primary: '#1A5F6A',
+          secondary: '#134952',
+          accent: '#1A5F6A',
+          light: '#EAF3F3',
+          gold: '#AC5532',
           red: '#B83A3A',
+        },
+        // Warm Editorial brand palette (preferred for new work)
+        cream: '#FDFBF7',
+        sand: '#EAE5D9',
+        ink: '#1A1A1A',
+        teal: {
+          DEFAULT: '#1A5F6A',
+          dark: '#134952',
+          light: '#EAF3F3',
+        },
+        terracotta: {
+          DEFAULT: '#E8A38B',
+          deep: '#AC5532',
         },
       },
       fontFamily: {
-        display: ['"DM Serif Display"', 'Georgia', 'serif'],
-        heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        heading: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       fontSize: {
