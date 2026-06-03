@@ -1,0 +1,109 @@
+---
+import { MEDICARE_2026 } from '../data/site';
+const HD = 2950;     // 2026 HD Plan G deductible (CMS)
+const PARTB = 283;   // 2026 Part B deductible (counts toward HD; standard Plan G does not cover it)
+---
+
+<section class="not-prose my-10 rounded-2xl border border-navy-100 bg-navy-50/60 p-6 lg:p-8" aria-label="High-Deductible Plan G cost estimator">
+  <h2 class="font-display text-2xl text-crst-primary mb-1">Estimate your costs</h2>
+  <p class="text-sm text-navy-600 mb-5">
+    Enter the monthly premiums from your own quotes and your best guess at the year’s medical costs. This is a simple
+    illustration to help you compare — not a quote, and not a guarantee.
+  </p>
+
+  <div class="grid sm:grid-cols-3 gap-4 mb-5">
+    <div>
+      <label for="est-std" class="block text-sm font-heading font-medium text-navy-700 mb-1">Standard Plan G premium <span class="text-navy-400 font-normal">/mo</span></label>
+      <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-navy-400">$</span>
+        <input id="est-std" type="number" min="0" step="1" placeholder="from your quote" class="w-full rounded-lg border border-navy-200 pl-7 pr-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-crst-accent" />
+      </div>
+    </div>
+    <div>
+      <label for="est-hd" class="block text-sm font-heading font-medium text-navy-700 mb-1">High-Deductible Plan G premium <span class="text-navy-400 font-normal">/mo</span></label>
+      <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-navy-400">$</span>
+        <input id="est-hd" type="number" min="0" step="1" placeholder="from your quote" class="w-full rounded-lg border border-navy-200 pl-7 pr-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-crst-accent" />
+      </div>
+    </div>
+    <div>
+      <label for="est-oop" class="block text-sm font-heading font-medium text-navy-700 mb-1">Est. Medicare costs this year <span class="text-navy-400 font-normal">($0–$2,950)</span></label>
+      <input id="est-oop" type="range" min="0" max="2950" step="50" value="800" class="w-full mt-3 accent-crst-primary" />
+      <div class="text-sm text-navy-700 font-heading mt-1">$<span id="est-oop-val">800</span></div>
+    </div>
+  </div>
+
+  <div id="est-results" class="grid sm:grid-cols-3 gap-3 mb-4 hidden">
+    <div class="rounded-lg bg-white border border-navy-100 p-4 text-center">
+      <p class="text-xs font-heading text-navy-500 m-0">Standard Plan G — est. year</p>
+      <p class="text-2xl font-display text-crst-primary m-0">$<span id="r-std">—</span></p>
+    </div>
+    <div class="rounded-lg bg-white border border-navy-100 p-4 text-center">
+      <p class="text-xs font-heading text-navy-500 m-0">High-Deductible — est. year</p>
+      <p class="text-2xl font-display text-crst-primary m-0">$<span id="r-hd">—</span></p>
+    </div>
+    <div class="rounded-lg bg-white border border-navy-100 p-4 text-center">
+      <p class="text-xs font-heading text-navy-500 m-0">High-Deductible — worst case</p>
+      <p class="text-2xl font-display text-crst-primary m-0">$<span id="r-worst">—</span></p>
+    </div>
+  </div>
+
+  <p id="est-takeaway" class="text-sm text-navy-700 font-heading bg-crst-light rounded-lg p-4 hidden m-0"></p>
+  <p id="est-prompt" class="text-sm text-navy-500">Enter both premiums above to see your estimate.</p>
+
+  <p class="text-xs text-navy-500 mt-4 leading-relaxed">
+    Illustration only, based on the numbers you enter — not a quote, not advice, and not a guarantee. Standard Plan G assumes you
+    pay the {MEDICARE_2026.partBDeductible} Part B deductible; High-Deductible Plan G assumes you pay your Medicare costs up to the
+    {' '}{MEDICARE_2026.hdDeductible} deductible ({MEDICARE_2026.year}), after which it pays 100%. Actual premiums and costs vary by
+    insurer, location, and how you use care. The deductible is set by Medicare and changes annually.
+  </p>
+</section>
+
+<script define:vars={{ HD, PARTB }}>
+  const std = document.getElementById('est-std');
+  const hd = document.getElementById('est-hd');
+  const oop = document.getElementById('est-oop');
+  const oopVal = document.getElementById('est-oop-val');
+  const results = document.getElementById('est-results');
+  const takeaway = document.getElementById('est-takeaway');
+  const prompt = document.getElementById('est-prompt');
+  const fmt = (n) => Math.round(n).toLocaleString('en-US');
+
+  function recompute() {
+    if (oopVal) oopVal.textContent = fmt(Number(oop.value));
+    const a = parseFloat(std.value);
+    const b = parseFloat(hd.value);
+    if (!(a >= 0) || !(b >= 0)) {
+      results.classList.add('hidden');
+      takeaway.classList.add('hidden');
+      prompt.classList.remove('hidden');
+      return;
+    }
+    const usage = Number(oop.value);
+    const stdYear = a * 12 + PARTB;                  // premium + Part B deductible
+    const hdYear = b * 12 + Math.min(usage, HD);     // premium + costs up to the deductible
+    const hdWorst = b * 12 + HD;                     // premium + full deductible
+
+    document.getElementById('r-std').textContent = fmt(stdYear);
+    document.getElementById('r-hd').textContent = fmt(hdYear);
+    document.getElementById('r-worst').textContent = fmt(hdWorst);
+
+    const diff = stdYear - hdYear;
+    let msg;
+    if (Math.abs(diff) < 1) {
+      msg = 'At the numbers you entered, the two plans cost about the same this year.';
+    } else if (diff > 0) {
+      msg = `At the numbers you entered, High-Deductible Plan G costs about $${fmt(diff)} less this year. Even in a worst-case year, it would cost about $${fmt(hdWorst)}.`;
+    } else {
+      msg = `At the numbers you entered, standard Plan G costs about $${fmt(-diff)} less this year. A licensed agent can help you weigh that against the lower-premium years.`;
+    }
+    takeaway.textContent = msg;
+
+    results.classList.remove('hidden');
+    takeaway.classList.remove('hidden');
+    prompt.classList.add('hidden');
+  }
+
+  [std, hd, oop].forEach((el) => el && el.addEventListener('input', recompute));
+  recompute();
+</script>

@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+
+const title = 'Medicare Supplement Plans in New York';
+const description = 'New York lets you buy or switch a Medicare Supplement (Medigap) plan any time of year — no health questions, no underwriting. Here’s how community rating works and why it matters for your costs in 2026.';
+
+// Visible FAQ content — also emitted as FAQPage schema (must match exactly).
+const faqs = [
+  {
+    q: 'Is Medigap guaranteed issue in New York?',
+    a: 'Yes. New York requires year-round guaranteed-issue enrollment for Medicare Supplement plans. You cannot be turned down for a plan, and you do not have to answer health questions or pass medical underwriting, no matter when you apply.',
+  },
+  {
+    q: 'Can I switch Medicare Supplement plans anytime in New York?',
+    a: 'Yes. Because New York has continuous open enrollment, you can change Medigap plans at any time of year. There is no annual window you have to wait for and no health review to pass, so you are free to move to a better-fitting plan whenever it makes sense.',
+  },
+  {
+    q: 'Why are New York Medigap premiums higher than other states?',
+    a: 'New York uses community rating, which means everyone with the same plan pays the same premium regardless of age or health. That can make premiums look higher at 65, but they do not rise as you get older or if your health changes — a trade-off that often favors you over time.',
+  },
+  {
+    q: 'Can I switch from Medicare Advantage back to a Medigap plan without underwriting?',
+    a: 'In New York, yes. The same guaranteed-issue rules let you move from a Medicare Advantage plan to a Medicare Supplement plan without medical underwriting. Timing and your Part D coverage still matter, so it is worth reviewing the steps with a licensed agent before you switch.',
+  },
+  {
+    q: 'What time of year can I change my Medicare Supplement plan in New York?',
+    a: 'Any time. Unlike most states, New York does not limit Medigap changes to a yearly enrollment period. You can review and switch your supplement plan in any month of the year.',
+  },
+  {
+    q: 'Who offers Medicare Supplement plans in New York?',
+    a: 'Many private insurers offer standardized Medigap plans in New York. Because benefits for each plan letter are set by law, the meaningful differences come down to price and service. A licensed independent agent can compare the options available to you in one conversation.',
+  },
+  {
+    q: 'Can I have both a Medigap plan and Medicaid in New York?',
+    a: 'It depends on your situation. People who qualify for both Medicare and Medicaid often have their cost-sharing covered differently, and a Medigap plan may not be the right fit. This is exactly the kind of case to review one-on-one so you do not pay for coverage you do not need.',
+  },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Medicare Supplement Insurance in New York',
+  serviceType: 'Medicare Supplement Insurance (Medigap)',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [
+    { '@type': 'State', name: 'New York' },
+    { '@type': 'State', name: 'Connecticut' },
+  ],
+  description,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const speakableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${BUSINESS.url}/new-york-medicare-supplement#webpage`,
+  name: title,
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.lead', 'h2'],
+  },
+};
+
+const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Medicare Supplement Plans in New York"
+    subtitle="One of only two states where you can switch Medigap plans any time of year — with no health questions. Here’s what that means for your coverage and your costs."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'New York Medicare Supplement' }]}
+  />
+
+  <!-- CTA #1 (top) -->
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Questions about your New York options?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <!-- Front-loaded direct answer (extractable, ~55 words) -->
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          New York is one of only two states (along with Connecticut) where you can buy or switch a Medicare Supplement
+          (Medigap) plan <strong>at any time of year, with no health questions and no medical underwriting</strong>. New York
+          also uses community rating, so your age and health can’t be used to raise your premium.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        If you live in New York and you’re comparing Medicare Supplement plans, you have an advantage most of the country
+        doesn’t. Understanding that advantage is the difference between overpaying for years and choosing coverage you can
+        adjust whenever your needs change.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — a licensed independent agent (NY license {BUSINESS.nyLicense})
+        who has focused on Medicare for {BUSINESS.stats.yearsMedicare} years and answers his own phone.
+      </p>
+
+      <h2>How Medicare Supplement plans work in New York</h2>
+      <p>
+        A Medicare Supplement plan (also called Medigap) pays the out-of-pocket costs Original Medicare leaves behind —
+        the deductibles, copays, and coinsurance. Original Medicare pays its share first, then your Medigap plan pays its share.
+        You keep the freedom to use any doctor or hospital in the country that accepts Medicare. No networks, no referrals.
+      </p>
+      <p>
+        Medigap benefits are standardized by law. That means a Plan G from one insurer covers the same core benefits as a Plan G
+        from any other insurer. So once you’ve chosen the right plan letter for your needs, the real differences come down to
+        price and the service behind the policy.
+      </p>
+
+      <h2>What makes New York different: community rating and guaranteed issue</h2>
+      <div class="not-prose mb-5 rounded-lg bg-crst-light p-4">
+        <p class="m-0 text-navy-800 leading-relaxed">
+          <strong>Community rating</strong> means everyone with the same plan pays the same premium, no matter their age or
+          health. <strong>Guaranteed issue</strong> means you can’t be turned down. In New York, both apply year-round —
+          you can enroll or switch any month, without a single health question.
+        </p>
+      </div>
+      <p>
+        Most states only give you one guaranteed window: the six months after you enroll in Medicare Part B. After that, switching
+        Medigap plans usually requires medical underwriting, and an insurer can decline you based on your health. New York removes
+        that risk entirely. You’re never locked in, and a health change can never trap you in the wrong plan.
+      </p>
+      <p>
+        There’s a trade-off worth understanding. Because premiums don’t vary by age, New York Medigap premiums can look
+        higher at 65 than in other states. But they don’t climb as you age the way age-rated premiums elsewhere do — and
+        the freedom to switch anytime is part of what makes the next point so useful.
+      </p>
+
+      <h2>Why High-Deductible Plan G is especially worth a look in New York</h2>
+      <p>
+        Here’s where New York’s rules and Jim’s specialty line up. Because community rating tends to make New York
+        premiums higher, the premium <em>savings</em> from a
+        <a href="/services/high-deductible-medicare-supplement">High-Deductible Plan G</a> are often larger here than elsewhere.
+        And because you can switch plans anytime with no underwriting, choosing a high-deductible plan carries far less long-term
+        risk than it would in a state where you might get locked in.
+      </p>
+      <div class="not-prose mb-5 rounded-lg border border-navy-100 p-4">
+        <p class="m-0 text-navy-800 leading-relaxed">
+          High-Deductible Plan G has the same standardized benefits as regular Plan G, but with a lower monthly premium and a
+          higher annual deductible — <strong>{MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year}</strong>. The Part B
+          deductible ({MEDICARE_2026.partBDeductible}) counts toward it. Once you meet the deductible, the plan pays 100% of
+          Medicare-approved costs for the rest of the year.
+        </p>
+      </div>
+      <p>
+        High-Deductible Plan G isn’t right for everyone — it means higher out-of-pocket costs before coverage kicks in.
+        But for many New Yorkers, the math works out favorably, and the ability to change course anytime makes it low-risk to try.
+        <a href="/services/high-deductible-medicare-supplement">See how High-Deductible Plan G works &rarr;</a>
+      </p>
+
+      <h2>Can you switch Medicare Supplement plans anytime in New York?</h2>
+      <p>
+        Yes. New York’s continuous open enrollment means you can review and change your Medigap plan in any month of the
+        year, with no health questions and no waiting for an annual window. If you’re paying more than you need to, you can
+        fix that now — not next fall. The same rules even let many people move from a Medicare Advantage plan back to a
+        Medicare Supplement plan without underwriting, though timing and your drug coverage still need to be handled carefully.
+      </p>
+
+      <h2>What about Connecticut?</h2>
+      <p>
+        Connecticut is the only other state with the same year-round, guaranteed-issue, community-rated approach. If you live in
+        Connecticut, most of what’s on this page applies to you too. Jim is licensed in Connecticut and is glad to walk you
+        through the specifics for your situation — just <a href="/contact">reach out</a>.
+      </p>
+
+      <h2>How much do Medicare Supplement plans cost in New York?</h2>
+      <p>
+        Premiums vary by plan letter, insurer, and where you live — and because of community rating, they don’t depend on
+        your age or health. Rather than quote a number that may not apply to you, Jim compares your real <em>total</em> annual cost
+        — premium plus expected out-of-pocket — across the plans available to you, so you’re choosing on the full
+        picture, not just the monthly premium.
+      </p>
+
+      <!-- CTA #2 (mid-page) -->
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Want to know your real options in New York?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure review — Jim answers his own phone.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Serving New York’s Hudson Valley and beyond</h2>
+      <p>
+        Jim works with New York Medicare beneficiaries across the Hudson Valley —
+        <a href="/service-areas/ulster-county">Ulster</a>, <a href="/service-areas/dutchess-county">Dutchess</a>,
+        <a href="/service-areas/orange-county">Orange</a>, and <a href="/service-areas/westchester-county">Westchester</a>
+        counties — and statewide by phone and Zoom. Most reviews happen wherever is easiest for you.
+      </p>
+
+      <!-- Map embed (⚠️ swap to the confirmed office / GBP embed once the storefront address is set) -->
+      <div class="not-prose my-6 rounded-xl overflow-hidden border border-navy-100">
+        <iframe
+          title="Farnham Senior Health Advisors service area — Hudson Valley, New York"
+          src="https://maps.google.com/maps?q=New%20Paltz%2C%20NY&t=&z=10&ie=UTF8&iwloc=&output=embed"
+          width="100%" height="320" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      <!-- FAQs rendered visibly (no accordion) so the answers are extractable; schema matches this text exactly. -->
+      {faqs.map((f) => (
+        <div class="mb-5">
+          <h3 class="text-xl">{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          New York producer license #: {BUSINESS.nyLicense}. Guaranteed-issue and community-rating rules described here reflect
+          New York and Connecticut law as of {MEDICARE_2026.year} and may change. High-Deductible Plan G involves higher
+          out-of-pocket costs before coverage begins and is not suitable for everyone.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Sources &amp; further reading: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>;
+          New York State Department of Financial Services (Medicare Supplement rates and rules); and your local
+          State Health Insurance Assistance Program (SHIP/HIICAP) for free, unbiased counseling.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CTA #3 (bottom) -->
+  <CTASection headline="Let’s find the right New York plan for you" />
+</BaseLayout>

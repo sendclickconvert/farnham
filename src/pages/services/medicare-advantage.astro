@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import { BUSINESS } from '../../data/site';
+
+const title = 'Medicare Advantage Plans (Part C)';
+const description = 'Medicare Advantage bundles hospital, medical, and usually drug coverage into one plan from a private insurer. Often lower premiums — with networks and copays to weigh.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  serviceType: 'Medicare Advantage Plan',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }],
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} schema={serviceSchema}>
+  <PageHero
+    title={title}
+    subtitle={'All-in-one coverage from private insurers — we weigh the trade-offs honestly.'}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Advantage' }]}
+  />
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <p class="lead text-xl text-navy-700">Medicare Advantage (Part C) plans are an alternative to Original Medicare, offered by private insurance companies approved by Medicare. They bundle Part A and Part B — and usually Part D drug coverage — into a single plan.</p>
+      <h2>What to weigh</h2>
+      <p>Medicare Advantage plans often have lower monthly premiums, but coverage works through provider networks and a pay-as-you-go structure of copays and coinsurance. That can be a good fit for some people and a poor fit for others. The right answer depends on your doctors, your medications, your budget, and how you prefer to manage risk.</p>
+      <h2>How I help</h2>
+      <p>I’ll walk you through how a specific Medicare Advantage plan compares with a Medicare Supplement approach for your situation — including what each would likely cost you in a healthy year and a heavy-care year — so the decision is based on real numbers, not a sales pitch.</p>
+
+      <AuthorByline />
+      <div class="not-prose mt-8"><Disclaimer variant="tpmo" /></div>
+    </div>
+  </article>
+  <CTASection />
+</BaseLayout>

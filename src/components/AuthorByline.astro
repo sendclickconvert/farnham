@@ -1,0 +1,33 @@
+---
+import { AGENT, BUSINESS } from '../data/site';
+
+export interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+{compact ? (
+  <div class="flex items-center gap-3 text-sm text-navy-500 mt-6">
+    <img src={AGENT.photo} alt={AGENT.fullName} class="w-12 h-12 rounded-full object-cover bg-navy-100" loading="lazy" />
+    <div>
+      <span class="font-medium text-navy-900">{AGENT.fullName}</span>
+      <span class="mx-1">&middot;</span>
+      <span>{AGENT.title}</span>
+    </div>
+  </div>
+) : (
+  <div class="my-8 p-6 bg-navy-50 border-l-4 border-crst-primary rounded-r-lg">
+    <div class="flex flex-col sm:flex-row items-start gap-4">
+      <img src={AGENT.photo} alt={AGENT.fullName} class="w-20 h-20 rounded-full object-cover flex-shrink-0 bg-navy-100" loading="lazy" />
+      <div>
+        <div class="font-semibold text-lg text-navy-900">
+          <a href="/about" class="hover:text-crst-primary transition-colors">{AGENT.fullName}</a>
+        </div>
+        <div class="text-sm text-navy-600 mb-2">{AGENT.title} &middot; {BUSINESS.name}</div>
+        <p class="text-sm text-navy-700 leading-relaxed">{AGENT.bioShort}</p>
+      </div>
+    </div>
+  </div>
+)}

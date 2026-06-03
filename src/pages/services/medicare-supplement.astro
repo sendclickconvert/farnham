@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import { BUSINESS } from '../../data/site';
+
+const title = 'Medicare Supplement Insurance (Medigap)';
+const description = 'Medigap plans pay the deductibles, copays, and coinsurance Original Medicare leaves behind. Benefits are standardized by law — the difference is price and service.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Medicare Supplement Insurance (Medigap)',
+  serviceType: 'Medicare Supplement Insurance',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }],
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} schema={serviceSchema}>
+  <PageHero
+    title="Medicare Supplement Insurance (Medigap)"
+    subtitle="Predictable costs and the freedom to see any provider that accepts Medicare."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Supplement' }]}
+  />
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <p class="lead text-xl text-navy-700">
+        Medicare Supplement — or “Medigap” — insurance helps pay the out-of-pocket costs Original Medicare doesn’t: deductibles,
+        copayments, and coinsurance that can add up quickly over a year.
+      </p>
+      <h2>How Medigap works with Original Medicare</h2>
+      <p>
+        With a Medigap policy, Original Medicare pays its share of the Medicare-approved amount first, and your Medigap plan then
+        pays its share of the remaining costs. You keep the freedom to use any doctor or hospital in the country that accepts
+        Medicare — no networks, no referrals.
+      </p>
+      <h2>Benefits are standardized — so compare on price and service</h2>
+      <p>
+        Medigap plans are standardized by law, which means a given plan letter offers the same core benefits no matter which
+        insurer sells it. That’s good news: once you’ve chosen the right plan type for your needs, the meaningful differences come
+        down to premium and the quality of service behind the policy. My job is to help you compare honestly.
+      </p>
+      <h2>A note for New York &amp; Connecticut residents</h2>
+      <p>
+        New York and Connecticut offer year-round, guaranteed-issue enrollment with community-rated pricing, so you can enroll or
+        switch plans at any time without medical underwriting. That flexibility is part of why a
+        <a href="/services/high-deductible-medicare-supplement">High-Deductible Medigap plan</a> can be especially attractive here.
+        If you live in New York, see our dedicated guide to
+        <a href="/new-york-medicare-supplement">Medicare Supplement plans in New York</a>.
+      </p>
+      <AuthorByline />
+      <div class="not-prose mt-8"><Disclaimer variant="tpmo" /></div>
+    </div>
+  </article>
+  <CTASection />
+</BaseLayout>

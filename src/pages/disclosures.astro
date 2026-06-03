@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { BUSINESS } from '../data/site';
+
+const title = 'Disclosures';
+const description = 'Required Medicare disclosures: government affiliation, scope of offerings, underwriting, compensation, and producer status.';
+
+const sections = [
+  {
+    h: 'No Government Affiliation',
+    p: ['We are not affiliated with or endorsed by the federal government or the Medicare program. This is a proprietary website and is not associated, endorsed, or authorized by the Social Security Administration, the Department of Health and Human Services, or the Centers for Medicare & Medicaid Services. This site contains decision-support content and information about Medicare and services for people with Medicare. To find more information about the Medicare program, please visit the official U.S. government site at Medicare.gov.'],
+  },
+  {
+    h: 'Scope of Offerings',
+    // ⚠️ CONFIRM counts — client docs conflict (8/15 vs 8/10). Insert confirmed numbers.
+    p: ['We do not offer every plan available in your area. Currently we represent [NUMBER] organizations which offer [NUMBER] products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options. This is a solicitation for insurance.'],
+  },
+  {
+    h: 'Underwriting Disclosure',
+    p: [
+      'In many states, applications for Medicare Supplement plans outside of your initial enrollment period may require medical underwriting. Approval is not guaranteed, and coverage may be declined based on health history.',
+      'Residents of certain states, including New York and Connecticut, may have the ability to enroll in or change Medicare Supplement plans year-round without medical underwriting. Availability and rules may vary by state.',
+    ],
+  },
+  {
+    h: 'High-Deductible Medigap',
+    p: ['High-Deductible Medigap plans may not be suitable for all individuals. These plans involve higher out-of-pocket costs before coverage begins. A licensed insurance agent can help you compare this and other available options based on your individual needs and financial situation.'],
+  },
+  {
+    h: 'Medicare Advantage',
+    p: ['Medicare Advantage plans are offered by private insurance companies approved by Medicare. Plan availability, benefits, provider networks, and costs may vary by location and plan.'],
+  },
+  {
+    h: 'Prescription Drug Plans (Part D)',
+    p: ['Prescription Drug Plans (Part D) vary in cost, coverage, and formulary. It is important to review your medications and pharmacy preferences when selecting a plan.'],
+  },
+  {
+    h: 'Compensation',
+    p: ['We may receive compensation from insurance companies when you enroll in a plan. This compensation may vary by plan and carrier. It does not affect the cost of your coverage.'],
+  },
+  {
+    h: 'Producer Status',
+    p: ['We are licensed insurance producers. We are not acting as fiduciaries and do not provide legal, tax, or financial advice.'],
+  },
+  {
+    h: 'No Obligation',
+    p: ['Submitting your information on this website or speaking with an agent does not oblige you to enroll in any plan.'],
+  },
+  {
+    h: 'Accuracy of Information',
+    p: ['We strive to provide accurate and up-to-date information; however, plan availability, benefits, and costs may change. Please verify all information directly with the plan provider or through official Medicare resources.'],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} noIndex={false}>
+  <PageHero title="Disclosures" breadcrumbs={[{ label: 'Disclosures' }]} />
+  <section class="py-14 lg:py-18">
+    <div class="container-narrow">
+      <div class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary">
+        {sections.map((s) => (
+          <div>
+            <h2>{s.h}</h2>
+            {s.p.map((para) => <p class="text-navy-600">{para}</p>)}
+          </div>
+        ))}
+        <hr />
+        <p class="text-sm text-navy-500">NY insurance license number: {BUSINESS.nyLicense}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

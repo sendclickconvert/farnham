@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import { AGENT, BUSINESS } from '../data/site';
+
+const title = 'About Jim Farnham';
+const description = `${AGENT.fullName} has spent ${BUSINESS.stats.yearsInsurance} years in insurance and financial services, the last ${BUSINESS.stats.yearsMedicare} focused almost exclusively on Medicare. Education-first, no-pressure guidance for New York and Connecticut.`;
+
+// Person schema is already emitted site-wide in BaseLayout; this adds the AboutPage wrapper.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: title,
+  mainEntity: { '@id': `${BUSINESS.url}/#agent` },
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Experience You Can Trust"
+    subtitle={AGENT.bioShort}
+    breadcrumbs={[{ label: 'About' }]}
+  />
+
+  <section class="py-14 lg:py-18">
+    <div class="container-wide grid lg:grid-cols-3 gap-12">
+      <!-- Main -->
+      <div class="lg:col-span-2 prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+        {AGENT.bioLong.map((p) => <p>{p}</p>)}
+
+        <h2>Why I do this work</h2>
+        <blockquote class="border-l-4 border-crst-gold pl-5 italic text-navy-700">{AGENT.whyText}</blockquote>
+
+        <h2>How I work with you</h2>
+        <ul>
+          <li>Educate first — so you can make informed decisions with confidence</li>
+          <li>Keep it simple, and focus on what’s best for you</li>
+          <li>Compare real costs, not just premiums</li>
+          <li>Help you avoid common (and expensive) mistakes</li>
+          <li>Choose coverage that fits your life — not just today, but years from now</li>
+          <li>Build a long-term relationship, not a one-time transaction</li>
+        </ul>
+        <p>No pressure. Just clear, practical guidance — and you’ll always be able to reach me directly.</p>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="space-y-6">
+        <div class="rounded-xl overflow-hidden border border-navy-100 bg-navy-50">
+          <!-- ⚠️ Client to supply headshot → /public/images/jim-farnham.jpg -->
+          <img src={AGENT.photo} alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full aspect-[4/5] object-cover bg-navy-100" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="hidden aspect-[4/5] items-center justify-center text-center text-navy-400 text-sm font-heading p-6" style="display:none;">Jim Farnham headshot<br/>(client to supply)</div>
+        </div>
+
+        <div class="card">
+          <h3 class="font-heading font-semibold text-crst-primary mb-3">Education</h3>
+          <ul class="space-y-3 text-sm text-navy-600">
+            {AGENT.education.map((e) => (
+              <li>
+                <span class="font-medium text-navy-800">{e.degree}</span><br />
+                {e.school} &middot; {e.year}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="font-heading font-semibold text-crst-primary mb-3">Licensed In</h3>
+          <p class="text-sm text-navy-600 leading-relaxed">{AGENT.licensedStates.join(', ')}.</p>
+          <p class="text-xs text-navy-500 mt-3">NY producer license #: {BUSINESS.nyLicense}</p>
+        </div>
+
+        <div class="card bg-crst-primary text-white">
+          <h3 class="font-heading font-semibold text-crst-gold mb-2">A little about me</h3>
+          <p class="text-sm text-white/80 leading-relaxed">
+            I love animals of all sorts (donkeys are really cool). I once had an Old English Sheepdog named Barney and his best
+            friend, a black cat named Mel — who named himself the day we brought him home. These days I’m putting together a garden of roses.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import { COUNTIES } from '../../data/site';
+
+const title = 'Service Areas';
+const description = 'Medicare guidance for New York and Connecticut, with a home base in the Hudson Valley — Ulster, Dutchess, Orange, and Westchester counties.';
+const counties = Object.values(COUNTIES);
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    title="Where I Work"
+    subtitle="New York and Connecticut are my primary focus, with a home base in the Hudson Valley. Meetings are available virtually by Zoom or phone, and in person by appointment."
+    breadcrumbs={[{ label: 'Service Areas' }]}
+  />
+  <section class="py-14 lg:py-18">
+    <div class="container-wide">
+      <div class="grid sm:grid-cols-2 gap-6">
+        {counties.map((c) => (
+          <a href={`/service-areas/${c.slug}`} class="card group block">
+            <h2 class="text-xl font-display text-crst-primary group-hover:text-crst-accent transition-colors mb-2">{c.name}</h2>
+            <p class="text-sm text-navy-600 leading-relaxed mb-3">{c.description}</p>
+            <span class="inline-flex items-center gap-1 text-sm font-heading font-semibold text-crst-accent">
+              Medicare help in {c.name}
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+      <div class="mt-10 max-w-3xl mx-auto">
+        <Disclaimer variant="generic" />
+      </div>
+    </div>
+  </section>
+  <CTASection />
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import { BUSINESS } from '../../data/site';
+
+const title = 'Medicare Prescription Drug Plans (Part D)';
+const description = 'Stand-alone Part D drug coverage. Plans vary widely in cost and formulary, so reviewing your specific medications each year can save real money.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  serviceType: 'Medicare Part D Prescription Drug Plan',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }],
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} schema={serviceSchema}>
+  <PageHero
+    title={title}
+    subtitle={'Coverage for your medications — and an annual review to make sure you’re not overpaying.'}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Prescription Drug Plans' }]}
+  />
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <p class="lead text-xl text-navy-700">Medicare Part D plans help cover the cost of prescription medications. They’re essential if you take regular medications — and they vary widely from one plan to the next.</p>
+      <h2>Why an annual review matters</h2>
+      <p>Part D plans change their costs and formularies every year, and so do your medications. A plan that was the best value last year may not be this year. Reviewing your specific drug list and preferred pharmacies annually is one of the simplest ways to avoid overpaying.</p>
+      <h2>How I help</h2>
+      <p>I’ll help you compare Part D options against the medications you actually take and the pharmacies you actually use, so your coverage fits your real-world needs.</p>
+
+      <AuthorByline />
+      <div class="not-prose mt-8"><Disclaimer variant="tpmo" /></div>
+    </div>
+  </article>
+  <CTASection />
+</BaseLayout>

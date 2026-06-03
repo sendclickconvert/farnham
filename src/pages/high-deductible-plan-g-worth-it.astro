@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+
+const title = 'Is High-Deductible Plan G Worth It? (2026 Pros & Cons)';
+const description = 'High-Deductible Plan G trades a $2,950 deductible for a much lower premium. See the real pros, cons, and the simple math to decide if it’s worth it in 2026.';
+const today = '2026-06-03';
+
+const faqs = [
+  {
+    q: 'Is a high-deductible Plan G worth it?',
+    a: 'For many people it is — especially if you are generally healthy, want a lower monthly premium, and can comfortably cover the annual deductible in a heavy-care year. Because most people do not reach the full deductible every year, the lower premium often wins on total annual cost. It is a weaker fit if you expect frequent, costly care.',
+  },
+  {
+    q: 'What are the disadvantages of High-Deductible Plan G?',
+    a: `The main disadvantage is that you pay more out of pocket before coverage begins — up to ${MEDICARE_2026.hdDeductible} in ${MEDICARE_2026.year}. You need the cash flow to handle that if you have a heavy-care year, and it is generally a poor fit if you already know you will use a lot of care. It is not suitable for everyone.`,
+  },
+  {
+    q: 'How much is the High-Deductible Plan G deductible in 2026?',
+    a: `It is ${MEDICARE_2026.hdDeductible} for ${MEDICARE_2026.year}. The Medicare Part B deductible (${MEDICARE_2026.partBDeductible}) counts toward it. Once you reach the deductible, the plan pays 100% of Medicare-approved costs for the rest of the year.`,
+  },
+  {
+    q: 'Can I switch out of High-Deductible Plan G later if it is not worth it for me?',
+    a: 'It depends on your state and your health. In New York and Connecticut you can switch any time of year with no health questions. In most other states, switching after your initial 6-month Medigap window usually requires medical underwriting, and approval is not guaranteed.',
+  },
+];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Is High-Deductible Plan G Worth It? 2026 Pros and Cons',
+  description,
+  author: { '@id': `${BUSINESS.url}/#agent` },
+  publisher: { '@id': `${BUSINESS.url}/#organization` },
+  datePublished: today,
+  dateModified: today,
+  mainEntityOfPage: `${BUSINESS.url}/high-deductible-plan-g-worth-it`,
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const speakableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${BUSINESS.url}/high-deductible-plan-g-worth-it#webpage`,
+  name: title,
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] },
+};
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Is High-Deductible Plan G Worth It?"
+    subtitle="The honest answer: it depends on your health, your cash flow, and the full-year math — not just the monthly premium. Here’s how to decide."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'High-Deductible Plan G', href: '/services/high-deductible-medicare-supplement' }, { label: 'Is It Worth It?' }]}
+  />
+
+  <!-- CTA #1 (top) -->
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Want the math run for your situation?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          For many people, <strong>High-Deductible Plan G is worth it</strong> if you’re generally healthy, want a lower monthly
+          premium, and can comfortably cover up to <strong>{MEDICARE_2026.hdDeductible}</strong> (the {MEDICARE_2026.year}
+          deductible) in a heavy-care year. It’s a weaker fit if you expect frequent, costly care. The right answer comes down to
+          your total annual cost — not the monthly premium alone.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        “Is it worth it?” is really a math question dressed up as a yes-or-no question. Once you see how the costs actually work,
+        the answer for your situation usually becomes clear.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — a licensed independent agent (NY license {BUSINESS.nyLicense}) who
+        has specialized in High-Deductible Medicare Supplement insurance for {BUSINESS.stats.yearsMedicare} years.
+      </p>
+
+      <h2>The pros of High-Deductible Plan G</h2>
+      <ul>
+        <li><strong>A much lower monthly premium</strong> than standard Plan G, which frees up cash every month.</li>
+        <li><strong>The same standardized coverage</strong> as regular Plan G once you meet the deductible — it then pays 100% of Medicare-approved costs.</li>
+        <li><strong>Protection against large bills.</strong> Your exposure in any year is capped at the deductible plus your low premium.</li>
+        <li><strong>Flexibility</strong> — and in <a href="/new-york-medicare-supplement">New York and Connecticut</a>, you can change plans any time of year with no health questions.</li>
+      </ul>
+
+      <h2>The cons — and who it’s not for</h2>
+      <p>
+        The trade-off is real: you pay more out of pocket before coverage kicks in. You cover Medicare’s gaps yourself until your
+        costs reach {MEDICARE_2026.hdDeductible} ({MEDICARE_2026.year}), so you need the cash flow to handle a heavy-care year. It’s
+        generally a poor fit if you already know you’ll use a lot of care, or if a deductible would tempt you to put off care you
+        need. <strong>High-Deductible Plan G is not suitable for everyone.</strong>
+      </p>
+
+      <h2>The simple math to decide if it’s worth it</h2>
+      <div class="not-prose mb-5 rounded-lg bg-crst-light p-4">
+        <p class="m-0 text-navy-800 leading-relaxed">
+          In a heavy-care year, the most you’d pay is your low annual premium <strong>plus</strong> the {MEDICARE_2026.hdDeductible}
+          deductible. In a light-care year, you pay essentially just the low premium. Compare both of those against a full year of
+          standard Plan G premiums — that comparison is the whole decision.
+        </p>
+      </div>
+      <p>
+        Because the deductible is a fixed, known number and the premium savings are usually substantial, even your worst case is
+        often close to — or below — what a full year of standard Plan G would cost. And in the more common light years, you simply
+        keep the premium difference. The piece that varies is the actual premium, which depends on the insurer and your area, so the
+        honest way to finish the math is with real quotes. I’m glad to <a href="/contact">pull those for you</a> at no cost.
+      </p>
+
+      <h2>When High-Deductible Plan G is usually worth it</h2>
+      <ul>
+        <li>You’re generally healthy or comfortable with some financial risk</li>
+        <li>You want to lower your monthly costs</li>
+        <li>You can cover the deductible if a heavy year happens</li>
+        <li>You live where you can switch plans later without underwriting (like New York or Connecticut)</li>
+      </ul>
+
+      <h2>When it’s probably not worth it</h2>
+      <ul>
+        <li>You expect frequent, costly care every year</li>
+        <li>Covering the deductible would strain your budget</li>
+        <li>A deductible would cause you to avoid care you actually need</li>
+      </ul>
+
+      <h2>Is it worth it in New York and Connecticut specifically?</h2>
+      <p>
+        Often, yes — and with less risk than elsewhere. Because these states use community rating, premiums tend to run higher,
+        which makes the high-deductible plan’s savings larger. And because you can switch any time with no underwriting, trying it
+        carries little long-term downside. See <a href="/new-york-medicare-supplement">Medicare Supplement plans in New York</a> for
+        the full picture, or compare the two plans directly in
+        <a href="/high-deductible-plan-g-vs-plan-g">High-Deductible Plan G vs. standard Plan G</a>.
+      </p>
+
+      <!-- CTA #2 (mid) -->
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Let’s settle the “is it worth it” question with real numbers.</p>
+        <p class="text-white/70 text-sm mb-4 m-0">No cost, no obligation, no pressure.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (
+        <div class="mb-5">
+          <h3 class="text-xl">{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+
+      <p>
+        This is one piece of the full picture. Start with the
+        <a href="/services/high-deductible-medicare-supplement">complete guide to High-Deductible Plan G</a>, or read how the
+        <a href="/high-deductible-plan-g-deductible-2026">{MEDICARE_2026.year} deductible works</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          High-Deductible Plan G involves higher out-of-pocket costs before coverage begins and is not suitable for everyone.
+          Potential savings are not guaranteed and vary by plan, insurer, location, and how you use care. The
+          {' '}{MEDICARE_2026.hdDeductible} figure is the {MEDICARE_2026.year} deductible set by Medicare and changes annually.
+          NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Is High-Deductible Plan G worth it for you? Let’s find out." />
+</BaseLayout>

@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import Estimator from '../../components/Estimator.astro';
+import { BUSINESS, MEDICARE_2026 } from '../../data/site';
+
+const title = 'High-Deductible Plan G (2026 Guide)';
+const description = 'High-Deductible Plan G gives you the same Medigap coverage for a far lower premium, with a $2,950 deductible in 2026. See how it works and who it fits.';
+
+// Real PAA questions from the keyword run → visible FAQ (no accordion) + FAQPage schema (must match).
+const faqs = [
+  {
+    q: 'What is the high deductible for Plan G in 2026?',
+    a: `The 2026 annual deductible for High-Deductible Plan G is ${MEDICARE_2026.hdDeductible}. You pay your Medicare-covered out-of-pocket costs yourself until you reach that amount; after that, the plan pays 100% of Medicare-approved charges for the rest of the calendar year. The amount is set by Medicare and changes each year.`,
+  },
+  {
+    q: 'How much is the Medicare Plan G deductible for 2026?',
+    a: `Standard Plan G has no separate plan deductible beyond the Medicare Part B deductible (${MEDICARE_2026.partBDeductible} in ${MEDICARE_2026.year}). High-Deductible Plan G is different: it carries a ${MEDICARE_2026.hdDeductible} annual deductible for ${MEDICARE_2026.year}, and the Part B deductible counts toward that total.`,
+  },
+  {
+    q: 'How does High-Deductible Plan G work?',
+    a: 'It works exactly like standard Plan G once your deductible is met. Until then, you pay the gaps Original Medicare leaves — deductibles, copays, and coinsurance — out of pocket. After your covered costs add up to the annual deductible, the plan pays 100% of Medicare-approved charges for the rest of the year.',
+  },
+  {
+    q: 'Is a high-deductible Plan G worth it?',
+    a: 'For many people, yes — but it depends on your finances and how you use care. You trade a much lower monthly premium for a higher deductible you only pay if you actually need care. Most people do not reach the full deductible every year, so they often come out ahead on total annual cost.',
+  },
+  {
+    q: 'Can I switch from High-Deductible Plan G to standard Plan G later?',
+    a: 'It depends on your state and your health. In New York and Connecticut you can switch any time of year with no medical underwriting. In most other states, switching after your initial 6-month Medigap window usually requires passing medical underwriting, and approval is not guaranteed.',
+  },
+  {
+    q: 'Which Medigap plan has a high-deductible option?',
+    a: 'Plan G and Plan F both have high-deductible versions. High-Deductible Plan F is only available to people who were eligible for Medicare before January 1, 2020. If you became eligible after that date, High-Deductible Plan G is the version available to you.',
+  },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'High-Deductible Medicare Supplement Insurance (High-Deductible Plan G)',
+  serviceType: 'Medicare Supplement Insurance — High-Deductible Plan G',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [
+    { '@type': 'State', name: 'New York' },
+    { '@type': 'State', name: 'Connecticut' },
+  ],
+  description,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const speakableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${BUSINESS.url}/services/high-deductible-medicare-supplement#webpage`,
+  name: title,
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] },
+};
+
+const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="High-Deductible Plan G"
+    subtitle="The same standardized Medigap coverage as regular Plan G — for a fraction of the monthly premium. It’s my specialty, and one of the most overlooked options in Medicare."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'High-Deductible Plan G' }]}
+  />
+
+  <!-- CTA #1 (top) -->
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Want to know if High-Deductible Plan G fits your situation?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <!-- Front-loaded direct answer (extractable, ~55 words) — primary keyword in first 100 words -->
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          <strong>High-Deductible Plan G</strong> is a Medicare Supplement (Medigap) plan with the same standardized benefits as
+          regular Plan G, but a much lower monthly premium and a higher annual deductible — <strong>{MEDICARE_2026.hdDeductible}
+          in {MEDICARE_2026.year}</strong>. You cover Medicare’s gaps yourself until you reach the deductible; after that, the plan
+          pays 100% of Medicare-approved costs for the rest of the year.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        If you want the protection of a Medicare Supplement plan without the higher monthly premium, High-Deductible Plan G
+        (sometimes written “Plan G high deductible” or “HD Plan G”) deserves a serious look. It’s the same coverage — priced
+        differently.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — a licensed independent agent (NY license {BUSINESS.nyLicense}) who
+        has specialized in High-Deductible Medicare Supplement insurance for {BUSINESS.stats.yearsMedicare} years and answers his own phone.
+      </p>
+
+      <h2>How does High-Deductible Plan G work?</h2>
+      <p>
+        High-Deductible Plan G works just like standard Plan G, with one difference in timing. You pay a low monthly premium. When
+        you use care, you cover the costs Original Medicare leaves behind — its deductibles, copays, and coinsurance — out of your
+        own pocket. Those amounts add up toward your annual deductible. Once you reach it, the plan takes over and pays 100% of
+        Medicare-approved costs for the rest of the calendar year, exactly like a standard supplement.
+      </p>
+      <p>
+        Think of it as trading predictable higher premiums for controlled, conditional spending. You keep more money each month,
+        and you only spend more if you actually need significant care — while still being protected against large, unexpected
+        medical bills.
+      </p>
+
+      <h2>What is the High-Deductible Plan G deductible in 2026?</h2>
+      <div class="not-prose mb-5 rounded-lg bg-crst-light p-4">
+        <p class="m-0 text-navy-800 leading-relaxed">
+          The High-Deductible Plan G deductible for {MEDICARE_2026.year} is <strong>{MEDICARE_2026.hdDeductible}</strong>. The
+          Medicare Part B deductible ({MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year}) counts toward it, so it isn’t an
+          extra charge on top. Medicare sets this figure and adjusts it annually.
+        </p>
+      </div>
+      <p>
+        That single number is the key to the whole plan. Your worst case in any year is roughly your low annual premium plus the
+        {' '}{MEDICARE_2026.hdDeductible} deductible — and for many people, even that worst case compares favorably to a full year
+        of standard Plan G premiums. We break the numbers down further in
+        <a href="/high-deductible-plan-g-deductible-2026">the 2026 deductible explained</a>.
+      </p>
+
+      <h2>High-Deductible Plan G vs. standard Plan G</h2>
+      <p>Same benefits, different cost structure. Here’s the trade-off at a glance:</p>
+      <div class="not-prose grid sm:grid-cols-2 gap-4 my-5">
+        <div class="rounded-xl border border-navy-100 bg-navy-50 p-5">
+          <h3 class="font-heading font-semibold text-crst-primary mb-3 mt-0">Standard Plan G</h3>
+          <ul class="space-y-2 text-sm text-navy-600 m-0 list-none p-0">
+            <li>• Higher monthly premium</li>
+            <li>• Low out-of-pocket costs once Part B deductible is met</li>
+            <li>• Predictable, hands-off — good for heavy or frequent care users</li>
+          </ul>
+        </div>
+        <div class="rounded-xl bg-crst-primary p-5 text-white">
+          <h3 class="font-heading font-semibold text-crst-gold mb-3 mt-0">High-Deductible Plan G</h3>
+          <ul class="space-y-2 text-sm text-white/85 m-0 list-none p-0">
+            <li>• Much lower monthly premium</li>
+            <li>• You pay covered costs up to {MEDICARE_2026.hdDeductible} ({MEDICARE_2026.year}), then the plan pays 100%</li>
+            <li>• Often the lower total annual cost for healthy or moderate users</li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        Neither is “better” in the abstract — it depends on how much care you expect to use and how you prefer to manage cost. See
+        the full side-by-side in <a href="/high-deductible-plan-g-vs-plan-g">High-Deductible Plan G vs. standard Plan G</a>.
+      </p>
+
+      <Estimator />
+
+      <h2>Is High-Deductible Plan G worth it?</h2>
+      <div class="not-prose mb-5 rounded-lg border border-navy-100 p-4">
+        <p class="m-0 text-navy-800 leading-relaxed">
+          It’s worth it for many people who are generally healthy, want to lower monthly costs, and are comfortable covering
+          {' '}up to {MEDICARE_2026.hdDeductible} in a heavy-care year. Because most people don’t hit the full deductible annually,
+          the lower premium often wins on total yearly cost. It’s a weaker fit if you expect frequent, costly care every year.
+        </p>
+      </div>
+      <p>
+        The honest way to decide is to compare your <em>total</em> expected annual cost — premium plus likely out-of-pocket — not
+        just the monthly premium. We walk through the pros, cons, and the break-even math in
+        <a href="/high-deductible-plan-g-worth-it">Is High-Deductible Plan G worth it?</a>
+      </p>
+
+      <h2>Who should consider High-Deductible Plan G — and who shouldn’t</h2>
+      <p>It tends to make the most sense if you:</p>
+      <ul>
+        <li>Want to reduce monthly expenses while keeping real protection</li>
+        <li>Are generally healthy or comfortable with some financial risk</li>
+        <li>Prefer a cost-efficient, long-term strategy</li>
+        <li>Live in a state (like New York or Connecticut) where you can change plans later with no underwriting</li>
+      </ul>
+      <p>
+        It’s a weaker fit if you expect heavy, recurring medical costs every year, or if the idea of a deductible would cause you to
+        avoid needed care. <strong>High-Deductible Plan G is not right for everyone</strong> — and a good agent will tell you when it
+        isn’t.
+      </p>
+
+      <h2>High-Deductible Plan F vs. High-Deductible Plan G</h2>
+      <p>
+        These are close cousins. The deciding factor is your Medicare eligibility date: <strong>High-Deductible Plan F is only
+        available to people who were eligible for Medicare before January 1, 2020.</strong> If you became eligible on or after that
+        date — including everyone turning 65 today — High-Deductible Plan G is your version. The benefits are otherwise very
+        similar. More detail in <a href="/high-deductible-plan-f-vs-plan-g">HD Plan F vs. HD Plan G</a>.
+      </p>
+
+      <h2>Which insurers offer High-Deductible Plan G?</h2>
+      <p>
+        Many major insurers offer High-Deductible Plan G. Because Medigap benefits are standardized by law, a High-Deductible
+        Plan G from one company covers the same things as the next — so the meaningful differences come down to price, rate
+        history, and service. I’m independent, so I compare across the carriers available to you rather than represent just one.
+        See <a href="/high-deductible-plan-g-carriers">how to compare insurers for High-Deductible Plan G</a>.
+      </p>
+
+      <h2>Can you switch out of High-Deductible Plan G later?</h2>
+      <p>
+        Sometimes — and where you live decides how easily. In <a href="/new-york-medicare-supplement">New York</a> and Connecticut,
+        you can switch Medigap plans any time of year with no health questions, so moving off a high-deductible plan later is
+        straightforward. In most other states, switching after your initial 6-month Medigap window usually requires medical
+        underwriting, and you could be declined. We cover the details in
+        <a href="/switch-high-deductible-plan-g-to-plan-g">switching out of High-Deductible Plan G</a>.
+      </p>
+
+      <h2>High-Deductible Plan G in New York &amp; Connecticut</h2>
+      <p>
+        This is where the plan shines. Because New York and Connecticut use community rating, Medigap premiums there tend to run
+        higher — which makes the premium <em>savings</em> from a high-deductible plan larger. And because you can switch anytime
+        with no underwriting, choosing it carries little long-term risk. If you live in New York, start with our full guide to
+        <a href="/new-york-medicare-supplement">Medicare Supplement plans in New York</a>.
+      </p>
+
+      <!-- CTA #2 (mid-page) -->
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Not sure if the numbers work for you?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">I’ll compare your real total annual cost across plans — no cost, no pressure.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      <!-- Visible FAQ (no accordion) so answers are extractable; schema matches this text exactly. -->
+      {faqs.map((f) => (
+        <div class="mb-5">
+          <h3 class="text-xl">{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+
+      <!-- Cluster binding: pillar → spokes, descriptive anchors -->
+      <div class="not-prose my-8 rounded-xl border border-navy-100 bg-navy-50/60 p-5">
+        <p class="font-heading font-semibold text-crst-primary mb-3">Go deeper on High-Deductible Plan G</p>
+        <ul class="space-y-1.5 text-sm">
+          <li><a href="/high-deductible-plan-g-worth-it" class="text-crst-accent hover:text-crst-primary">Is High-Deductible Plan G worth it? (pros and cons)</a></li>
+          <li><a href="/high-deductible-plan-g-vs-plan-g" class="text-crst-accent hover:text-crst-primary">High-Deductible Plan G vs. standard Plan G</a></li>
+          <li><a href="/high-deductible-plan-g-deductible-2026" class="text-crst-accent hover:text-crst-primary">The 2026 High-Deductible Plan G deductible, explained</a></li>
+          <li><a href="/switch-high-deductible-plan-g-to-plan-g" class="text-crst-accent hover:text-crst-primary">Can you switch out of High-Deductible Plan G later?</a></li>
+          <li><a href="/high-deductible-plan-g-carriers" class="text-crst-accent hover:text-crst-primary">How to compare insurers for High-Deductible Plan G</a></li>
+          <li><a href="/high-deductible-plan-f-vs-plan-g" class="text-crst-accent hover:text-crst-primary">High-Deductible Plan F vs. High-Deductible Plan G</a></li>
+        </ul>
+      </div>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          High-Deductible Plan G involves higher out-of-pocket costs before coverage begins and is not suitable for everyone. The
+          {' '}{MEDICARE_2026.hdDeductible} figure is the {MEDICARE_2026.year} deductible set by Medicare and changes annually.
+          NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Sources &amp; further reading: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>
+          and the Centers for Medicare &amp; Medicaid Services (CMS) annual High-Deductible Plan F/G deductible announcement.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- CTA #3 (bottom) -->
+  <CTASection headline="Wondering if High-Deductible Plan G is right for you?" />
+</BaseLayout>

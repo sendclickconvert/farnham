@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you
+
+Sitemap: https://farnhamseniorhealth.com/sitemap-index.xml

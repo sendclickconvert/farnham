@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import { MEDICARE_2026 } from '../data/site';
+
+const title = 'Medicare Basics';
+const description = 'A plain-English guide to how Medicare works — Original Medicare (Parts A & B), Medigap, Medicare Advantage (Part C), and Part D drug plans.';
+
+const parts = [
+  { tag: 'Part A', name: 'Hospital Insurance', text: 'Covers inpatient hospital stays, skilled nursing facility care, hospice, and some home health care.' },
+  { tag: 'Part B', name: 'Medical Insurance', text: 'Covers doctor visits, outpatient care, preventive services, and durable medical equipment.' },
+  { tag: 'Part C', name: 'Medicare Advantage', text: 'A private-insurer alternative to Original Medicare that bundles A, B, and usually D — through networks and copays.' },
+  { tag: 'Part D', name: 'Prescription Drugs', text: 'Stand-alone prescription drug coverage. Costs and covered medications vary widely from plan to plan.' },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    title="Medicare Basics"
+    subtitle="Before any decision, it helps to understand the pieces. Here’s the plain-English version."
+    breadcrumbs={[{ label: 'Medicare Basics' }]}
+  />
+
+  <section class="py-14 lg:py-18">
+    <div class="container-wide">
+      <div class="grid sm:grid-cols-2 gap-6">
+        {parts.map((p) => (
+          <div class="card">
+            <span class="inline-block text-xs font-heading font-bold uppercase tracking-wider text-crst-gold mb-2">{p.tag}</span>
+            <h2 class="text-xl font-display text-crst-primary mb-2">{p.name}</h2>
+            <p class="text-navy-600 leading-relaxed text-sm">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-14 lg:pb-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <h2>What is Medigap?</h2>
+      <p>
+        Original Medicare (Parts A &amp; B) doesn’t cover everything — it leaves deductibles, copayments, and coinsurance for you to
+        pay. <a href="/services/medicare-supplement">Medicare Supplement (Medigap)</a> insurance is private coverage that helps pay
+        those gaps. Medigap plans are standardized by law, so the same plan letter offers the same core benefits from any insurer.
+      </p>
+
+      <h2>Your timing matters</h2>
+      <p>
+        Your first 6 months on Medicare Part B is a one-time guaranteed window: no medical underwriting, no health questions, and
+        you can’t be declined. In most states, switching Medigap plans after that window can require passing medical underwriting.
+        <strong> New York and Connecticut are different</strong> — both offer year-round, guaranteed-issue enrollment with
+        community-rated pricing, so residents there can review and change Medigap coverage at any time without health questions.
+      </p>
+
+      <h2>A few {MEDICARE_2026.year} figures to know</h2>
+      <ul>
+        <li>Medicare Part B deductible: {MEDICARE_2026.partBDeductible}</li>
+        <li>High-Deductible Plan G annual deductible: {MEDICARE_2026.hdDeductible} (the Part B deductible counts toward it)</li>
+      </ul>
+      <p>
+        Want to go deeper? Join a free <a href="/events">Medicare 101 class</a>, or
+        <a href="/contact">request a no-cost review</a> and we’ll walk through your specific situation.
+      </p>
+
+      <div class="not-prose mt-8"><Disclaimer variant="generic" /></div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>

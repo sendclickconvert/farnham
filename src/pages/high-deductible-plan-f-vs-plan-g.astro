@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+
+const title = 'High-Deductible Plan F vs. High-Deductible Plan G';
+const description = 'High-Deductible Plan F and Plan G are nearly identical — the deciding factor is your Medicare eligibility date. Here’s which one applies to you in 2026.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'What is the difference between High-Deductible Plan F and High-Deductible Plan G?', a: 'They are very similar. The practical difference comes down to eligibility: High-Deductible Plan F is only available to people who were eligible for Medicare before January 1, 2020. Both share the same high-deductible amount, and once it is met, both pay 100% of Medicare-approved costs.' },
+  { q: 'Can I still get High-Deductible Plan F?', a: 'Only if you were eligible for Medicare before January 1, 2020. If you became eligible on or after that date, Plan F (standard or high-deductible) is not available to you, and High-Deductible Plan G is the version you would choose.' },
+  { q: 'Do High-Deductible Plan F and Plan G have the same deductible?', a: `Yes. For ${MEDICARE_2026.year}, both carry the same ${MEDICARE_2026.hdDeductible} annual deductible set by Medicare.` },
+  { q: 'Is High-Deductible Plan F or Plan G the better choice?', a: 'Neither is better in the abstract. If you are eligible for both, the benefits are nearly identical, so the comparison usually comes down to price. If you became eligible in 2020 or later, the decision is made for you — Plan G is your option.' },
+];
+
+const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/high-deductible-plan-f-vs-plan-g` };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/high-deductible-plan-f-vs-plan-g#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="High-Deductible Plan F vs. High-Deductible Plan G"
+    subtitle="Two close cousins. One rule — your Medicare eligibility date — usually decides which one is even available to you."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'High-Deductible Plan G', href: '/services/high-deductible-medicare-supplement' }, { label: 'HD Plan F vs. G' }]}
+  />
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Not sure which one you qualify for?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          High-Deductible Plan F and High-Deductible Plan G are nearly identical. The deciding factor is your Medicare eligibility
+          date: <strong>High-Deductible Plan F is only available if you were eligible for Medicare before January 1, 2020.</strong>
+          Everyone who became eligible on or after that date uses High-Deductible Plan G. Both share the same
+          {' '}{MEDICARE_2026.hdDeductible} deductible in {MEDICARE_2026.year}.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        For most people choosing today, this comparison answers itself — but it’s worth understanding why.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <h2>The one rule that usually decides it</h2>
+      <p>
+        Because of a federal change, Plan F — in both its standard and high-deductible forms — is closed to anyone who became
+        eligible for Medicare on or after January 1, 2020. If that’s you, High-Deductible Plan G is the version available, and the
+        choice is made for you. If you were eligible before that date, you may be able to choose either.
+      </p>
+
+      <h2>What’s actually different between them</h2>
+      <p>
+        Very little. The historical distinction is that Plan F covered the Part B deductible while Plan G does not. But in the
+        high-deductible versions, you’re paying toward the deductible anyway, so that difference largely washes out. Both plans share
+        the same annual high-deductible amount, and once you meet it, both pay 100% of Medicare-approved costs for the rest of the
+        year — just like the standard versions.
+      </p>
+
+      <h2>If you became eligible in 2020 or later</h2>
+      <p>
+        Your path is simple: High-Deductible Plan G. There’s no need to weigh Plan F, because it isn’t open to you. Focus instead on
+        whether the high-deductible structure fits how you use care — see
+        <a href="/high-deductible-plan-g-worth-it">Is High-Deductible Plan G worth it?</a>
+      </p>
+
+      <h2>If you were eligible before 2020</h2>
+      <p>
+        You may be able to choose either high-deductible plan. Since the benefits are nearly identical, the comparison usually comes
+        down to price and the insurer’s rate history. An independent agent can compare the options available to you side by side.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Not sure which one you’re eligible for?</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <p>
+        For the complete picture, start with the
+        <a href="/services/high-deductible-medicare-supplement">guide to High-Deductible Plan G</a> or compare it to
+        <a href="/high-deductible-plan-g-vs-plan-g">standard Plan G</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Plan availability depends on your Medicare eligibility date and location. The {MEDICARE_2026.hdDeductible} figure is the
+          {' '}{MEDICARE_2026.year} High-Deductible Plan F/G deductible set by Medicare and changes annually. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Let’s confirm which plan you’re eligible for" />
+</BaseLayout>

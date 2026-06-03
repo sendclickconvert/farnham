@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import { BUSINESS } from '../../data/site';
+
+const title = 'Dental, Vision & Hearing Insurance';
+const description = 'Original Medicare generally doesn’t cover routine dental, vision, or hearing care. Stand-alone plans can help fill those gaps based on what you use.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  serviceType: 'Dental, Vision, and Hearing Insurance',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }],
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} schema={serviceSchema}>
+  <PageHero
+    title={title}
+    subtitle={'Coverage for the everyday needs Original Medicare generally leaves out.'}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Dental, Vision & Hearing' }]}
+  />
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <p class="lead text-xl text-navy-700">Original Medicare generally does not cover routine dental, vision, or hearing care — yet these are some of the most common everyday expenses in retirement.</p>
+      <h2>Filling the everyday gaps</h2>
+      <p>Stand-alone dental, vision, and hearing plans can help cover cleanings, exams, glasses, hearing aids, and related care. Coverage and value vary by plan, so it’s worth matching a plan to what you actually expect to use.</p>
+      <h2>How I help</h2>
+      <p>I’ll help you decide whether stand-alone coverage makes sense for you and compare the options available in your area.</p>
+
+      <AuthorByline />
+      <div class="not-prose mt-8"><Disclaimer variant="tpmo" /></div>
+    </div>
+  </article>
+  <CTASection />
+</BaseLayout>

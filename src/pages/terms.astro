@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const title = 'Terms of Use';
+const description = 'Terms of Use for the Farnham Senior Health Advisors website.';
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero title="Terms of Use" breadcrumbs={[{ label: 'Terms of Use' }]} />
+  <section class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary">
+      <p>By accessing and using this website, you agree to comply with and be bound by the following Terms of Use. If you do not agree with these terms, please do not use this website.</p>
+
+      <p>The information provided on this website is for educational purposes only and is not intended as a substitute for personalized advice. Individual needs and circumstances vary, and plan availability depends on your location and eligibility. Potential savings are not guaranteed and will vary based on plan selection, healthcare usage, and other factors. Past results or examples do not guarantee future outcomes.</p>
+
+      <p>This website is owned and operated by a licensed insurance agent and is intended to provide educational information about Medicare and related insurance products, including High-Deductible Medicare Supplement Insurance, Medicare Supplement Insurance, Medicare Advantage Plans, and Medicare Part D Prescription Drug Plans.</p>
+
+      <p>This website is not intended to provide medical, legal, or financial advice.</p>
+
+      <h2>Disclaimer of Warranties</h2>
+      <p>Your use of, and reliance on, any advice or information obtained from this website is at your own risk, and all information is provided for informational purposes only. Except where prohibited by law, information is provided on an “as is” and “as available” basis. To the fullest extent permissible by law, we expressly disclaim all warranties of any kind, whether express or implied, including, without limitation, any warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+
+      <h2>Limitation of Liability</h2>
+      <p>Except where otherwise inapplicable or prohibited by law, you expressly understand and agree that under no circumstances will we be liable for indirect, special, incidental, punitive, or consequential damages. This includes, without limitation, any loss of use, loss of profits, loss of data, loss of goodwill, cost of procurement of substitute services, or any other indirect, special, incidental, or consequential damages, whether for breach of contract, tort (including negligence and strict liability), or otherwise resulting from the use of, or the inability to use, this website.</p>
+
+      <h2>Changes to These Terms</h2>
+      <p>We may update these Terms of Use from time to time. The most current version will be posted on this website.</p>
+
+      <p class="text-sm text-navy-500">Please also review our <a href="/privacy">Privacy Policy</a> and <a href="/disclosures">Disclosures</a>.</p>
+    </div>
+  </section>
+</BaseLayout>

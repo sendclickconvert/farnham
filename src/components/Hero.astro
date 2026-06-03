@@ -1,0 +1,90 @@
+---
+import { BUSINESS, AGENT, MEDICARE_2026 } from '../data/site';
+---
+
+<section class="relative bg-crst-primary overflow-hidden">
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-navy-900 via-crst-primary to-navy-700"></div>
+    <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 56px 56px;"></div>
+    <div class="absolute top-20 right-0 w-96 h-96 rounded-full bg-crst-accent/10 blur-3xl"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-crst-gold/8 blur-3xl"></div>
+  </div>
+
+  <div class="relative container-wide py-16 lg:py-24">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Text -->
+      <div>
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6 text-xs font-heading font-medium text-white/80 border border-white/10">
+          <span class="w-2 h-2 rounded-full bg-crst-gold animate-pulse"></span>
+          {AGENT.credentials} &middot; {BUSINESS.stats.yearsInsurance} years in insurance &amp; financial services
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display text-white leading-[1.08] mb-6">
+          A Smarter, More Cost-Effective <span class="text-crst-gold">Approach to Medicare</span>
+        </h1>
+
+        <p class="text-lg text-white/75 font-heading leading-relaxed max-w-xl mb-6">
+          Helping you understand your options — so you don’t overpay for coverage you may never fully use. I specialize in
+          <strong class="text-white"> High-Deductible Medicare Supplement Insurance</strong>, and I help you compare it against
+          traditional Medigap, Medicare Advantage, and Part D, so you can choose what truly fits.
+        </p>
+
+        <p class="text-base text-white/55 font-heading leading-relaxed max-w-xl mb-8">
+          No pressure. No call centers. Just clear, practical guidance from a licensed agent who answers his own phone —
+          serving New York and Connecticut.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3.5">
+            <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Call {BUSINESS.phone}
+          </a>
+          <a href="/services/high-deductible-medicare-supplement" class="inline-flex items-center justify-center px-7 py-3.5 border-2 border-white/20 text-white font-heading font-semibold text-base rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white/30">
+            What is High-Deductible Medigap?
+          </a>
+        </div>
+
+        <!-- Honest trust signals (no fabricated reviews/ratings) -->
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-10 pt-8 border-t border-white/10">
+          <div class="flex items-center gap-2 text-xs text-white/55 font-heading">
+            <svg class="w-4 h-4 text-crst-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5 12.083 12.083 0 015.84 10.578L12 14z"/></svg>
+            Taught Medicare 101 at libraries &amp; colleges
+          </div>
+          <div class="flex items-center gap-2 text-xs text-white/55 font-heading">
+            <svg class="w-4 h-4 text-crst-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            {BUSINESS.stats.yearsMedicare} years focused on Medicare
+          </div>
+          <div class="flex items-center gap-2 text-xs text-white/55 font-heading">
+            <svg class="w-4 h-4 text-crst-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            New York &amp; Connecticut
+          </div>
+        </div>
+      </div>
+
+      <!-- Headshot card -->
+      <div class="relative lg:justify-self-end">
+        <div class="relative bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-5 max-w-sm mx-auto">
+          <!-- ⚠️ Client to supply headshot → /public/images/jim-farnham.jpg -->
+          <div class="aspect-[4/5] rounded-xl overflow-hidden bg-navy-100/20 flex items-center justify-center">
+            <img src={AGENT.photo} alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="hidden w-full h-full items-center justify-center text-center text-white/40 text-sm font-heading p-6" style="display:none;">
+              Jim Farnham headshot<br />(client to supply)
+            </div>
+          </div>
+          <div class="mt-4 text-center">
+            <p class="font-display text-xl text-white">{AGENT.fullName}</p>
+            <p class="text-sm text-white/60 font-heading">{AGENT.title}</p>
+          </div>
+          <div class="mt-4 rounded-lg bg-crst-gold/15 border border-crst-gold/30 p-3 text-center">
+            <p class="text-xs text-white/70 font-heading">2026 High-Deductible Plan G deductible</p>
+            <p class="text-2xl font-display text-crst-gold">{MEDICARE_2026.hdDeductible}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 32" fill="none" class="w-full h-auto"><path d="M0 32h1440V16c-240 10-480 16-720 16S240 26 0 16v16z" fill="white"/></svg>
+  </div>
+</section>

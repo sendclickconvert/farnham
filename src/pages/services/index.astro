@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import { SERVICES } from '../../data/site';
+
+const title = 'Medicare Plans & Coverage';
+const description = 'High-Deductible Medigap is my specialty, but I make a full range of Medicare-related coverage available — Medigap, Medicare Advantage, Part D, dental/vision/hearing, and hospital indemnity.';
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    title="Medicare Plans &amp; Coverage"
+    subtitle="My primary focus is High-Deductible Medicare Supplement Insurance — but I help you compare it against every other option so you can choose what truly fits."
+    breadcrumbs={[{ label: 'Medicare Plans' }]}
+  />
+  <section class="py-14 lg:py-18">
+    <div class="container-wide">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {SERVICES.map((s) => (
+          <ServiceCard title={s.title} slug={s.slug} summary={s.summary} icon={s.icon} flagship={s.flagship} />
+        ))}
+      </div>
+      <div class="mt-12 max-w-3xl mx-auto">
+        <Disclaimer variant="tpmo" />
+      </div>
+    </div>
+  </section>
+  <CTASection />
+</BaseLayout>

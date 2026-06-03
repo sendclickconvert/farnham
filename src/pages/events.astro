@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import { BUSINESS, AGENT, FORMS } from '../data/site';
+
+const title = 'Free Medicare 101 Classes';
+const description = 'Join a no-cost, no-pressure “Medicare 101” class with Jim Farnham. Plain-English education on how Medicare works — online and at local libraries and learning centers.';
+
+// ⚠️ CONFIRM — replace with real scheduled sessions (date/time/registration link).
+// These are placeholders so the Event schema + UI pattern are in place.
+const events = [
+  { name: 'Medicare 101 — Online (Zoom)', date: '2026-07-15T18:00:00-04:00', mode: 'online', location: 'Zoom (link provided on registration)' },
+  { name: 'Medicare 101 — Online (Zoom)', date: '2026-08-12T18:00:00-04:00', mode: 'online', location: 'Zoom (link provided on registration)' },
+];
+
+const eventSchema = {
+  '@context': 'https://schema.org',
+  '@graph': events.map((e) => ({
+    '@type': 'EducationEvent',
+    name: e.name,
+    startDate: e.date,
+    eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: { '@type': 'VirtualLocation', url: BUSINESS.url + '/events' },
+    organizer: { '@id': `${BUSINESS.url}/#organization` },
+    performer: { '@id': `${BUSINESS.url}/#agent` },
+    isAccessibleForFree: true,
+    description: 'A free, plain-English class on how Medicare works — Parts A, B, C, and D, and how Medigap fits in. No sales pitch.',
+  })),
+};
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+---
+
+<BaseLayout title={title} description={description} schema={eventSchema}>
+  <PageHero
+    title="Free “Medicare 101” Classes"
+    subtitle="A plain-English class on how Medicare works — no sales pitch, just the foundation you need to decide with confidence."
+    breadcrumbs={[{ label: 'Medicare 101' }]}
+  />
+
+  <section class="py-14 lg:py-18">
+    <div class="container-narrow">
+      <div class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary mb-10">
+        <p class="lead text-xl text-navy-700">
+          {AGENT.shortName} has taught Medicare 101 for libraries, schools, colleges, universities, and adult-education programs for years.
+          Each session walks through Original Medicare, Medigap, Medicare Advantage, and Part D in plain English — so you leave knowing
+          how the pieces fit together.
+        </p>
+      </div>
+
+      <h2 class="text-2xl font-display text-crst-primary mb-6">Upcoming sessions</h2>
+      <div class="space-y-4">
+        {events.map((e) => (
+          <div class="card flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-heading font-semibold text-lg text-crst-primary">{e.name}</h3>
+              <p class="text-sm text-navy-600 mt-1">{fmt(e.date)}</p>
+              <p class="text-sm text-navy-500">{e.location}</p>
+            </div>
+            <a href={FORMS.webinarRegistrationUrl} class="btn-primary shrink-0">Register free</a>
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-navy-500 mt-6">
+        Dates above are placeholders pending confirmation. To ask about an upcoming class or request one for your group,
+        <a href="/contact" class="text-crst-accent underline">get in touch</a> or call {BUSINESS.phone}.
+      </p>
+    </div>
+  </section>
+
+  <CTASection headline="Prefer a one-on-one conversation?" text="You don’t have to wait for a class. Call or text Jim directly for a no-cost, no-obligation review of your options." />
+</BaseLayout>

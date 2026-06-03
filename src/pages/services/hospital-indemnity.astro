@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import { BUSINESS } from '../../data/site';
+
+const title = 'Hospital Indemnity Insurance';
+const description = 'Hospital Indemnity insurance pays a fixed cash benefit if you’re hospitalized, helping offset deductibles and out-of-pocket costs.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  serviceType: 'Hospital Indemnity Insurance',
+  provider: { '@id': `${BUSINESS.url}/#organization` },
+  areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }],
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} schema={serviceSchema}>
+  <PageHero
+    title={title}
+    subtitle={'Cash benefits that help offset the out-of-pocket cost of a hospital stay.'}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Hospital Indemnity' }]}
+  />
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <p class="lead text-xl text-navy-700">Hospital Indemnity insurance pays a fixed cash benefit if you’re admitted to the hospital, which can help offset deductibles, copays, and other out-of-pocket costs.</p>
+      <h2>When it’s useful</h2>
+      <p>Hospital Indemnity coverage is often paired with a Medicare Advantage or high-deductible strategy, where a hospital stay could otherwise create meaningful out-of-pocket costs. The cash benefit is yours to use however you need.</p>
+      <h2>How I help</h2>
+      <p>I’ll help you decide whether hospital indemnity coverage fits your overall Medicare strategy and budget.</p>
+
+      <AuthorByline />
+      <div class="not-prose mt-8"><Disclaimer variant="tpmo" /></div>
+    </div>
+  </article>
+  <CTASection />
+</BaseLayout>

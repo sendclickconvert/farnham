@@ -1,0 +1,1 @@
+- [Astro 4 sitemap pin](astro-sitemap-version.md) — on Astro 4, pin @astrojs/sitemap to 3.2.1; 3.3+ uses an Astro 5-only hook and crashes the build.

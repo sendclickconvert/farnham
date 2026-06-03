@@ -1,0 +1,39 @@
+---
+export interface Props {
+  title: string;
+  slug: string;
+  summary: string;
+  icon: string;
+  flagship?: boolean;
+}
+
+const { title, slug, summary, icon, flagship = false } = Astro.props;
+
+const icons: Record<string, string> = {
+  shield: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016A11.955 11.955 0 0112 2.944z"/>',
+  'check-shield': '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>',
+  layers: '<path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>',
+  pill: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>',
+  eye: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>',
+  building: '<path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>',
+};
+---
+
+<a href={`/services/${slug}`} title={title} class:list={["card group block", flagship && "ring-2 ring-crst-gold/40 relative"]}>
+  {flagship && (
+    <span class="absolute -top-3 left-6 bg-crst-gold text-navy-900 text-[0.65rem] font-heading font-bold uppercase tracking-wider px-3 py-1 rounded-full">Our Specialty</span>
+  )}
+  <div class="flex items-start gap-4">
+    <div class="shrink-0 w-12 h-12 rounded-lg bg-navy-50 flex items-center justify-center group-hover:bg-crst-primary transition-colors duration-300">
+      <svg class="w-6 h-6 text-crst-primary group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" set:html={icons[icon] || icons.shield} />
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="font-heading font-semibold text-lg text-navy-800 group-hover:text-crst-primary transition-colors mb-1.5">{title}</h3>
+      <p class="text-sm text-navy-600/80 leading-relaxed">{summary}</p>
+      <span class="inline-flex items-center gap-1 mt-3 text-sm font-heading font-semibold text-crst-accent group-hover:text-crst-primary transition-colors">
+        Learn more
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </span>
+    </div>
+  </div>
+</a>

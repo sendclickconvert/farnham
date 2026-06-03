@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS } from '../data/site';
+
+const title = 'How to Compare Insurers for High-Deductible Plan G';
+const description = 'Every insurer’s High-Deductible Plan G covers the same standardized benefits — so you compare on price, rate history, and service. Here’s how to do it well.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'Do all insurers charge the same for High-Deductible Plan G?', a: 'No. The benefits are identical because Medigap is standardized by law, but premiums and rate-increase histories vary from one insurer to the next. That price difference, for the exact same coverage, is the main reason it pays to compare.' },
+  { q: 'Does it matter which insurer I pick for High-Deductible Plan G?', a: 'The coverage is the same, so it matters mainly for price, how stable the insurer’s rate increases have been over time, financial strength, and service. Picking a lower-priced, stable insurer for identical benefits is where the value is.' },
+  { q: 'How do I compare Medigap insurers without getting overwhelmed?', a: 'Because benefits are identical, you can focus on a short list: current premium, the insurer’s rate-increase history, financial-strength ratings, any household discount, and service reputation. An independent agent can line these up across the carriers available to you in one conversation.' },
+  { q: 'Are the High-Deductible Plan G benefits really the same across companies?', a: 'Yes. Federal and state standardization means a High-Deductible Plan G covers the same core benefits regardless of which insurer issues it. The difference between companies is price and service, not coverage.' },
+];
+
+const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/high-deductible-plan-g-carriers` };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/high-deductible-plan-g-carriers#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
+const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="How to Compare Insurers for High-Deductible Plan G"
+    subtitle="The coverage is identical no matter who sells it. So the real comparison is price, rate history, and service — here’s how to do it."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'High-Deductible Plan G', href: '/services/high-deductible-medicare-supplement' }, { label: 'Comparing Insurers' }]}
+  />
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Want the comparison done for you?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          Because Medigap benefits are standardized by law, <strong>every insurer’s High-Deductible Plan G covers the same
+          things</strong>. That means you don’t compare coverage — you compare <strong>price, rate-increase history, financial
+          strength, and service</strong>. For identical benefits, the lower-priced, more stable option is simply the better value.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        This is the part most people get wrong: they shop coverage when they should be shopping price and stability — because the
+        coverage doesn’t change.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <h2>Why the benefits are identical</h2>
+      <p>
+        Medicare Supplement plans are standardized by law. A High-Deductible Plan G has the same core benefits no matter which
+        company issues it — same deductible structure, same 100% coverage of Medicare-approved costs once the deductible is met. So
+        a more expensive policy is not buying you better coverage.
+      </p>
+
+      <h2>What actually differs between insurers</h2>
+      <ul>
+        <li><strong>Premium</strong> — the same coverage can be priced quite differently from one insurer to the next.</li>
+        <li><strong>Rate-increase history</strong> — some insurers have raised rates more steadily over time than others; past patterns are worth knowing.</li>
+        <li><strong>Financial strength</strong> — independent ratings give a sense of an insurer’s stability.</li>
+        <li><strong>Discounts</strong> — some offer household or other discounts that change the real price.</li>
+        <li><strong>Service</strong> — how easy the company is to deal with over the years you’ll hold the policy.</li>
+      </ul>
+
+      <h2>How to compare without getting overwhelmed</h2>
+      <p>
+        You don’t need to study every company. Narrow it to the handful available to you, then line them up on the points above.
+        Because I’m independent, I’m not tied to a single company — I compare across the carriers available in your area and show you
+        the trade-offs, rather than steering you toward one brand.
+      </p>
+
+      <h2>A note on New York pricing</h2>
+      <p>
+        New York uses community rating, so premiums there don’t vary by age or health — but they still vary by insurer. That makes
+        comparing companies just as important in New York as anywhere else. See
+        <a href="/new-york-medicare-supplement">Medicare Supplement plans in New York</a> for how the state’s rules shape pricing.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Let me compare the available insurers for you.</p>
+        <p class="text-white/70 text-sm mb-4 m-0">Same coverage, side by side on price and service — at no cost.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <p>
+        New to the plan? Start with the
+        <a href="/services/high-deductible-medicare-supplement">guide to High-Deductible Plan G</a> or
+        <a href="/high-deductible-plan-g-worth-it">whether it’s worth it</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Premiums, rate histories, discounts, and availability vary by insurer and location and are not guaranteed. High-Deductible
+          Plan G is not suitable for everyone. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Let’s compare the available insurers and find you a competitive price" />
+</BaseLayout>

@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "GF0FeYZtxT8WYoBnWkvOJ"
+uri = "file://artifacts/mockup-sandbox/public/images/senior-couple.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "8aWjNVOWmqe8RDYlSzyN3"
+uri = "file://artifacts/mockup-sandbox/public/images/advisor-headshot.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "36iIyaEqVuVqSW5jfouyZ"
+uri = "file://artifacts/mockup-sandbox/public/images/senior-outdoor.png"
+type = "image"
+title = "generated_image"

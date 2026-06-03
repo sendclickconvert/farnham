@@ -1,0 +1,25 @@
+---
+import { DISCLAIMERS } from '../data/site';
+
+export interface Props {
+  // 'tpmo' = numbered version (needs the org/product counts).
+  // 'generic' = anonymous-landing-page version (no counts).
+  variant?: 'tpmo' | 'generic';
+  // Show the extra educational + no-government lines (used on full disclosure footer).
+  full?: boolean;
+}
+
+const { variant = 'generic', full = false } = Astro.props;
+const tpmoText = variant === 'tpmo' ? DISCLAIMERS.tpmo : DISCLAIMERS.tpmoGeneric;
+---
+
+<aside class="border border-navy-100 bg-navy-50/50 rounded-lg p-4 text-sm leading-relaxed text-navy-600" role="note" aria-label="Required Medicare disclosures">
+  <p>{tpmoText}</p>
+  {full && (
+    <>
+      <p class="mt-2">{DISCLAIMERS.noGovernment}</p>
+      <p class="mt-2">{DISCLAIMERS.educational}</p>
+      <p class="mt-2">{DISCLAIMERS.solicitation}</p>
+    </>
+  )}
+</aside>

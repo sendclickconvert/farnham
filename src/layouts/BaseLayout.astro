@@ -1,0 +1,155 @@
+---
+import { BUSINESS, AGENT } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: object;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = `${BUSINESS.name} — clear, no-pressure Medicare guidance from licensed agent Jim Farnham. Specializing in High-Deductible Medicare Supplement Insurance for New York and Connecticut.`,
+  canonical,
+  ogImage = '/images/farnham-og.jpg',
+  schema,
+  noIndex = false,
+} = Astro.props;
+
+const fullTitle =
+  title === 'Home'
+    ? `${BUSINESS.name} | Medicare Help in ${BUSINESS.address.city}, NY`
+    : `${title} | ${BUSINESS.shortName}`;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname, BUSINESS.url).href;
+
+// ---------------------------------------------------------------------
+// Default site-wide schema: InsuranceAgency (a LocalBusiness subtype),
+// built as a STOREFRONT — public address + geo so it can be mapped.
+// Jim is also modeled as a Person (E-E-A-T) and tied in as the agent.
+// ---------------------------------------------------------------------
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'InsuranceAgency',
+  '@id': `${BUSINESS.url}/#organization`,
+  name: BUSINESS.name,
+  url: BUSINESS.url,
+  telephone: BUSINESS.phone,
+  email: BUSINESS.email,
+  image: `${BUSINESS.url}/images/farnham-og.jpg`,
+  logo: `${BUSINESS.url}/images/farnham-logo.svg`,
+  priceRange: 'Free consultation',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: BUSINESS.address.street,
+    addressLocality: BUSINESS.address.city,
+    addressRegion: BUSINESS.address.state,
+    postalCode: BUSINESS.address.zip,
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS.geo.latitude,
+    longitude: BUSINESS.geo.longitude,
+  },
+  areaServed: [
+    { '@type': 'State', name: 'New York' },
+    { '@type': 'State', name: 'Connecticut' },
+  ],
+  founder: { '@id': `${BUSINESS.url}/#agent` },
+  employee: { '@id': `${BUSINESS.url}/#agent` },
+  knowsAbout: [...AGENT.knowsAbout],
+  disambiguatingDescription:
+    'Independent insurance agency specializing in High-Deductible Medicare Supplement Insurance. Not affiliated with or endorsed by the federal government or the Medicare program.',
+};
+
+const agentSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${BUSINESS.url}/#agent`,
+  name: AGENT.name,
+  jobTitle: AGENT.jobTitle,
+  worksFor: { '@id': `${BUSINESS.url}/#organization` },
+  alumniOf: AGENT.education.map((e) => ({ '@type': 'CollegeOrUniversity', name: e.school })),
+  knowsAbout: [...AGENT.knowsAbout],
+  image: `${BUSINESS.url}${AGENT.photo}`,
+  telephone: AGENT.phone,
+};
+
+// Page-specific schema is merged in via the `schema` prop; org + agent always present.
+const schemaGraph = schema
+  ? [organizationSchema, agentSchema, schema]
+  : [organizationSchema, agentSchema];
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={`${BUSINESS.url}${ogImage}`} />
+  <meta property="og:site_name" content={BUSINESS.name} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${BUSINESS.url}${ogImage}`} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/images/favicon-192.png" />
+
+  <!-- Schema (Organization + Agent + page-specific) -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+
+  {/* ⚠️ CONFIRM — add GA4 / Tag Manager ID at kickoff (placeholder, intentionally not wired) */}
+
+  <slot name="head" />
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+  <Header />
+  <main class="flex-1">
+    <slot />
+  </main>
+  <Footer />
+
+  <!-- Scroll animation observer -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
