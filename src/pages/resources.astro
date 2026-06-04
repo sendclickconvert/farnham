@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS } from '../data/site';
+
+const title = 'Medicare Resources — Official Government Sources';
+const description = 'A curated list of official government Medicare resources — Medicare.gov, SSA.gov, CMS.gov, and state-specific sites for NY, CT, NJ, PA, and FL. Compiled by Jim Farnham for Medicare 101 class attendees.';
+const today = '2026-06-03';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/resources` },
+    { '@type': 'WebPage', '@id': `${BUSINESS.url}/resources#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } },
+    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Resources', item: `${BUSINESS.url}/resources` }] },
+  ],
+};
+
+const ext = 'rel="nofollow noopener" target="_blank"';
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Medicare Resources"
+    subtitle="Every link on this page goes to an official government or authoritative public source — no advertising, no sales. These are the sites Jim hands to Medicare 101 class attendees."
+    breadcrumbs={[{ label: 'Resources' }]}
+  />
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          Jim has compiled these government and official resources over 13+ years of Medicare practice and hands the list to
+          everyone who attends a Medicare 101 class. As he puts it: <em>"After looking at these, I say — people need to know
+          about these."</em> This page is updated periodically; verify all links at their official source before acting on them.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        Bookmark this page. Whether you're enrolling for the first time, comparing plans, or looking for financial assistance,
+        these are the primary official sources you'll return to.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Curated by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <!-- ═══════════════════════════════════════════════════
+           NATIONAL RESOURCES
+      ════════════════════════════════════════════════════════ -->
+
+      <h2>The Core Medicare Sites</h2>
+      <p>Start here. These are the official federal portals for Medicare, Social Security, and CMS.</p>
+      <ul>
+        <li><a href="https://www.medicare.gov" rel="nofollow noopener" target="_blank">Medicare.gov</a> — the official U.S. Medicare site for plan comparisons, coverage lookups, and account management.</li>
+        <li><a href="https://www.mymedicare.gov" rel="nofollow noopener" target="_blank">MyMedicare.gov</a> — log in to view your Medicare claims, coverage, and health records.</li>
+        <li><a href="https://www.ssa.gov" rel="nofollow noopener" target="_blank">SSA.gov</a> — Social Security Administration, the agency that handles Medicare enrollment for most people.</li>
+        <li><a href="https://www.ssa.gov/myaccount/" rel="nofollow noopener" target="_blank">My Social Security Account</a> — create or manage your SSA account online.</li>
+        <li><a href="https://www.cms.gov" rel="nofollow noopener" target="_blank">CMS.gov</a> — the Centers for Medicare &amp; Medicaid Services, the federal agency that administers Medicare.</li>
+      </ul>
+
+      <h2>Enrolling in Medicare</h2>
+      <p>Use these to sign up, check when your coverage starts, and verify your identity for a Medicare.gov account.</p>
+      <ul>
+        <li><a href="https://www.ssa.gov/medicare/sign-up" rel="nofollow noopener" target="_blank">Sign up for Medicare</a> — the official SSA Medicare sign-up portal.</li>
+        <li><a href="https://www.ssa.gov/benefits/medicare/" rel="nofollow noopener" target="_blank">Apply for Medicare online</a> — apply for Medicare through Social Security.</li>
+        <li><a href="https://www.ssa.gov/medicare/sign-up/part-b-only" rel="nofollow noopener" target="_blank">Apply for Part B only</a> — if you already have Part A and need to add Part B.</li>
+        <li><a href="https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start" rel="nofollow noopener" target="_blank">When does your Medicare coverage start?</a> — official guidance on coverage start dates.</li>
+        <li><a href="https://www.ssa.gov/myaccount/create.html" rel="nofollow noopener" target="_blank">Create a Social Security account</a> — required to apply or manage enrollment online.</li>
+        <li><a href="https://www.id.me/about" rel="nofollow noopener" target="_blank">ID.me</a> — the identity verification service used to access your Medicare.gov account.</li>
+        <li><a href="https://www.medicare.gov/account/login" rel="nofollow noopener" target="_blank">Log in to Medicare.gov</a> — or <a href="https://www.medicare.gov/account/create-account" rel="nofollow noopener" target="_blank">create a Medicare.gov account</a>.</li>
+      </ul>
+      <p class="text-sm text-navy-500">
+        <strong>Form note:</strong> If applying for Part B with a qualifying employer coverage situation, complete form CMS-40B
+        (Application for Enrollment in Medicare Part B) and CMS-L564 (Request for Employment Information). You can fax completed
+        forms to <strong>1-833-914-2016</strong> or return them to your local Social Security office.
+      </p>
+
+      <h2>Understanding Your Coverage</h2>
+      <ul>
+        <li><a href="https://www.medicare.gov/publications/11389-Medicare-Getting-Started.pdf" rel="nofollow noopener" target="_blank">Medicare Getting Started (PDF)</a> — the official introductory guide from Medicare.</li>
+        <li><a href="https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/your-coverage-options" rel="nofollow noopener" target="_blank">Your coverage options</a> — Medicare's official overview of how to round out Original Medicare.</li>
+        <li><a href="https://www.medicare.gov/publications/10116-your-medicare-benefits.pdf" rel="nofollow noopener" target="_blank">Your Medicare Benefits Handbook (PDF)</a> — what Part A and Part B cover, in detail.</li>
+        <li><a href="https://www.medicare.gov/care-compare/" rel="nofollow noopener" target="_blank">Care Compare</a> — find and compare doctors, hospitals, nursing homes, and other providers in your area.</li>
+        <li><a href="https://www.medicare.gov/coverage" rel="nofollow noopener" target="_blank">Is my test, item, or service covered?</a> — look up whether a specific service is a Medicare benefit.</li>
+        <li><a href="https://data.cms.gov/tools/provider-opt-out-affidavits-look-up-tool" rel="nofollow noopener" target="_blank">Provider Opt-Out Look-Up Tool</a> — find out if your doctor has opted out of Medicare.</li>
+        <li><a href="https://www.medicare.gov/sites/default/files/2021-10/02179-Medicare-and-other-health-benefits-your-guide-to-who-pays-first.pdf" rel="nofollow noopener" target="_blank">Medicare &amp; Other Health Benefits: Who Pays First (PDF)</a> — essential if you have employer or other coverage alongside Medicare.</li>
+        <li><a href="https://www.cms.gov/Outreach-and-Education/Medicare-Learning-Network-MLN/MLNProducts/Downloads/MSP-Fact-SheetTextOnly.pdf" rel="nofollow noopener" target="_blank">Medicare Secondary Payer Fact Sheet (PDF)</a> — CMS guidance on coordination of benefits.</li>
+        <li><a href="https://www.medicare.gov/claims-appeals/how-to-file-a-complaint-grievance" rel="nofollow noopener" target="_blank">Filing a grievance or complaint</a> — official process for challenging a Medicare decision.</li>
+      </ul>
+
+      <h2>Medigap (Medicare Supplement)</h2>
+      <ul>
+        <li><a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">What is Medicare Supplement (Medigap)?</a> — Medicare.gov's official Medigap overview.</li>
+        <li><a href="https://www.cms.gov/medicare/health-drug-plans/medigap?redirect=/Medigap/" rel="nofollow noopener" target="_blank">CMS Medigap information</a> — the Centers for Medicare &amp; Medicaid Services' Medigap resource page.</li>
+        <li><a href="https://www.medicare.gov/publications/02110-medigap-guide-health-insurance.pdf" rel="nofollow noopener" target="_blank">Choosing a Medigap Policy: A Guide to Health Insurance for People with Medicare (PDF)</a> — the definitive official guide.</li>
+        <li><a href="https://www.medicare.gov/medigap-supplemental-insurance-plans/" rel="nofollow noopener" target="_blank">Find a Medigap policy in your area</a> — compare standardized plans available where you live.</li>
+      </ul>
+      <p>See also: <a href="/services/medicare-supplement">how Medigap works</a> and the <a href="/medicare-supplement-plans-comparison">plans comparison</a>.</p>
+
+      <h2>Part D — Prescription Drug Coverage</h2>
+      <ul>
+        <li><a href="https://www.medicare.gov/health-drug-plans/part-d" rel="nofollow noopener" target="_blank">Medicare Part D overview</a> — official Medicare information on prescription drug coverage.</li>
+        <li><a href="https://www.medicare.gov/publications/11109-your-guide-to-medicare-prescription-drug-coverage.pdf" rel="nofollow noopener" target="_blank">Your Guide to Medicare Prescription Drug Coverage (PDF)</a> — the complete official guide to Part D.</li>
+      </ul>
+      <p>See also: <a href="/services/prescription-drug-plans">how Part D works</a> and the <a href="/medicare-part-d-late-enrollment-penalty">late-enrollment penalty</a>.</p>
+
+      <h2>Financial Help &amp; Assistance Programs</h2>
+      <ul>
+        <li><a href="https://www.shiphelp.org/" rel="nofollow noopener" target="_blank">State Health Insurance Assistance Programs (SHIP)</a> — find no-cost, unbiased Medicare counseling in your state. Look at the bottom of the page to find your state.</li>
+        <li><a href="https://eldercare.acl.gov/Public/Index.aspx" rel="nofollow noopener" target="_blank">Eldercare Locator</a> — a government service connecting older adults to local resources and assistance.</li>
+        <li><a href="https://www.benefitscheckup.org/" rel="nofollow noopener" target="_blank">BenefitsCheckUp (National Council on Aging)</a> — screen for benefits programs you may qualify for.</li>
+        <li><a href="https://www.medicareinteractive.org/pdf/SPAP-Chart.pdf" rel="nofollow noopener" target="_blank">State Pharmaceutical Assistance Programs — chart (PDF)</a> — listing of state programs that help with drug costs.</li>
+        <li><a href="https://www.ncsl.org/health/state-pharmaceutical-assistance-programs" rel="nofollow noopener" target="_blank">State Pharmaceutical Assistance Programs — NCSL directory</a> — the National Conference of State Legislatures' listing.</li>
+        <li><a href="https://www.ssa.gov/forms/ssa-44.pdf" rel="nofollow noopener" target="_blank">SSA-44 (PDF)</a> — the form to request a reduction in your Income-Related Monthly Adjustment Amount (IRMAA) for Part B or Part D if your income has changed.</li>
+      </ul>
+
+      <h2>Social Security &amp; Taxes</h2>
+      <ul>
+        <li><a href="https://www.ssa.gov/history/taxationofbenefits.html" rel="nofollow noopener" target="_blank">Taxation of Social Security Benefits</a> — SSA's official historical and policy overview.</li>
+        <li><a href="https://www.ssa.gov/policy/docs/issuepapers/ip2015-02.html" rel="nofollow noopener" target="_blank">Income Taxes on Social Security Benefits</a> — SSA policy paper on how benefits may be taxed.</li>
+      </ul>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Want help making sense of any of these?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost review or an upcoming Medicare 101 class — whichever works for you.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent px-6 py-3">Call {BUSINESS.phone}</a>
+          <a href="/events" class="inline-flex items-center px-6 py-3 border-2 border-white/20 text-white font-heading font-semibold rounded-lg hover:bg-white/10 transition-all">See Medicare 101 classes</a>
+        </div>
+      </div>
+
+      <!-- STATE SECTIONS -->
+
+      <h2>State Resources</h2>
+      <p>
+        Jim is licensed in New York, Connecticut, New Jersey, Pennsylvania, Florida, North Carolina, South Carolina, and
+        Tennessee. Below are official resources specific to the states he works with most.
+      </p>
+
+      <h3>New York</h3>
+      <ul>
+        <li><a href="https://myportal.dfs.ny.gov/web/guest-applications/medicare-monthly-premiums" rel="nofollow noopener" target="_blank">NY Medigap pricing by county</a> — the New York Department of Financial Services' official monthly premium database, searchable by county.</li>
+        <li><strong>EPIC</strong> (Elderly Pharmaceutical Insurance Coverage) — New York's state pharmaceutical assistance program for seniors. Call <strong>800-332-3742</strong> to apply.</li>
+      </ul>
+      <p>See also: <a href="/new-york-medicare-supplement">Medicare Supplement in New York</a> and <a href="/new-york-high-deductible-plan-g">High-Deductible Plan G in New York</a>.</p>
+
+      <h3>Connecticut</h3>
+      <ul>
+        <li><a href="https://portal.ct.gov/-/media/CID/MedigapFactSheetpdf.pdf?la=en" rel="nofollow noopener" target="_blank">CT Medigap Fact Sheet (PDF)</a> — the Connecticut Insurance Department's official overview of Medigap in Connecticut.</li>
+        <li><a href="https://portal.ct.gov/cid/-/media/cid/1_lifehealth/medicare_supplement_insurance_rates.pdf" rel="nofollow noopener" target="_blank">Monthly Medicare Supplement Rates for Standardized Plans (PDF)</a> — Connecticut's official Medigap premium rates.</li>
+        <li><a href="https://portal.ct.gov/AgingAndDisability" rel="nofollow noopener" target="_blank">CT Department of Aging and Disability Services</a> — includes CHOICES (Connecticut's Medicare counseling and assistance program), Area Agencies on Aging, Long-Term Care Partnership, and more.</li>
+        <li><a href="https://portal.ct.gov/DSS/Health-And-Home-Care/Medicare-Savings-Program/Medicare-Savings-Program" rel="nofollow noopener" target="_blank">CT Medicare Savings Programs</a> — state programs that help with Medicare costs for eligible residents.</li>
+      </ul>
+      <p>See also: <a href="/connecticut-medicare-supplement">Medicare Supplement in Connecticut</a>.</p>
+
+      <h3>New Jersey</h3>
+      <ul>
+        <li><a href="https://www.nj.gov/humanservices/doas/documents/1%2013%2026%20Male-at-age-65-chart.pdf" rel="nofollow noopener" target="_blank">NJ Medigap pricing — Male at age 65 (PDF)</a></li>
+        <li><a href="https://www.nj.gov/humanservices/doas/documents/1%2013%2026%20Female%20Age%2065%20Chart.pdf" rel="nofollow noopener" target="_blank">NJ Medigap pricing — Female at age 65 (PDF)</a></li>
+        <li><a href="https://www.state.nj.us/humanservices/doas/services/paad/index.html" rel="nofollow noopener" target="_blank">PAAD — Pharmaceutical Assistance to the Aged and Disabled</a> — NJ state-funded program that helps eligible seniors save on prescription costs.</li>
+        <li><a href="https://www.state.nj.us/humanservices/doas/services/seniorgold/index.html" rel="nofollow noopener" target="_blank">Senior Gold Prescription Discount Program</a> — a separate NJ prescription program with different income guidelines than PAAD.</li>
+        <li><a href="https://www.nj.gov/humanservices/doas/services/l-p/njsave/index.shtml" rel="nofollow noopener" target="_blank">NJ SAVE</a> — apply for both PAAD and Senior Gold online or via paper.</li>
+      </ul>
+
+      <h3>Pennsylvania</h3>
+      <ul>
+        <li><a href="https://www.aging.pa.gov/aging-services/prescriptions/Pages/default.aspx" rel="nofollow noopener" target="_blank">PACE and PACENET</a> — Pennsylvania's Pharmaceutical Assistance Contract for the Elderly. Call <strong>800-225-7223</strong>.</li>
+      </ul>
+
+      <h3>Florida</h3>
+      <ul>
+        <li><a href="https://apps.fldfs.com/mcws/CWSSearch" rel="nofollow noopener" target="_blank">Florida Medigap pricing</a> — Florida Department of Financial Services' Medicare supplement rate search.</li>
+        <li><a href="https://www.shiptacenter.org/about-medicare/regional-ship-location/florida" rel="nofollow noopener" target="_blank">Florida SHIP</a> — no-cost Medicare counseling from Florida's State Health Insurance Assistance Program.</li>
+      </ul>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="generic" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Links on this page go to government and official public sources and are provided for informational purposes only.
+          This site is not affiliated with or endorsed by the U.S. government, Medicare, or any government agency. Links are
+          verified periodically but URLs may change; if a link is broken, search the named document at Medicare.gov, SSA.gov,
+          or CMS.gov. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Questions about any of these resources? Let's talk." />
+</BaseLayout>

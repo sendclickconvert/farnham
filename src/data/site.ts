@@ -230,6 +230,10 @@ export const NAV_ITEMS = [
     href: '/events',
   },
   {
+    label: 'Resources',
+    href: '/resources',
+  },
+  {
     label: 'About',
     href: '/about',
   },

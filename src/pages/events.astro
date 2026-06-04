@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
 import { BUSINESS, AGENT, FORMS } from '../data/site';
 
-const title = 'Free Medicare 101 Classes';
+const title = 'No-Cost Medicare 101 Classes';
 const description = 'Join a no-cost, no-pressure “Medicare 101” class with Jim Farnham. Plain-English education on how Medicare works — online and at local libraries and learning centers.';
 
 // ⚠️ CONFIRM — replace with real scheduled sessions (date/time/registration link).
@@ -26,7 +26,7 @@ const eventSchema = {
     organizer: { '@id': `${BUSINESS.url}/#organization` },
     performer: { '@id': `${BUSINESS.url}/#agent` },
     isAccessibleForFree: true,
-    description: 'A free, plain-English class on how Medicare works — Parts A, B, C, and D, and how Medigap fits in. No sales pitch.',
+    description: 'A no-cost, plain-English class on how Medicare works — Parts A, B, C, and D, and how Medigap fits in. No sales pitch.',
   })),
 };
 
@@ -36,7 +36,7 @@ const fmt = (iso: string) =>
 
 <BaseLayout title={title} description={description} schema={eventSchema}>
   <PageHero
-    title="Free “Medicare 101” Classes"
+    title="No-Cost “Medicare 101” Classes"
     subtitle="A plain-English class on how Medicare works — no sales pitch, just the foundation you need to decide with confidence."
     breadcrumbs={[{ label: 'Medicare 101' }]}
   />
@@ -60,7 +60,7 @@ const fmt = (iso: string) =>
               <p class="text-sm text-navy-600 mt-1">{fmt(e.date)}</p>
               <p class="text-sm text-navy-500">{e.location}</p>
             </div>
-            <a href={FORMS.webinarRegistrationUrl} class="btn-primary shrink-0">Register free</a>
+            <a href={FORMS.webinarRegistrationUrl} class="btn-primary shrink-0">Register — no cost</a>
           </div>
         ))}
       </div>

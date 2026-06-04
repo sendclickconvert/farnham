@@ -1,5 +1,5 @@
 ---
-import { BUSINESS, AGENT, MEDICARE_2026 } from '../data/site';
+import { BUSINESS, AGENT, FORMS, DISCLAIMERS } from '../data/site';
 ---
 
 <section class="relative bg-crst-primary overflow-hidden">
@@ -24,9 +24,9 @@ import { BUSINESS, AGENT, MEDICARE_2026 } from '../data/site';
         </h1>
 
         <p class="text-lg text-white/75 font-heading leading-relaxed max-w-xl mb-6">
-          Helping you understand your options — so you don’t overpay for coverage you may never fully use. I specialize in
-          <strong class="text-white"> High-Deductible Medicare Supplement Insurance</strong>, and I help you compare it against
-          traditional Medigap, Medicare Advantage, and Part D, so you can choose what truly fits.
+          My approach is to educate first — explain your options clearly and show you how to save money along the way. I specialize in
+          <strong class="text-white">High-Deductible Medicare Supplement Insurance</strong> and compare it honestly against
+          traditional Medigap, Medicare Advantage, and Part D. If a different path fits better for you, I’ll tell you that too.
         </p>
 
         <p class="text-base text-white/55 font-heading leading-relaxed max-w-xl mb-8">
@@ -61,24 +61,58 @@ import { BUSINESS, AGENT, MEDICARE_2026 } from '../data/site';
         </div>
       </div>
 
-      <!-- Headshot card -->
-      <div class="relative lg:justify-self-end">
-        <div class="relative bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-5 max-w-sm mx-auto">
-          <!-- ⚠️ Client to supply headshot → /public/images/jim-farnham.jpg -->
-          <div class="aspect-[4/5] rounded-xl overflow-hidden bg-navy-100/20 flex items-center justify-center">
-            <img src={AGENT.photo} alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-            <div class="hidden w-full h-full items-center justify-center text-center text-white/40 text-sm font-heading p-6" style="display:none;">
-              Jim Farnham headshot<br />(client to supply)
+      <!-- Lead-form card (soft, no-PHI; mirrors /contact submission + consent) -->
+      <div class="relative lg:justify-self-end w-full max-w-md mx-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-navy-100 p-6 sm:p-7">
+          <!-- Agent header (⚠️ Client to supply headshot → /public/images/jim-farnham.jpg) -->
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-navy-100 shrink-0 flex items-center justify-center">
+              <img src={AGENT.photo} alt={AGENT.fullName} class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <span class="hidden w-full h-full items-center justify-center font-display text-crst-primary" style="display:none;">JF</span>
+            </div>
+            <div>
+              <p class="font-display text-crst-primary leading-tight">{AGENT.fullName}</p>
+              <p class="text-xs text-navy-500 font-heading">{AGENT.title}</p>
             </div>
           </div>
-          <div class="mt-4 text-center">
-            <p class="font-display text-xl text-white">{AGENT.fullName}</p>
-            <p class="text-sm text-white/60 font-heading">{AGENT.title}</p>
-          </div>
-          <div class="mt-4 rounded-lg bg-crst-gold/15 border border-crst-gold/30 p-3 text-center">
-            <p class="text-xs text-white/70 font-heading">2026 High-Deductible Plan G deductible</p>
-            <p class="text-2xl font-display text-crst-gold">{MEDICARE_2026.hdDeductible}</p>
-          </div>
+
+          <h2 class="text-xl sm:text-2xl font-display text-crst-primary leading-tight mb-1">Get a no-cost, no-obligation Medicare review</h2>
+          <p class="text-sm text-navy-500 font-heading mb-5">No cost, no pressure — I’ll personally call you back.</p>
+
+          <form class="space-y-3" method="POST" action={FORMS.webhookUrl || '#'} data-form="lead">
+            <div>
+              <label for="hero-name" class="sr-only">Name</label>
+              <input id="hero-name" name="name" type="text" required autocomplete="name" placeholder="Name" class="w-full rounded-lg border border-navy-200 px-4 py-2.5 text-navy-800 placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-crst-accent" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="hero-phone" class="sr-only">Phone</label>
+                <input id="hero-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone" class="w-full rounded-lg border border-navy-200 px-4 py-2.5 text-navy-800 placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-crst-accent" />
+              </div>
+              <div>
+                <label for="hero-zip" class="sr-only">ZIP code</label>
+                <input id="hero-zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="ZIP" class="w-full rounded-lg border border-navy-200 px-4 py-2.5 text-navy-800 placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-crst-accent" />
+              </div>
+            </div>
+            <div>
+              <label for="hero-status" class="sr-only">Your Medicare status</label>
+              <select id="hero-status" name="status" required class="w-full rounded-lg border border-navy-200 px-4 py-2.5 text-navy-800 bg-white focus:outline-none focus:ring-2 focus:ring-crst-accent">
+                <option value="" disabled selected>I'm…</option>
+                <option value="turning-65">Turning 65 soon</option>
+                <option value="on-medicare">Already on Medicare</option>
+                <option value="exploring">Just exploring my options</option>
+              </select>
+            </div>
+
+            <label class="flex items-start gap-2.5 text-xs text-navy-500 leading-snug">
+              <input type="checkbox" name="consent" required class="mt-0.5 shrink-0" />
+              <span>By submitting, I agree to be contacted by a licensed insurance agent by phone, text, email, or mail about Medicare plan options. Consent is not a condition of purchase.</span>
+            </label>
+
+            <button type="submit" class="btn-accent w-full justify-center">Request my no-cost review</button>
+
+            <p class="text-[11px] text-navy-400 leading-snug pt-1">{DISCLAIMERS.noPHI}</p>
+          </form>
         </div>
       </div>
     </div>

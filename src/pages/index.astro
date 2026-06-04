@@ -1,336 +1,207 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { BUSINESS, AGENT, SERVICES, MEDICARE_2026, FORMS, DISCLAIMERS } from '../data/site';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTASection from '../components/CTASection.astro';
+import { BUSINESS, SERVICES, MEDICARE_2026 } from '../data/site';
 
-const tel = `tel:${BUSINESS.phoneClean}`;
-
-const stats = [
-  { value: `${BUSINESS.stats.yearsInsurance} Years`, label: 'Experience' },
-  { value: 'NY & CT', label: 'Licensed Agent' },
-  { value: 'Zero Cost', label: 'Consultations' },
-  { value: 'Education First', label: 'Approach' },
+const audiences = [
+  {
+    tag: 'Turning 65?',
+    title: 'Start Here — Timing Matters',
+    body: 'Your first 6 months on Medicare is your one-time guaranteed window: no medical underwriting, no health questions, and you can’t be declined. What you choose now can shape your flexibility for years.',
+    href: '/medicare-basics',
+    cta: 'Plan your first decision',
+  },
+  {
+    tag: 'Already on Medicare?',
+    title: 'You May Be Paying More Than You Need To',
+    body: 'Many people pick a plan at 65 and never revisit it — even as premiums climb. In New York and Connecticut, you can review and switch your Medigap plan any time of year, with no health questions.',
+    href: '/services/high-deductible-medicare-supplement',
+    cta: 'Review your options',
+  },
 ];
 
-const process = [
-  { n: '1', title: 'Free Conversation', text: 'A brief, no-pressure chat to understand your unique timeline and needs.' },
-  { n: '2', title: 'Compare Costs', text: 'We analyze total real costs — including deductibles and copays — not just premiums.' },
-  { n: '3', title: 'Enroll with Confidence', text: 'We handle the paperwork and ensure a smooth transition into your new plan.' },
-  { n: '4', title: 'Ongoing Support', text: 'You get my direct cell phone number for any questions that arise later.' },
-];
-
-const flagshipPoints = [
-  'Significant monthly premium savings',
-  'Predictable maximum out-of-pocket costs',
-  'See any doctor nationwide who accepts Medicare',
+const whyPoints = [
+  { title: 'Education first', text: 'I teach before I recommend. You’ll understand your options clearly before any decision is made.' },
+  { title: 'Real costs, not just premiums', text: 'We compare total annual cost — premium plus out-of-pocket — not just the monthly number.' },
+  { title: 'You get my cell phone', text: 'Call or text me directly for updates and ongoing support. No call centers, no phone trees.' },
+  { title: 'No pressure, no obligation', text: 'Consultations are at no cost. I make no promises and no guarantees — just clear guidance.' },
 ];
 ---
 
 <BaseLayout title="Home">
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-cream">
-    <!-- Background photo -->
-    <img src="/images/senior-couple.png" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center" />
-    <!-- Warm cream overlay: opaque on the left so text stays crisp, fades right so photo shows through -->
-    <div class="absolute inset-0 bg-gradient-to-r from-cream from-30% via-cream/80 via-55% to-cream/20"></div>
+  <Hero />
+  <TrustBar />
 
-    <div class="relative container-wide pt-16 pb-20 md:pt-24 md:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-    <div class="lg:col-span-6 space-y-8">
-      <div class="inline-flex items-center gap-2 border border-sand bg-white px-4 py-2 rounded-full text-sm font-medium text-navy-600">
-        <span class="w-2 h-2 rounded-full bg-teal"></span>
-        Clear, no-pressure guidance
-      </div>
-
-      <h1 class="font-display text-5xl md:text-7xl font-medium leading-[1.1] text-ink">
-        Medicare made <span class="italic text-teal">human.</span>
-      </h1>
-
-      <p class="text-xl md:text-2xl text-navy-600 leading-relaxed max-w-xl">
-        Independent advisory serving the Hudson Valley &amp; Connecticut. An
-        education-first approach with zero sales pressure — from a licensed agent
-        who answers his own phone.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-4 pt-2">
-        <a href="/contact" class="inline-flex items-center justify-center gap-3 bg-teal text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-teal-dark transition-colors">
-          Book a Free Consultation
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
-        <a href={tel} class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg text-lg font-semibold text-teal border-2 border-sand hover:border-teal transition-colors">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-          {BUSINESS.phone}
-        </a>
-      </div>
-    </div>
-
-    <div class="lg:col-span-6 relative">
-      <!-- warmth behind the card -->
-      <div class="absolute -bottom-8 -left-8 w-48 h-48 bg-terracotta rounded-full mix-blend-multiply opacity-20 blur-2xl z-0"></div>
-      <div class="absolute -top-8 -right-8 w-64 h-64 bg-teal rounded-full mix-blend-multiply opacity-10 blur-3xl z-0"></div>
-
-      <!-- Lead-form card (soft, no-PHI; mirrors /contact submission + consent) -->
-      <div class="relative z-10 bg-white rounded-2xl shadow-2xl border border-sand p-6 sm:p-8 w-full max-w-md mx-auto lg:ml-auto">
-        <!-- Agent header (headshot avatar + graceful fallback) -->
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-12 h-12 rounded-full overflow-hidden bg-teal/10 shrink-0 flex items-center justify-center">
-            <img src={AGENT.photo} alt={AGENT.fullName} class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-            <span class="hidden w-full h-full items-center justify-center font-display text-teal" style="display:none;">JF</span>
-          </div>
-          <div>
-            <p class="font-display text-lg text-ink leading-tight">{AGENT.fullName}</p>
-            <p class="text-xs text-navy-500 font-heading">{AGENT.title}</p>
-          </div>
-        </div>
-
-        <h2 class="font-display text-2xl sm:text-3xl text-ink leading-tight mb-1.5">Get a free, no-obligation Medicare review</h2>
-        <p class="text-sm text-navy-600 font-heading mb-6">No cost, no pressure — I'll personally call you back.</p>
-
-        <form class="space-y-3" method="POST" action={FORMS.webhookUrl || '#'} data-form="lead">
-          <div>
-            <label for="hero-name" class="sr-only">Name</label>
-            <input id="hero-name" name="name" type="text" required autocomplete="name" placeholder="Name" class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-teal" />
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label for="hero-phone" class="sr-only">Phone</label>
-              <input id="hero-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone" class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-teal" />
-            </div>
-            <div>
-              <label for="hero-zip" class="sr-only">ZIP code</label>
-              <input id="hero-zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="ZIP" class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-teal" />
-            </div>
-          </div>
-          <div>
-            <label for="hero-status" class="sr-only">Your Medicare status</label>
-            <select id="hero-status" name="status" required class="w-full rounded-lg border border-sand px-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-teal">
-              <option value="" disabled selected>I'm…</option>
-              <option value="turning-65">Turning 65 soon</option>
-              <option value="on-medicare">Already on Medicare</option>
-              <option value="exploring">Just exploring my options</option>
-            </select>
-          </div>
-
-          <!-- Consent (TCPA) — mirrors /contact exactly -->
-          <label class="flex items-start gap-2.5 text-xs text-navy-600 leading-snug">
-            <input type="checkbox" name="consent" required class="mt-0.5 shrink-0" />
-            <span>By submitting, I agree to be contacted by a licensed insurance agent by phone, text, email, or mail about Medicare plan options. Consent is not a condition of purchase.</span>
-          </label>
-
-          <button type="submit" class="btn-primary w-full justify-center">Request my free review</button>
-
-          <p class="text-[11px] text-navy-500 leading-snug pt-1">{DISCLAIMERS.noPHI}</p>
-        </form>
-      </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- Trust Bar -->
-  <div class="border-y border-sand bg-white">
-    <div class="container-wide py-10">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center md:text-left divide-x-0 md:divide-x divide-sand">
-        {stats.map((s) => (
-          <div class="md:px-8 space-y-1">
-            <p class="font-display text-2xl font-semibold text-teal">{s.value}</p>
-            <p class="text-navy-600 text-sm uppercase tracking-wider font-semibold">{s.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- Two-audience split -->
-  <section class="container-wide py-20 lg:py-24">
-    <h2 class="font-display text-4xl md:text-5xl text-center text-ink mb-14">Where are you in your journey?</h2>
-    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-      <div class="bg-white p-10 lg:p-14 border border-sand rounded-lg flex flex-col items-start hover:shadow-lg transition-shadow">
-        <div class="bg-cream p-4 rounded-full mb-8">
-          <svg class="w-8 h-8 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        </div>
-        <h3 class="font-display text-3xl text-ink mb-4">Turning 65?</h3>
-        <p class="text-lg text-navy-600 mb-8 leading-relaxed flex-grow">
-          Your first 6 months on Medicare is your one-time guaranteed window — enroll
-          without health questions or underwriting. Let's get it right the first time.
-        </p>
-        <a href="/medicare-basics" class="font-semibold text-teal text-lg inline-flex items-center gap-2 hover:gap-3 transition-all">
-          Plan your first decision
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
-      </div>
-
-      <div class="bg-teal text-white p-10 lg:p-14 rounded-lg flex flex-col items-start hover:shadow-lg transition-shadow">
-        <div class="bg-teal-dark p-4 rounded-full mb-8">
-          <svg class="w-8 h-8 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        </div>
-        <h3 class="font-display text-3xl mb-4">Already on Medicare?</h3>
-        <p class="text-lg text-white/85 mb-8 leading-relaxed flex-grow">
-          In NY &amp; CT, you can review and switch your Medigap plan any time of year —
-          no health questions asked. Are you overpaying for your current plan?
-        </p>
-        <a href="/services/high-deductible-medicare-supplement" class="font-semibold text-white text-lg inline-flex items-center gap-2 hover:gap-3 transition-all border-b border-white/30 pb-1 hover:border-white">
-          Review your current plan
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Flagship explainer -->
-  <section class="bg-sand/30 py-20 lg:py-24">
-    <div class="container-wide grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-      <div class="order-2 lg:order-1 relative">
-        <div class="aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
-          <img src="/images/senior-outdoor.png" alt="Active seniors outdoors" class="w-full h-full object-cover" loading="lazy" />
-        </div>
-      </div>
-      <div class="order-1 lg:order-2 space-y-7">
-        <p class="text-sm uppercase tracking-widest font-semibold text-teal">Flagship Strategy</p>
-        <h2 class="font-display text-4xl md:text-5xl leading-tight text-ink">
-          High-Deductible Medigap (Plan G)
-        </h2>
-        <p class="text-xl text-navy-600 leading-relaxed">
-          Lower your monthly premiums while keeping comprehensive coverage. Once you meet
-          the annual deductible ({MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year}), your coverage is
-          identical to standard Plan G.
-        </p>
-        <ul class="space-y-4">
-          {flagshipPoints.map((point) => (
-            <li class="flex items-start gap-4">
-              <svg class="w-6 h-6 text-teal shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span class="text-lg text-navy-600">{point}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="pt-2">
-          <a href="/services/high-deductible-medicare-supplement" class="inline-flex items-center justify-center gap-3 bg-white border-2 border-teal text-teal px-8 py-4 rounded-lg text-lg font-medium hover:bg-teal hover:text-white transition-colors">
-            See how it works
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Grid -->
-  <section class="container-wide py-20 lg:py-24">
-    <div class="mb-14 max-w-3xl">
-      <h2 class="font-display text-4xl md:text-5xl text-ink mb-5">Comprehensive Coverage Options</h2>
-      <p class="text-xl text-navy-600">
-        We help you navigate the complete Medicare landscape to build a plan that fits
-        your health needs and financial goals.
+  <!-- Intro -->
+  <section class="py-16 lg:py-20">
+    <div class="container-narrow text-center">
+      <div class="section-divider mx-auto mb-6"></div>
+      <h2 class="text-3xl sm:text-4xl font-display text-crst-primary mb-5 text-balance">A Smarter Way to Think About Medicare Coverage</h2>
+      <p class="text-lg text-navy-600 leading-relaxed">
+        Choosing Medicare coverage is one of the most important financial decisions you’ll make in retirement — yet many people
+        pay higher premiums than necessary simply because no one showed them a different option. After {BUSINESS.stats.yearsInsurance} years
+        in insurance and financial services, I help individuals evaluate <strong class="text-crst-primary">High-Deductible Medicare Supplement
+        Insurance</strong> alongside traditional Medigap, Medicare Advantage, and Part D — so you can choose what truly fits your situation.
       </p>
     </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {SERVICES.map((s) => (
-        <a
-          href={`/services/${s.slug}`}
-          title={s.title}
-          class:list={[
-            'group block p-8 rounded-lg shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg',
-            s.flagship ? 'bg-teal text-white' : 'bg-white border border-sand',
-          ]}
-        >
-          {s.flagship && (
-            <span class="inline-block text-xs font-semibold uppercase tracking-wider text-cream/90 bg-white/10 px-3 py-1 rounded-full mb-4">Our Specialty</span>
-          )}
-          <h3 class:list={['font-display text-2xl mb-3', s.flagship ? 'text-white' : 'text-ink']}>{s.title}</h3>
-          <p class:list={['text-lg leading-relaxed', s.flagship ? 'text-white/85' : 'text-navy-600']}>{s.summary}</p>
-          <span class:list={['inline-flex items-center gap-1.5 mt-5 text-sm font-semibold', s.flagship ? 'text-white' : 'text-teal']}>
-            Learn more
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
-        </a>
-      ))}
-    </div>
   </section>
 
-  <!-- How it works -->
-  <section class="bg-white py-20 lg:py-24 border-t border-sand">
+  <!-- Medicare 101 no-cost classes -->
+  <section class="py-16 lg:py-20 bg-navy-50/60">
     <div class="container-wide">
-      <h2 class="font-display text-4xl md:text-5xl text-center text-ink mb-16">Our Process</h2>
-      <div class="grid md:grid-cols-4 gap-8 relative">
-        <div class="hidden md:block absolute top-8 left-0 right-0 h-px bg-sand z-0"></div>
-        {process.map((step) => (
-          <div class="relative z-10 flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-cream border-2 border-teal rounded-full flex items-center justify-center text-teal font-display text-2xl mb-6 font-bold">{step.n}</div>
-            <h3 class="text-xl font-bold text-ink mb-3">{step.title}</h3>
-            <p class="text-navy-600 text-lg leading-relaxed">{step.text}</p>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="section-divider mb-6"></div>
+          <h2 class="text-3xl sm:text-4xl font-display text-crst-primary mb-5">No-Cost Medicare 101 Classes</h2>
+          <p class="text-lg text-navy-600 leading-relaxed mb-4">
+            Jim teaches no-cost, plain-English Medicare 101 classes at libraries, senior centers, and colleges throughout the
+            Hudson Valley. No sales pitch — just clear, straightforward information so you understand your options and can
+            make better decisions for yourself.
+          </p>
+          <p class="text-navy-600 leading-relaxed mb-6">
+            Classes cover Parts A, B, C, and D; Medigap and Medicare Advantage; enrollment timing and how to avoid penalties;
+            how to compare plans; and state-specific resources for New York and Connecticut. Attendees leave with a curated
+            list of official government sites — the same resources Jim uses every day in his practice.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/events" class="btn-primary">See upcoming classes</a>
+            <a href="/resources" class="inline-flex items-center gap-2 text-crst-accent font-heading font-semibold hover:underline">
+              View the resource list
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="card border-l-4 border-crst-gold">
+            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">What you'll cover</h3>
+            <p class="text-sm text-navy-600 m-0">Parts A, B, C, and D explained plainly — plus Medigap vs. Medicare Advantage, enrollment windows, and how to avoid late penalties.</p>
+          </div>
+          <div class="card border-l-4 border-crst-gold">
+            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">Who it's for</h3>
+            <p class="text-sm text-navy-600 m-0">Anyone turning 65, already on Medicare, or helping a family member through the process. All are welcome — no purchase expected or required.</p>
+          </div>
+          <div class="card border-l-4 border-crst-gold">
+            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">Take-home resources</h3>
+            <p class="text-sm text-navy-600 m-0">Attendees receive Jim's curated list of official government sites — Medicare.gov, SSA.gov, CMS.gov, and state-specific resources for NY, CT, NJ, PA, and FL.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two audiences -->
+  <section class="pb-4">
+    <div class="container-wide">
+      <div class="grid md:grid-cols-2 gap-6">
+        {audiences.map((a) => (
+          <div class="card animate-on-scroll">
+            <span class="inline-block text-xs font-heading font-bold uppercase tracking-wider text-crst-gold mb-3">{a.tag}</span>
+            <h3 class="text-2xl font-display text-crst-primary mb-3">{a.title}</h3>
+            <p class="text-navy-600 leading-relaxed mb-5">{a.body}</p>
+            <a href={a.href} class="inline-flex items-center gap-1 text-sm font-heading font-semibold text-crst-accent hover:text-crst-primary transition-colors">
+              {a.cta}
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- About Jim -->
-  <section class="bg-sand/30 py-20 lg:py-24">
-    <div class="container-wide max-w-6xl grid md:grid-cols-12 gap-12 lg:gap-16 items-center">
-      <div class="md:col-span-5">
-        <div class="aspect-[3/4] rounded-lg shadow-xl overflow-hidden">
-          <img src="/images/jim-farnham-placeholder.png" alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full h-full object-cover" loading="lazy" />
-        </div>
-      </div>
-      <div class="md:col-span-7 space-y-7">
-        <h2 class="font-display text-4xl md:text-5xl leading-tight text-ink">An advocate in your corner.</h2>
-        <p class="text-2xl text-ink font-display italic leading-snug">
-          “I lead with education. When you understand how Medicare works, the right
-          choice becomes obvious.”
-        </p>
-        <div class="space-y-4 text-lg text-navy-600 leading-relaxed">
-          <p>
-            Hi, I'm Jim Farnham. With {BUSINESS.stats.yearsInsurance} years in insurance and financial
-            services — the last {BUSINESS.stats.yearsMedicare} focused almost exclusively on Medicare —
-            I've seen how confusing the transition can be.
-          </p>
-          <p>
-            My practice is built on clarity. No sales tactics, no pressure. I look at your
-            total healthcare picture — real costs, doctors, and medications — to find the
-            strategy that protects your health and your wealth.
-          </p>
-          <p class="font-semibold text-ink">
-            And when you work with me, you don't call an 800 number. You get my personal cell phone.
-          </p>
-        </div>
-        <div class="pt-2">
-          <a href="/about" class="text-teal font-semibold text-lg inline-flex items-center gap-2 hover:gap-3 transition-all border-b-2 border-teal pb-1">
-            Read my full bio
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Medicare 101 Banner -->
-  <section class="bg-ink text-white py-16">
-    <div class="container-wide max-w-5xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-      <div class="flex items-center gap-6">
-        <div class="hidden md:flex bg-white/10 p-4 rounded-full shrink-0">
-          <svg class="w-10 h-10 text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5 12.083 12.083 0 015.84 10.578L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7"/></svg>
-        </div>
+  <!-- HD Medigap explainer -->
+  <section class="py-16 lg:py-20">
+    <div class="container-wide">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h3 class="font-display text-3xl text-white mb-2">Free Medicare 101 Classes</h3>
-          <p class="text-lg text-white/80">Join Jim for a plain-English workshop at local libraries and community centers.</p>
+          <div class="section-divider mb-6"></div>
+          <h2 class="text-3xl sm:text-4xl font-display text-crst-primary mb-5">What Is a High-Deductible Medigap Plan?</h2>
+          <p class="text-navy-600 leading-relaxed mb-4">
+            It works just like a traditional Medicare Supplement plan, with two key differences: you pay a
+            <strong class="text-crst-primary"> lower monthly premium</strong> and take on a
+            <strong class="text-crst-primary"> higher annual deductible</strong> ({MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year}).
+            Once you meet that deductible, coverage works exactly like a standard plan.
+          </p>
+          <p class="text-navy-600 leading-relaxed mb-6">
+            So the real question isn’t <em>“Is it risky?”</em> — it’s <em>“Does it make financial sense for your situation?”</em>
+            For many people, especially in New York and Connecticut, the answer is yes.
+          </p>
+          <a href="/services/high-deductible-medicare-supplement" class="btn-primary">See how it works</a>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-navy-50 rounded-xl p-6 border border-navy-100">
+            <h3 class="font-heading font-semibold text-crst-primary mb-3">Traditional Medigap</h3>
+            <ul class="space-y-2 text-sm text-navy-600">
+              <li class="flex gap-2"><span class="text-crst-accent">•</span> Higher monthly premiums</li>
+              <li class="flex gap-2"><span class="text-crst-accent">•</span> Lower out-of-pocket costs when care is used</li>
+            </ul>
+          </div>
+          <div class="bg-crst-primary rounded-xl p-6 text-white">
+            <h3 class="font-heading font-semibold text-crst-gold mb-3">High-Deductible Medigap</h3>
+            <ul class="space-y-2 text-sm text-white/80">
+              <li class="flex gap-2"><span class="text-crst-gold">•</span> Lower monthly premiums</li>
+              <li class="flex gap-2"><span class="text-crst-gold">•</span> Higher deductible before coverage begins ({MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year})</li>
+              <li class="flex gap-2"><span class="text-crst-gold">•</span> Identical to standard coverage once the deductible is met</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <a href="/events" class="bg-terracotta text-ink px-8 py-4 rounded-lg text-lg font-bold hover:bg-white transition-colors whitespace-nowrap">
-        See Upcoming Classes
-      </a>
     </div>
   </section>
 
-  <!-- Final CTA -->
-  <section class="container-wide max-w-4xl py-24 lg:py-32 text-center">
-    <h2 class="font-display text-5xl md:text-6xl leading-tight text-ink mb-6">Ready to find your plan?</h2>
-    <p class="text-2xl text-navy-600 mb-10">Schedule a no-cost, no-obligation consultation today.</p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-      <a href="/contact" class="bg-teal text-white px-10 py-5 rounded-lg text-xl font-medium hover:bg-teal-dark transition-colors shadow-lg">
-        Schedule a Free Consultation
-      </a>
-      <span class="text-navy-600 font-medium text-lg">or call</span>
-      <a href={tel} class="text-teal text-2xl font-bold hover:underline inline-flex items-center gap-2">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        {BUSINESS.phone}
-      </a>
+  <!-- Services -->
+  <section class="py-16 lg:py-20 bg-navy-50/60">
+    <div class="container-wide">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="section-divider mx-auto mb-6"></div>
+        <h2 class="text-3xl sm:text-4xl font-display text-crst-primary mb-4">How I Can Help</h2>
+        <p class="text-navy-600 leading-relaxed">My specialty is High-Deductible Medicare Supplement Insurance, but I make a full range of Medicare-related coverage available.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {SERVICES.map((s) => (
+          <ServiceCard title={s.title} slug={s.slug} summary={s.summary} icon={s.icon} flagship={s.flagship} />
+        ))}
+      </div>
     </div>
   </section>
+
+  <!-- Why Jim -->
+  <section class="py-16 lg:py-20">
+    <div class="container-wide">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="section-divider mx-auto mb-6"></div>
+        <h2 class="text-3xl sm:text-4xl font-display text-crst-primary mb-4">What Makes My Approach Different</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {whyPoints.map((p) => (
+          <div class="text-center">
+            <div class="w-12 h-12 rounded-full bg-crst-gold/15 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-crst-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="font-heading font-semibold text-crst-primary mb-2">{p.title}</h3>
+            <p class="text-sm text-navy-600 leading-relaxed">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Medicare 101 banner -->
+  <section class="pb-16 lg:pb-20">
+    <div class="container-wide">
+      <div class="rounded-2xl bg-gradient-to-br from-navy-50 to-crst-light border border-navy-100 p-8 lg:p-12 text-center">
+        <span class="inline-block text-xs font-heading font-bold uppercase tracking-wider text-crst-gold mb-3">No-Cost Class</span>
+        <h2 class="text-2xl sm:text-3xl font-display text-crst-primary mb-3">Join a No-Cost “Medicare 101” Session</h2>
+        <p class="text-navy-600 leading-relaxed max-w-2xl mx-auto mb-6">
+          I teach a plain-English class on how Medicare works — Parts A, B, C, and D, and how Medigap fits in. No sales pitch, just the
+          foundation you need to make a confident decision. Offered online and through local libraries and learning centers.
+        </p>
+        <a href="/events" class="btn-primary">See upcoming classes</a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
 </BaseLayout>
