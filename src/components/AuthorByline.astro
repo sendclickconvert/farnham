@@ -10,7 +10,7 @@ const { compact = false } = Astro.props;
 
 {compact ? (
   <div class="flex items-center gap-3 text-sm text-navy-500 mt-6">
-    <img src={AGENT.photo} alt={AGENT.fullName} class="w-12 h-12 rounded-full object-cover bg-navy-100" loading="lazy" />
+    <img src={AGENT.photo} alt={AGENT.fullName} class="w-16 h-16 rounded-full object-cover bg-navy-100" loading="lazy" />
     <div>
       <span class="font-medium text-navy-900">{AGENT.fullName}</span>
       <span class="mx-1">&middot;</span>

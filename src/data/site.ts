@@ -64,7 +64,7 @@ export const AGENT = {
   shortName: 'Jim Farnham',
   credentials: 'MS, MBA',
   fullName: 'James W. Farnham, MS, MBA',
-  title: 'Licensed Insurance Agent & Medicare Specialist',
+  title: 'Licensed Agent / Insurance Broker',
   jobTitle: 'Independent Medicare Insurance Agent',
   // ⚠️ CONFIRM headshot file (client to supply); place at /public/images/jim-farnham.jpg
   photo: '/images/jim-farnham.jpg',
@@ -218,12 +218,6 @@ export const NAV_ITEMS = [
   {
     label: 'Service Areas',
     href: '/service-areas',
-    children: [
-      { label: 'Ulster County', href: '/service-areas/ulster-county' },
-      { label: 'Dutchess County', href: '/service-areas/dutchess-county' },
-      { label: 'Orange County', href: '/service-areas/orange-county' },
-      { label: 'Westchester County', href: '/service-areas/westchester-county' },
-    ],
   },
   {
     label: 'Medicare 101',
