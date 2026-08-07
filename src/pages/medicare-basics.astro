@@ -3,110 +3,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
 import Disclaimer from '../components/Disclaimer.astro';
-import AuthorByline from '../components/AuthorByline.astro';
 import { BUSINESS, MEDICARE_2026 } from '../data/site';
 
 const title = 'Medicare Basics: Parts A, B, C, and D Explained';
 const description = 'A plain-language guide to Medicare basics — what Parts A, B, C, and D each cover, what they cost, and how they fit together. No jargon, just the essentials.';
 const today = '2026-06-03';
 
-const faqs = [
-  { q: 'What are the parts of Medicare?', a: 'Medicare has four parts. Part A is hospital insurance, Part B is medical insurance, Part C is Medicare Advantage (a private alternative that bundles A and B), and Part D is prescription drug coverage. Parts A and B together are called Original Medicare.' },
-  { q: 'What is the difference between Part A and Part B?', a: 'Part A covers inpatient hospital care, skilled nursing, hospice, and some home health. Part B covers doctor visits, outpatient care, preventive services, and durable medical equipment. Most people pay no premium for Part A and a standard monthly premium for Part B.' },
-  { q: 'How much does Medicare cost?', a: `Most people pay no premium for Part A. Part B has a standard monthly premium and an annual deductible (${MEDICARE_2026.partBDeductible} in ${MEDICARE_2026.year}), after which you generally pay 20% of the Medicare-approved amount. Part C and Part D costs vary by plan. Original Medicare has no annual out-of-pocket limit on its own.` },
-  { q: 'Do I need more than Original Medicare?', a: 'Many people do, because Original Medicare leaves deductibles and coinsurance with no annual cap. You can add a Medigap plan plus Part D, or choose a Medicare Advantage plan, to limit your exposure. Which path fits depends on your priorities.' },
-];
-
-const articleSchema = { '@context': 'https://schema.org', '@type': 'Article', headline: 'Medicare Basics: Parts A, B, C, and D Explained', description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/medicare-basics` };
-const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
-const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/medicare-basics#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
-const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faqSchema, speakableSchema] };
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/medicare-basics` },
+    { '@type': 'WebPage', '@id': `${BUSINESS.url}/medicare-basics#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } },
+  ],
+};
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>
   <PageHero
     title="Medicare Basics"
-    subtitle="Parts A, B, C, and D — what each one covers and how they fit together, explained the way Jim teaches it in his no-cost Medicare 101 classes."
-    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Basics' }]}
+    subtitle="Parts A, B, C, and D — what each one covers and how they fit together, explained plainly."
+    breadcrumbs={[{ label: 'Medicare Basics' }]}
   />
-
-  <div class="bg-crst-light border-b border-navy-100">
-    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
-      <span class="text-sm font-heading text-navy-700">New to Medicare? Let’s make it simple.</span>
-      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
-    </div>
-  </div>
 
   <article class="py-14 lg:py-18">
     <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
 
       <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
         <p class="text-navy-800 leading-relaxed m-0">
-          Medicare comes in four parts. <strong>Part A</strong> is hospital insurance, <strong>Part B</strong> is medical insurance,
-          <strong>Part C</strong> is Medicare Advantage (a private way to get A and B together), and <strong>Part D</strong> is
-          prescription drug coverage. Parts A and B together are called <strong>Original Medicare</strong>.
+          Medicare comes in four parts. <strong>Part A</strong> is hospital insurance, <strong>Part B</strong> is medical
+          insurance, <strong>Part C</strong> is Medicare Advantage (a private way to get A and B together), and
+          <strong>Part D</strong> is prescription drug coverage. Parts A and B together are called
+          <strong>Original Medicare</strong>.
         </p>
       </div>
 
       <p class="lead text-xl text-navy-700">
-        Once you know what each letter means, the rest of Medicare stops feeling like alphabet soup. Here’s the whole picture in a
-        few minutes.
+        Once you know what each letter means, the rest of Medicare stops feeling like alphabet soup. Here's the whole picture
+        in a few minutes.
       </p>
       <p class="text-sm text-navy-500 -mt-2">
-        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — Licensed Agent / Insurance Broker (NY license {BUSINESS.nyLicense}).
       </p>
 
-      <h2>Part A — hospital insurance</h2>
+      <h2>Part A — Hospital Insurance</h2>
       <p>
-        Part A covers inpatient hospital stays, skilled nursing facility care, hospice, and some home health care. Most people pay no
-        monthly premium for Part A because they (or a spouse) paid Medicare taxes while working. It does carry a deductible per
-        benefit period. More detail in <a href="/what-is-medicare-part-a">what is Medicare Part A</a>.
+        Part A covers inpatient hospital stays, skilled nursing facility care, hospice, and some home health care. Most
+        people pay no monthly premium for Part A because they (or a spouse) paid Medicare taxes while working. It does carry
+        a deductible per benefit period.
       </p>
 
-      <h2>Part B — medical insurance</h2>
+      <h2>Part B — Medical Insurance</h2>
       <p>
         Part B covers doctor visits, outpatient care, preventive services, lab work, and durable medical equipment. It has a
-        standard monthly premium and an annual deductible ({MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year}), after which you
-        generally pay 20% of the Medicare-approved amount — with no annual cap on its own. See
-        <a href="/what-is-medicare-part-b">what is Medicare Part B</a>.
+        standard monthly premium and an annual deductible ({MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year}), after
+        which you generally pay 20% of the Medicare-approved amount — with no annual cap on its own.
       </p>
 
       <h2>Part C — Medicare Advantage</h2>
       <p>
-        Part C, or Medicare Advantage, is a private alternative that bundles Parts A and B (and usually D) into one plan, often with
-        extra benefits and a network. Learn how it works on our <a href="/services/medicare-advantage">Medicare Advantage page</a>.
+        Part C, or Medicare Advantage, is a private alternative that bundles Parts A and B (and usually D) into one plan,
+        often with extra benefits and a network. Learn how it works on our
+        <a href="/services/medicare-advantage">Medicare Advantage page</a>.
       </p>
 
-      <h2>Part D — prescription drug coverage</h2>
+      <h2>Part D — Prescription Drug Coverage</h2>
       <p>
-        Part D covers prescription drugs through private plans. You can add it to Original Medicare, or get it bundled inside most
-        Medicare Advantage plans. See our <a href="/services/prescription-drug-plans">Part D guide</a>.
-      </p>
-
-      <h2>How the pieces fit together</h2>
-      <p>
-        Because Original Medicare leaves deductibles and coinsurance with no annual limit, most people add coverage: either a
-        <a href="/services/medicare-supplement">Medigap</a> plan plus Part D, or a Medicare Advantage plan. If you’re choosing, our
-        <a href="/medicare-advantage-vs-medigap">Advantage vs. Medigap</a> guide lays out both, and if you’re new to all this,
-        <a href="/turning-65">Turning 65 and Medicare</a> walks through the timing.
+        Part D covers prescription drugs through private plans. You can add it to Original Medicare, or get it bundled
+        inside most Medicare Advantage plans. See our <a href="/services/prescription-drug-plans">Part D guide</a>.
       </p>
 
       <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
-        <p class="text-white font-heading text-lg mb-3 m-0">Want it explained in plain English?</p>
+        <p class="text-white font-heading text-lg mb-2 m-0">Want this explained in plain English?</p>
         <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure conversation — or join a no-cost Medicare 101 class.</p>
         <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
       </div>
 
-      <h2>Frequently asked questions</h2>
-      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
-
-      <AuthorByline />
-
       <div class="not-prose mt-8">
         <Disclaimer variant="tpmo" />
         <p class="text-xs text-navy-500 mt-3 leading-relaxed">
-          Figures shown are {MEDICARE_2026.year} amounts set by Medicare and change annually. This page is educational and not
-          individualized advice. NY producer license #: {BUSINESS.nyLicense}.
+          Figures shown are {MEDICARE_2026.year} amounts set by Medicare and change annually. NY producer license #: {BUSINESS.nyLicense}.
         </p>
         <p class="text-xs text-navy-500 mt-2 leading-relaxed">
           Source: <a href="https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare basics</a>.
@@ -115,5 +90,5 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
     </div>
   </article>
 
-  <CTASection headline="New to Medicare? Let’s start with the basics together." />
+  <CTASection headline="New to Medicare? Let's start with the basics together." />
 </BaseLayout>

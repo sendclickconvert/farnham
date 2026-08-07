@@ -3,37 +3,31 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
-import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS, MEDICARE_2026 } from '../../data/site';
 
-const title = 'Medicare Supplement (Medigap) Plans Explained';
-const description = 'Medicare Supplement (Medigap) plans pay the gaps Original Medicare leaves behind. Learn how Medigap works, what the plans cover, and how to choose — in plain language.';
+const title = 'Medicare Supplement Insurance (Medigap)';
+const description = 'A Medicare Supplement Insurance (Medigap) plan works alongside Original Medicare to pay the deductibles, copays, and coinsurance it leaves to you. Learn how it works and which plan fits you.';
 const today = '2026-06-03';
 
-const faqs = [
-  { q: 'What is a Medicare Supplement (Medigap) plan?', a: 'It is a private insurance policy that works alongside Original Medicare to pay the deductibles, copays, and coinsurance Medicare leaves to you. Benefits are standardized by law, so a given plan letter covers the same things from any insurer, and you can use any provider nationwide that accepts Medicare.' },
-  { q: 'What do Medigap plans cover?', a: `Depending on the plan letter, Medigap can cover the Part A hospital deductible and coinsurance, Part B coinsurance, skilled nursing coinsurance, the first three pints of blood, hospice coinsurance, and foreign travel emergencies. Most plans available to people newly eligible do not cover the Part B deductible (${MEDICARE_2026.partBDeductible} in ${MEDICARE_2026.year}).` },
-  { q: 'Which Medigap plan do most people choose?', a: 'Plan G is a very common choice among people newly eligible for Medicare, because it covers nearly all of Original Medicare’s gaps except the Part B deductible. Plan N is a lower-premium alternative that trades small copays for a smaller monthly cost. The right plan depends on your budget and how you use care.' },
-  { q: 'When can I enroll in a Medigap plan?', a: 'Your strongest window is your 6-month Medigap Open Enrollment Period, which starts when you are 65 or older and enrolled in Part B. During it you have guaranteed-issue rights. New York and Connecticut go further and allow guaranteed-issue enrollment year-round.' },
-  { q: 'Does Medigap include prescription drug coverage?', a: 'No. Medigap does not include drug coverage, so most people add a separate Medicare Part D plan for their prescriptions.' },
-];
-
-const serviceSchema = { '@context': 'https://schema.org', '@type': 'Service', name: 'Medicare Supplement (Medigap) Insurance', serviceType: 'Medicare Supplement Insurance', provider: { '@id': `${BUSINESS.url}/#organization` }, areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }], description };
-const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
-const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/services/medicare-supplement#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
-const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faqSchema, speakableSchema] };
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Service', name: 'Medicare Supplement Insurance (Medigap)', serviceType: 'Medicare Supplement Insurance', provider: { '@id': `${BUSINESS.url}/#organization` }, areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }], description },
+    { '@type': 'WebPage', '@id': `${BUSINESS.url}/services/medicare-supplement#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } },
+  ],
+};
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>
   <PageHero
-    title="Medicare Supplement (Medigap) Plans"
-    subtitle="The coverage that pays what Original Medicare doesn’t — with the freedom to see any doctor that accepts Medicare. Here’s how it works."
-    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Supplement' }]}
+    title="Medicare Supplement Insurance (Medigap)"
+    subtitle="Private insurance that works alongside Original Medicare — paying the gaps it leaves behind, with the freedom to see any provider that accepts Medicare."
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Supplement Insurance (Medigap)' }]}
   />
 
   <div class="bg-crst-light border-b border-navy-100">
     <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
-      <span class="text-sm font-heading text-navy-700">Questions about Medigap?</span>
+      <span class="text-sm font-heading text-navy-700">Want help choosing the right Medigap plan?</span>
       <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
     </div>
   </div>
@@ -43,77 +37,57 @@ const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faq
 
       <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
         <p class="text-navy-800 leading-relaxed m-0">
-          A <strong>Medicare Supplement (Medigap)</strong> plan is private insurance that works alongside Original Medicare, paying
-          the deductibles, copays, and coinsurance it leaves to you. Benefits are standardized by law, you can use any provider
-          nationwide that accepts Medicare, and there are no networks or referrals. Drug coverage is separate.
+          A <strong>Medicare Supplement Insurance (Medigap)</strong> plan is private insurance that works alongside Original
+          Medicare, helping to pay the deductibles, copays, and coinsurance Medicare leaves to you. Benefits are standardized
+          by law. You can use any provider nationwide that accepts Medicare, and there are no networks or referrals. Drug
+          coverage is separate.
         </p>
       </div>
 
       <p class="lead text-xl text-navy-700">
-        Medigap is the simplest idea in Medicare: it fills the gaps. The details are where people get stuck — so let’s make them
-        clear.
-      </p>
-      <p class="text-sm text-navy-500 -mt-2">
-        Written by <a href="/about">Jim Farnham, MS, MBA</a> — licensed independent agent (NY license {BUSINESS.nyLicense}).
+        Medigap is simple: it fills the gaps. The details are where people get stuck — so let's make them clear.
       </p>
 
       <h2>How Medigap works</h2>
       <p>
-        Original Medicare (Part A and Part B) pays most of your covered costs, but it leaves deductibles, copays, and coinsurance
-        with no annual limit of its own. A Medigap plan pays its share of those leftover costs after Medicare pays first. The result
-        is fewer surprise bills and more predictable spending. Because Medigap pairs with Original Medicare, you keep the freedom to
-        use any doctor or hospital in the country that accepts Medicare.
+        Original Medicare (Part A and Part B) pays most of your covered costs, but it leaves behind a number of deductibles,
+        copays, and coinsurances. In fact, if all you have is Original Medicare, there is no annual limit on what you would
+        be responsible for. A Medigap plan pays its share of those leftover costs. The result: fewer surprise bills and more
+        predictable spending.
       </p>
 
       <h2>What Medigap plans cover</h2>
       <p>
-        Medigap plans are labeled by letter, and each letter is standardized — so a Plan G covers the same core benefits from any
-        insurer. Depending on the plan, coverage can include the Part A hospital deductible and coinsurance, Part B coinsurance,
-        skilled nursing facility coinsurance, the first three pints of blood, hospice coinsurance, and foreign travel emergencies.
-        Most plans available to people who became eligible in 2020 or later do not cover the Part B deductible
-        ({MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year}).
-      </p>
-
-      <h2>The most common Medigap plans</h2>
-      <p>
-        Two plans account for most enrollments among people newly eligible:
-        <a href="/medicare-plan-g">Plan G</a> covers nearly all of Original Medicare’s gaps except the Part B deductible, while
-        <a href="/medicare-plan-n">Plan N</a> trades small copays for a lower premium. If a Plan G premium feels high, the
-        lower-premium <a href="/services/high-deductible-medicare-supplement">High-Deductible Plan G</a> keeps the same coverage for
-        a higher deductible. You can see the full grid in our
-        <a href="/medicare-supplement-plans-comparison">Medicare Supplement plans comparison</a>.
+        Medigap plans are labeled by letter, and each letter is standardized — so Plan G covers the same core benefits from
+        any insurer. See the full <a href="/medicare-supplement-plans-comparison">Medicare Supplement plans comparison</a>.
       </p>
 
       <h2>When you can enroll in Medigap</h2>
       <p>
-        Your strongest window is the 6-month Medigap Open Enrollment Period that begins when you’re 65 or older and enrolled in Part
-        B — during it, you can’t be turned down. New York and Connecticut go further, allowing guaranteed-issue enrollment all year.
-        See <a href="/medigap-open-enrollment">when you can enroll in Medigap</a> and our
-        <a href="/new-york-medicare-supplement">New York Medicare Supplement overview</a> for the state rules.
+        Nationwide, everyone has a 6-month Medigap Open Enrollment Period that begins when you're 65 or older and enrolled
+        in Part B — during which, you can't be turned down. New York and Connecticut go further, allowing guaranteed-issue
+        enrollment all year. See <a href="/medigap-open-enrollment">when you can enroll in Medigap</a>.
       </p>
-
-      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
-        <p class="text-white font-heading text-lg mb-3 m-0">Want help choosing the right Medigap plan?</p>
-        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure comparison across the plans available to you.</p>
-        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
-      </div>
 
       <h2>Medigap vs. Medicare Advantage</h2>
       <p>
-        Medigap and Medicare Advantage are two different ways to round out Medicare, and you choose one or the other. If you’re still
-        deciding, our guide to <a href="/medicare-advantage-vs-medigap">Medicare Advantage vs. Medigap</a> lays out both fairly.
+        Because Original Medicare leaves deductibles and coinsurance with no annual limit, most people add coverage: either
+        a Medigap plan plus Part D, or a Medicare Advantage plan. If you're choosing, our
+        <a href="/medicare-advantage-vs-medigap">Medigap vs. Advantage</a> guide lays out both, and if you're new to all
+        this, <a href="/turning-65">Turning 65 and Medicare</a> walks through the timing.
       </p>
 
-      <h2>Frequently asked questions</h2>
-      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
-
-      <AuthorByline />
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-2 m-0">Want help choosing the right Medigap plan?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure comparison across the plans available to you.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
 
       <div class="not-prose mt-8">
         <Disclaimer variant="tpmo" />
         <p class="text-xs text-navy-500 mt-3 leading-relaxed">
           Plan availability, benefits, and costs vary by plan and location and are not guaranteed. Figures shown are
-          {' '}{MEDICARE_2026.year} amounts set by Medicare and change annually. NY producer license #: {BUSINESS.nyLicense}.
+          {MEDICARE_2026.year} amounts and change annually. NY producer license #: {BUSINESS.nyLicense}.
         </p>
         <p class="text-xs text-navy-500 mt-2 leading-relaxed">
           Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
@@ -122,5 +96,5 @@ const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faq
     </div>
   </article>
 
-  <CTASection headline="Let’s find the Medigap plan that fits you" />
+  <CTASection headline="Let's find the Medigap plan that fits you" />
 </BaseLayout>
