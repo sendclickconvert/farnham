@@ -3,37 +3,234 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
-import { COUNTIES } from '../../data/site';
+import AuthorByline from '../../components/AuthorByline.astro';
+import { BUSINESS } from '../../data/site';
 
-const title = 'Service Areas';
-const description = 'Medicare guidance for New York and Connecticut, with a home base in the Hudson Valley — Ulster, Dutchess, Orange, and Westchester counties.';
-const counties = Object.values(COUNTIES);
+const title = 'Where and How I Work — Farnham Senior Health Advisors';
+const description = 'Jim Farnham serves Medicare beneficiaries in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee. No-cost, individualized Medicare analysis — by phone, Zoom, or in person.';
+const today = '2026-06-03';
+
+const faqs = [
+  { q: 'What states do you serve?', a: 'I am licensed in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee. New York and Connecticut are my primary focus.' },
+  { q: 'How do we meet?', a: 'Most reviews happen by phone or Zoom screen-share. In-person meetings are available by appointment. Either way, you get my direct line — not a call-center queue.' },
+  { q: 'What does a no-cost Medicare analysis include?', a: 'I examine your specific situation — your health, your budget, your expected usage, and the Medigap enrollment rules in your state — and identify which coverages are most appropriate for you. There is no charge and no obligation.' },
+  { q: 'Do Medigap rules differ by state?', a: 'Yes, significantly. The benefits of each plan letter are federally standardized, but when you can enroll or change plans varies by state. New York and Connecticut offer year-round guaranteed-issue enrollment, which is among the strongest consumer protections in the country. Most other states require medical underwriting after your initial enrollment window.' },
+  { q: 'Can I switch Medigap plans later?', a: 'It depends on your state. In New York and Connecticut you can switch at any time with no health questions. In most other states, switching after your initial enrollment period means going through medical underwriting, and approval is not guaranteed. This is one reason the enrollment rules in your state matter so much when choosing a plan.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: 'Where and How I Work',
+      description,
+      author: { '@id': `${BUSINESS.url}/#agent` },
+      publisher: { '@id': `${BUSINESS.url}/#organization` },
+      datePublished: today,
+      dateModified: today,
+      mainEntityOfPage: `${BUSINESS.url}/service-areas`,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${BUSINESS.url}/service-areas#webpage`,
+      name: title,
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] },
+    },
+  ],
+};
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <PageHero
-    title="Where I Work"
-    subtitle="New York and Connecticut are my primary focus, with a home base in the Hudson Valley. Meetings are available virtually by Zoom or phone, and in person by appointment."
-    breadcrumbs={[{ label: 'Service Areas' }]}
+    title="Where and How I Work"
+    subtitle="A no-cost, individualized Medicare analysis — wherever you are."
+    breadcrumbs={[{ label: 'Where and How I Work' }]}
   />
-  <section class="py-14 lg:py-18">
-    <div class="container-wide">
-      <div class="grid sm:grid-cols-2 gap-6">
-        {counties.map((c) => (
-          <a href={`/service-areas/${c.slug}`} class="card group block">
-            <h2 class="text-xl font-display text-crst-primary group-hover:text-crst-accent transition-colors mb-2">{c.name}</h2>
-            <p class="text-sm text-navy-600 leading-relaxed mb-3">{c.description}</p>
-            <span class="inline-flex items-center gap-1 text-sm font-heading font-semibold text-crst-accent">
-              Medicare help in {c.name}
-              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-            </span>
-          </a>
-        ))}
+
+  <div class="bg-crst-light border-b border-navy-100">
+    <div class="container-wide py-3 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
+      <span class="text-sm font-heading text-navy-700">Ready to talk through your options?</span>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-sm px-5 py-2">Call or text {BUSINESS.phone}</a>
+    </div>
+  </div>
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          I do a <strong>no-cost, individualized Medicare analysis</strong> — examining what specific coverages are most
+          appropriate for your situation. While I make available Medigap, Part D Prescription Drug Plans, Medicare Advantage
+          Plans, and other add-on coverage, my specialty is <strong>High-Deductible Medicare Supplement Insurance</strong>.
+          Let's explore how and why those types of plans might make sense for you.
+        </p>
       </div>
-      <div class="mt-10 max-w-3xl mx-auto">
-        <Disclaimer variant="generic" />
+
+      <p class="lead text-xl text-navy-700">
+        Every situation is different. The right Medicare coverage depends on your health, your budget, how you use care, and
+        the rules in your state. Here's where I work and how I can help.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — Licensed Agent / Insurance Broker (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <!-- WHERE -->
+      <div class="not-prose grid sm:grid-cols-2 gap-6 my-8">
+        <div class="rounded-xl bg-crst-primary p-6 text-white">
+          <h2 class="font-display text-2xl text-crst-gold mb-4 mt-0">Where</h2>
+          <p class="text-white/80 font-heading font-semibold text-lg mb-2">New York and Connecticut</p>
+          <p class="text-white/60 text-sm mb-4">Primary focus — home base in the Hudson Valley.</p>
+          <p class="text-white/80 font-heading font-semibold mb-1">Also licensed in:</p>
+          <ul class="text-white/70 text-sm space-y-1 list-none p-0 m-0">
+            <li>Florida</li>
+            <li>New Jersey</li>
+            <li>North Carolina</li>
+            <li>Pennsylvania</li>
+            <li>South Carolina</li>
+            <li>Tennessee</li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-navy-100 bg-navy-50 p-6">
+          <h2 class="font-display text-2xl text-crst-primary mb-4 mt-0">How</h2>
+          <ul class="space-y-3 list-none p-0 m-0">
+            <li class="flex items-start gap-2 text-navy-700 text-sm">
+              <span class="text-crst-gold font-bold mt-0.5">→</span>
+              <span>A no-cost, individualized Medicare analysis — no charge, no obligation</span>
+            </li>
+            <li class="flex items-start gap-2 text-navy-700 text-sm">
+              <span class="text-crst-gold font-bold mt-0.5">→</span>
+              <span>By phone or Zoom screen-share for most reviews</span>
+            </li>
+            <li class="flex items-start gap-2 text-navy-700 text-sm">
+              <span class="text-crst-gold font-bold mt-0.5">→</span>
+              <span>In person by appointment</span>
+            </li>
+            <li class="flex items-start gap-2 text-navy-700 text-sm">
+              <span class="text-crst-gold font-bold mt-0.5">→</span>
+              <span>My direct line afterward — not a call-center queue</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MEDIGAP RULES -->
+      <h2>Medigap Rules Are Different Depending on Where You Live</h2>
+      <p>
+        Although Medigap policies are federally standardized, the rules governing when you can enroll — or change plans —
+        vary from state to state. Understanding those differences can have a significant impact on which Medigap plan is the
+        right long-term choice.
+      </p>
+
+      <p>
+        Everyone receives the same protection during their <strong>one-time Medigap Open Enrollment Period</strong>, which
+        begins when you are both age 65 or older and enrolled in Medicare Part B. During that six-month period:
+      </p>
+
+      <ul>
+        <li>Insurance companies cannot deny your application because of your health.</li>
+        <li>They cannot charge you a higher premium because of pre-existing conditions.</li>
+        <li>They cannot impose waiting periods for pre-existing conditions.</li>
+      </ul>
+
+      <p>However, <strong>after that enrollment period ends</strong>, the rules are different.</p>
+
+      <h2>New York and Connecticut</h2>
+      <p>
+        Residents of <strong>New York</strong> and <strong>Connecticut</strong> enjoy some of the strongest consumer
+        protections in the country. After your initial Medigap Open Enrollment Period ends, both states provide continuous
+        guaranteed-issue rights through year-round open enrollment. That means that at any time you can change from one
+        Medigap plan to another without being denied coverage because of your health or being charged more due to
+        pre-existing medical conditions.
+      </p>
+      <p>
+        You simply have greater flexibility if your healthcare needs change over time. See our
+        <a href="/new-york-medicare-supplement">New York Medicare Supplement</a> and
+        <a href="/connecticut-medicare-supplement">Connecticut Medicare Supplement</a> pages for the full detail.
+      </p>
+
+      <h2>Versus Most Other States</h2>
+      <p>
+        In most other states, everyone receives the same important protection during their Medigap Open Enrollment Period.
+        However, after that period ends, if you decide to switch Medigap plans, insurance companies are generally allowed
+        to review your health history through medical underwriting. Depending on your health, your application may be
+        approved, declined, or offered under different terms.
+      </p>
+
+      <h2>Why This Matters</h2>
+      <p>
+        Your state's Medigap rules can influence which plan makes the most sense — not just today, but years from now.
+      </p>
+      <p>
+        For example, in states where changing plans later may require medical underwriting, some beneficiaries choose to
+        purchase more comprehensive coverage initially because they may not be able to qualify for it later if their health
+        changes.
+      </p>
+      <p>
+        On the other hand, some beneficiaries may find that a high-deductible Medigap plan is still an appropriate fit. It
+        typically has a lower monthly premium, while still providing the protection of a Medigap policy after the annual
+        deductible has been met.
+      </p>
+      <p>Whether a high-deductible plan is appropriate depends on factors such as:</p>
+      <ul>
+        <li>Your current health</li>
+        <li>How often you typically use medical services</li>
+        <li>Your comfort with paying a larger deductible in exchange for lower monthly premiums</li>
+        <li>The Medigap enrollment rules in your state</li>
+      </ul>
+      <p>
+        The ability — or inability — to switch plans later is one factor that should be considered when deciding whether a
+        high-deductible or a standard Medigap plan is the better long-term fit.
+      </p>
+
+      <h2>Choosing the Right Strategy</h2>
+      <p>
+        There is no single Medigap plan that is right for everyone. The right choice depends on your health, your budget,
+        your expected healthcare usage, and the rules for enrollment where you live. Understanding how your state's rules
+        affect your future options can help you make a more informed decision.
+      </p>
+      <p>
+        That's exactly what a no-cost Medicare analysis is for. <a href="/contact">Request yours here</a> or call
+        {BUSINESS.phone}.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-3 m-0">Ready for your no-cost Medicare analysis?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">No pressure, no obligation — I'll walk through your specific situation with you.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (
+        <div class="mb-5">
+          <h3 class="text-xl">{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Medigap enrollment rules described here reflect federal and state law as of 2026 and may change; your specific
+          situation may qualify for additional protections. This page is educational and not individualized advice. NY
+          producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
       </div>
     </div>
-  </section>
-  <CTASection />
+  </article>
+
+  <CTASection headline="Let's find the right Medicare strategy for where you live." />
 </BaseLayout>
