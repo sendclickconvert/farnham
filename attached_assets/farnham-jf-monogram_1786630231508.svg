@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>JF Monogram for Farnham Senior Health Advisors</title>
+  <desc id="desc">A compact interlocking JF monogram in deep teal with a terracotta accent.</desc>
+
+  
+  <path fill="#15555E" d="M112 96     H244     V298     C244 366 205 416 139 416     C97 416 66 398 48 369     L101 329     C110 344 122 352 139 352     C163 352 176 336 176 304     V160     H112     Z"/>
+
+  
+  <path fill="#15555E" d="M236 96     H424     V160     H304     V221     H403     V284     H304     V416     H236     Z"/>
+
+  
+  <circle cx="408" cy="392" r="24" fill="#C4552A"/>
+</svg>
