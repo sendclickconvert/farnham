@@ -7,12 +7,12 @@ import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS } from '../../data/site';
 
 const title = 'Where and How I Work — Farnham Senior Health Advisors';
-const description = 'Jim Farnham serves Medicare beneficiaries in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee. No-cost, individualized Medicare analysis — by phone, Zoom, or in person.';
+const description = 'Jim Farnham serves Medicare beneficiaries in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee. No-cost, individualized Medicare analysis — by phone or Zoom screen-share.';
 const today = '2026-06-03';
 
 const faqs = [
-  { q: 'What states do you serve?', a: 'I am licensed in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee. New York and Connecticut are my primary focus.' },
-  { q: 'How do we meet?', a: 'Most reviews happen by phone or Zoom screen-share. In-person meetings are available by appointment. Either way, you get my direct line — not a call-center queue.' },
+  { q: 'What states do you serve?', a: 'I am licensed in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee.' },
+  { q: 'How do we meet?', a: 'Review and follow up are by phone or Zoom screen share meeting.' },
   { q: 'What does a no-cost Medicare analysis include?', a: 'I examine your specific situation — your health, your budget, your expected usage, and the Medigap enrollment rules in your state — and identify which coverages are most appropriate for you. There is no charge and no obligation.' },
   { q: 'Do Medigap rules differ by state?', a: 'Yes, significantly. The benefits of each plan letter are federally standardized, but when you can enroll or change plans varies by state. New York and Connecticut offer year-round guaranteed-issue enrollment, which is among the strongest consumer protections in the country. Most other states require medical underwriting after your initial enrollment window.' },
   { q: 'Can I switch Medigap plans later?', a: 'It depends on your state. In New York and Connecticut you can switch at any time with no health questions. In most other states, switching after your initial enrollment period means going through medical underwriting, and approval is not guaranteed. This is one reason the enrollment rules in your state matter so much when choosing a plan.' },
@@ -88,7 +88,7 @@ const schema = {
         <div class="rounded-xl bg-crst-primary p-6 text-white">
           <h2 class="font-display text-2xl text-crst-gold mb-4 mt-0">Where</h2>
           <p class="text-white/80 font-heading font-semibold text-lg mb-2">New York and Connecticut</p>
-          <p class="text-white/60 text-sm mb-4">Primary focus — home base in the Hudson Valley.</p>
+          <p class="text-white/60 text-sm mb-4">Home base in the Hudson Valley, NY</p>
           <p class="text-white/80 font-heading font-semibold mb-1">Also licensed in:</p>
           <ul class="text-white/70 text-sm space-y-1 list-none p-0 m-0">
             <li>Florida</li>
@@ -108,11 +108,7 @@ const schema = {
             </li>
             <li class="flex items-start gap-2 text-navy-700 text-sm">
               <span class="text-crst-gold font-bold mt-0.5">→</span>
-              <span>By phone or Zoom screen-share for most reviews</span>
-            </li>
-            <li class="flex items-start gap-2 text-navy-700 text-sm">
-              <span class="text-crst-gold font-bold mt-0.5">→</span>
-              <span>In person by appointment</span>
+              <span>Reviews by phone or Zoom screen-share</span>
             </li>
             <li class="flex items-start gap-2 text-navy-700 text-sm">
               <span class="text-crst-gold font-bold mt-0.5">→</span>

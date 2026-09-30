@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import { BUSINESS } from '../data/site';
+import { BUSINESS, DISCLAIMERS } from '../data/site';
 
 const title = 'Disclosures';
 const description = 'Required Medicare disclosures: government affiliation, scope of offerings, underwriting, compensation, and producer status.';
@@ -13,8 +13,8 @@ const sections = [
   },
   {
     h: 'Scope of Offerings',
-    // ⚠️ CONFIRM counts — client docs conflict (8/15 vs 8/10). Insert confirmed numbers.
-    p: ['We do not offer every plan available in your area. Currently we represent [NUMBER] organizations which offer [NUMBER] products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options. This is a solicitation for insurance.'],
+    // Single-sourced from DISCLAIMERS.tpmo (counts confirmed by client 30 Sep 2026).
+    p: [`${DISCLAIMERS.tpmo} ${DISCLAIMERS.solicitation}`],
   },
   {
     h: 'Underwriting Disclosure',
@@ -66,7 +66,7 @@ const sections = [
           </div>
         ))}
         <hr />
-        <p class="text-sm text-navy-500">NY insurance license number: {BUSINESS.nyLicense}</p>
+        <p class="text-sm text-navy-500">{BUSINESS.legalName} &middot; NY insurance license number: {BUSINESS.nyLicense}</p>
       </div>
     </div>
   </section>

@@ -6,20 +6,35 @@ import ServiceCard from '../components/ServiceCard.astro';
 import CTASection from '../components/CTASection.astro';
 import { BUSINESS, SERVICES, MEDICARE_2026 } from '../data/site';
 
+// Client-requested display order for the "How I Can Help" grid (site.ts stays untouched).
+const SERVICE_ORDER = [
+  'high-deductible-medicare-supplement',
+  'medicare-supplement',
+  'prescription-drug-plans',
+  'medicare-advantage',
+  'dental-vision-hearing',
+  'hospital-indemnity',
+];
+const orderedServices = [...SERVICES].sort((a, b) => {
+  const ia = SERVICE_ORDER.indexOf(a.slug);
+  const ib = SERVICE_ORDER.indexOf(b.slug);
+  return (ia === -1 ? SERVICE_ORDER.length : ia) - (ib === -1 ? SERVICE_ORDER.length : ib);
+});
+
 const audiences = [
   {
     tag: 'Turning 65?',
-    title: 'Start Here — Timing Matters',
+    title: 'Your First Medicare Decisions and Beyond',
     body: 'Your first 6 months on Medicare is your one-time guaranteed window: no medical underwriting, no health questions, and you can’t be declined. What you choose now can shape your flexibility for years.',
-    href: '/medicare-basics',
-    cta: 'Plan your first decision',
+    href: '/your-first-medicare-decisions',
+    cta: 'Plan your first decisions',
   },
   {
     tag: 'Already on Medicare?',
-    title: 'You May Be Paying More Than You Need To',
-    body: 'Many people pick a plan at 65 and never revisit it — even as premiums climb. In New York and Connecticut, you can review and switch your Medigap plan any time of year, with no health questions.',
-    href: '/services/high-deductible-medicare-supplement',
-    cta: 'Review your options',
+    title: 'Does Your Current Coverage Still Make Sense?',
+    body: 'Many people pick a plan at 65 and never revisit it — even as premiums climb.',
+    href: '/does-your-coverage-still-make-sense',
+    cta: 'Review your coverage',
   },
 ];
 
@@ -46,49 +61,6 @@ const whyPoints = [
         in insurance and financial services, I help individuals evaluate <strong class="text-crst-primary">High-Deductible Medicare Supplement
         Insurance</strong> alongside traditional Medigap, Medicare Advantage, and Part D — so you can choose what truly fits your situation.
       </p>
-    </div>
-  </section>
-
-  <!-- Medicare 101 no-cost classes -->
-  <section class="py-16 lg:py-20 bg-navy-50/60">
-    <div class="container-wide">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div class="section-divider mb-6"></div>
-          <h2 class="text-3xl sm:text-4xl font-display text-crst-primary mb-5">No-Cost Medicare 101 Classes</h2>
-          <p class="text-lg text-navy-600 leading-relaxed mb-4">
-            Jim teaches no-cost, plain-English Medicare 101 classes at libraries, senior centers, and colleges throughout the
-            Hudson Valley. No sales pitch — just clear, straightforward information so you understand your options and can
-            make better decisions for yourself.
-          </p>
-          <p class="text-navy-600 leading-relaxed mb-6">
-            Classes cover Parts A, B, C, and D; Medigap and Medicare Advantage; enrollment timing and how to avoid penalties;
-            how to compare plans; and state-specific resources for New York and Connecticut. Attendees leave with a curated
-            list of official government sites — the same resources Jim uses every day in his practice.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="/events" class="btn-primary">See upcoming classes</a>
-            <a href="/resources" class="inline-flex items-center gap-2 text-crst-accent font-heading font-semibold hover:underline">
-              View the resource list
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="space-y-4">
-          <div class="card border-l-4 border-crst-gold">
-            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">What you'll cover</h3>
-            <p class="text-sm text-navy-600 m-0">Parts A, B, C, and D explained plainly — plus Medigap vs. Medicare Advantage, enrollment windows, and how to avoid late penalties.</p>
-          </div>
-          <div class="card border-l-4 border-crst-gold">
-            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">Who it's for</h3>
-            <p class="text-sm text-navy-600 m-0">Anyone turning 65, already on Medicare, or helping a family member through the process. All are welcome — no purchase expected or required.</p>
-          </div>
-          <div class="card border-l-4 border-crst-gold">
-            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">Take-home resources</h3>
-            <p class="text-sm text-navy-600 m-0">Attendees receive Jim's curated list of official government sites — Medicare.gov, SSA.gov, CMS.gov, and state-specific resources for NY, CT, NJ, PA, and FL.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -131,19 +103,19 @@ const whyPoints = [
           <a href="/services/high-deductible-medicare-supplement" class="btn-primary">See how it works</a>
         </div>
         <div class="space-y-4">
-          <div class="bg-navy-50 rounded-xl p-6 border border-navy-100">
-            <h3 class="font-heading font-semibold text-crst-primary mb-3">Traditional Medigap</h3>
-            <ul class="space-y-2 text-sm text-navy-600">
-              <li class="flex gap-2"><span class="text-crst-accent">•</span> Higher monthly premiums</li>
-              <li class="flex gap-2"><span class="text-crst-accent">•</span> Lower out-of-pocket costs when care is used</li>
-            </ul>
-          </div>
           <div class="bg-crst-primary rounded-xl p-6 text-white">
             <h3 class="font-heading font-semibold text-crst-gold mb-3">High-Deductible Medigap</h3>
             <ul class="space-y-2 text-sm text-white/80">
               <li class="flex gap-2"><span class="text-crst-gold">•</span> Lower monthly premiums</li>
               <li class="flex gap-2"><span class="text-crst-gold">•</span> Higher deductible before coverage begins ({MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year})</li>
               <li class="flex gap-2"><span class="text-crst-gold">•</span> Identical to standard coverage once the deductible is met</li>
+            </ul>
+          </div>
+          <div class="bg-navy-50 rounded-xl p-6 border border-navy-100">
+            <h3 class="font-heading font-semibold text-crst-primary mb-3">Traditional Medigap</h3>
+            <ul class="space-y-2 text-sm text-navy-600">
+              <li class="flex gap-2"><span class="text-crst-accent">•</span> Higher monthly premiums</li>
+              <li class="flex gap-2"><span class="text-crst-accent">•</span> Lower out-of-pocket costs when care is used</li>
             </ul>
           </div>
         </div>
@@ -160,7 +132,7 @@ const whyPoints = [
         <p class="text-navy-600 leading-relaxed">My specialty is High-Deductible Medicare Supplement Insurance, but I make a full range of Medicare-related coverage available.</p>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SERVICES.map((s) => (
+        {orderedServices.map((s) => (
           <ServiceCard title={s.title} slug={s.slug} summary={s.summary} icon={s.icon} flagship={s.flagship} />
         ))}
       </div>
@@ -188,17 +160,40 @@ const whyPoints = [
     </div>
   </section>
 
-  <!-- Medicare 101 banner -->
+  <!-- Medicare 101 banner (merged: classes overview + banner) -->
   <section class="pb-16 lg:pb-20">
     <div class="container-wide">
-      <div class="rounded-2xl bg-gradient-to-br from-navy-50 to-crst-light border border-navy-100 p-8 lg:p-12 text-center">
-        <span class="inline-block text-xs font-heading font-bold uppercase tracking-wider text-crst-gold mb-3">No-Cost Class</span>
-        <h2 class="text-2xl sm:text-3xl font-display text-crst-primary mb-3">Join a No-Cost “Medicare 101” Session</h2>
-        <p class="text-navy-600 leading-relaxed max-w-2xl mx-auto mb-6">
-          I teach a plain-English class on how Medicare works — Parts A, B, C, and D, and how Medigap fits in. No sales pitch, just the
-          foundation you need to make a confident decision. Offered online and through local libraries and learning centers.
-        </p>
-        <a href="/events" class="btn-primary">See upcoming classes</a>
+      <div class="rounded-2xl bg-gradient-to-br from-navy-50 to-crst-light border border-navy-100 p-8 lg:p-12">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+          <span class="inline-block text-xs font-heading font-bold uppercase tracking-wider text-crst-gold mb-3">No-Cost Class</span>
+          <h2 class="text-2xl sm:text-3xl font-display text-crst-primary mb-3">Join a No-Cost “Medicare 101” Session</h2>
+          <p class="text-navy-600 leading-relaxed">
+            I teach a plain-English class on how Medicare works at libraries, senior centers, and colleges throughout the
+            Hudson Valley, and online. No sales pitch — just clear, straightforward information so you understand your options
+            and can make better decisions for yourself.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4 mb-8">
+          <div class="card border-l-4 border-crst-gold">
+            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">What you'll cover</h3>
+            <p class="text-sm text-navy-600 m-0">Parts A, B, C, and D explained plainly — plus Medigap vs. Medicare Advantage, enrollment windows, how to compare plans, and how to avoid late penalties.</p>
+          </div>
+          <div class="card border-l-4 border-crst-gold">
+            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">Who it's for</h3>
+            <p class="text-sm text-navy-600 m-0">Anyone turning 65, already on Medicare, or helping a family member through the process. All are welcome — no purchase expected or required.</p>
+          </div>
+          <div class="card border-l-4 border-crst-gold">
+            <h3 class="font-heading font-semibold text-crst-primary mb-1 mt-0">Take-home resources</h3>
+            <p class="text-sm text-navy-600 m-0">Attendees receive Jim's curated list of official government sites — Medicare.gov, SSA.gov, CMS.gov, and state-specific resources for New York and Connecticut — the same resources he uses every day in his practice.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-3">
+          <a href="/events" class="btn-primary">See upcoming classes</a>
+          <a href="/resources" class="inline-flex items-center gap-2 text-crst-accent font-heading font-semibold hover:underline">
+            View the resource list
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>

@@ -6,9 +6,13 @@
 // =====================================================================
 
 export const BUSINESS = {
-  // ⚠️ CONFIRM legal name. Most recent onboarding doc (5-29-2026) uses the Inc.
-  // Earlier docs described a sole prop "James W. Farnham" — that is superseded.
-  name: 'Farnham Senior Health Advisors, Inc.',
+  // Confirmed by the client 30 Sep 2026: legal name as registered with NYS is
+  // "Farnham Senior Health Advisors, Inc." — he purposely omits the "Inc."
+  // everywhere display-facing. Use `name` for display, `legalName` ONLY for
+  // schema (Organization / LocalBusiness name + legalName) and the legal pages
+  // (privacy, terms, disclosures).
+  name: 'Farnham Senior Health Advisors',
+  legalName: 'Farnham Senior Health Advisors, Inc.',
   shortName: 'Farnham Senior Health',
   tagline: 'Clear, no-pressure Medicare guidance for New York and Connecticut',
 
@@ -48,7 +52,7 @@ export const BUSINESS = {
   // ⚠️ CONFIRM — NY producer license shown in disclosures
   nyLicense: 'LA-799338',
 
-  hours: 'By appointment — virtual (Zoom) and phone consultations available',
+  hours: 'By appointment — phone and Zoom screen-share consultations',
 
   stats: {
     yearsInsurance: '30+',
@@ -65,6 +69,7 @@ export const AGENT = {
   credentials: 'MS, MBA',
   fullName: 'James W. Farnham, MS, MBA',
   title: 'Licensed Agent / Insurance Broker',
+  tagline: 'A non-government health insurance agent',
   jobTitle: 'Independent Medicare Insurance Agent',
   // ⚠️ CONFIRM headshot file (client to supply); place at /public/images/jim-farnham.jpg
   photo: '/images/jim-farnham.jpg',
@@ -203,10 +208,9 @@ export const NAV_ITEMS = [
     href: '/services',
     children: [
       { label: 'High-Deductible Medigap', href: '/services/high-deductible-medicare-supplement' },
-      { label: 'Medicare Supplement (Medigap)', href: '/services/medicare-supplement' },
-      { label: 'New York Medicare Supplement', href: '/new-york-medicare-supplement' },
-      { label: 'Medicare Advantage', href: '/services/medicare-advantage' },
+      { label: 'Medicare Supplement Insurance (Medigap)', href: '/services/medicare-supplement' },
       { label: 'Prescription Drug Plans (Part D)', href: '/services/prescription-drug-plans' },
+      { label: 'Medicare Advantage (Part C)', href: '/services/medicare-advantage' },
       { label: 'Dental, Vision & Hearing', href: '/services/dental-vision-hearing' },
       { label: 'Hospital Indemnity', href: '/services/hospital-indemnity' },
     ],
@@ -256,10 +260,11 @@ export const MEDICARE_2026 = {
 // =====================================================================
 export const DISCLAIMERS = {
   // CMS-required TPMO disclaimer (numbered version).
-  // ⚠️ CONFIRM the two counts with the client — these are compliance facts,
-  // not guesses. Source docs conflicted (8 orgs/15 products vs 8/10).
+  // Counts (5 companies / 20+ plan options) confirmed by the client on
+  // 30 Sep 2026. These are compliance facts — update this string whenever
+  // his carrier appointments change.
   tpmo:
-    'We do not offer every plan available in your area. Currently we represent [NUMBER] organizations which offer [NUMBER] products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Assistance Program (SHIP) to get information on all of your options.',
+    'If we do not offer every plan available in your area, any information we provide is limited to those plans we do offer in your area. Please contact Medicare.gov, 1-800-MEDICARE or your local State Health Insurance Program (SHIP) to get information on all of your options. Currently, I represent 5 different healthcare companies with 20+ plan options.',
 
   // Generic version — acceptable on anonymous landing pages where no ZIP is entered.
   tpmoGeneric:

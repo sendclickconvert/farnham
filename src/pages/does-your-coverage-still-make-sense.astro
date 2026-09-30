@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS } from '../data/site';
+
+const title = 'Does Your Current Coverage Still Make Sense?';
+const description = 'Medigap premiums rise over time. In New York and Connecticut you can reconsider your coverage without health questions — here is how to review it.';
+const today = '2026-09-30';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/does-your-coverage-still-make-sense` },
+    { '@type': 'WebPage', '@id': `${BUSINESS.url}/does-your-coverage-still-make-sense#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Does Your Current Coverage Still Make Sense?"
+    subtitle="Premiums change. Your needs change. A periodic review checks whether what you have — and what you pay for it — still fits."
+    breadcrumbs={[{ label: 'Does Your Current Coverage Still Make Sense?' }]}
+  />
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <p class="lead text-xl text-navy-700">
+        Your premiums can increase over time. A plan that was a good value when you first enrolled may be considerably more
+        expensive today.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — Licensed Agent / Insurance Broker (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <p>
+        If you live in New York or Connecticut, you have an important advantage: state rules provide significant
+        guaranteed-issue protections that generally allow you to change Medigap coverage without having to qualify based on
+        your health.
+      </p>
+      <p>That makes it worthwhile to periodically ask a simple question:</p>
+      <p><strong>Does the coverage I have—and the premium I’m paying for it—still make sense for me?</strong></p>
+
+      <h2>Start With Your Current Coverage</h2>
+      <p>The goal isn’t to change your plan simply because another option exists.</p>
+      <p>First, look at what you have now:</p>
+      <ul>
+        <li>What is your current monthly premium?</li>
+        <li>How much has that premium increased since you enrolled?</li>
+        <li>How much are you paying over the course of an entire year?</li>
+        <li>How frequently do you actually use medical services?</li>
+        <li>How much financial predictability do you want from your Medigap coverage?</li>
+      </ul>
+      <p>
+        For many people, a traditional Medigap plan remains an appropriate choice. The higher premium may be well worth the
+        predictability and limited out-of-pocket exposure it provides.
+      </p>
+      <p>For others, the numbers may tell a different story.</p>
+
+      <h2>Consider the Premium as Part of Your Healthcare Spending</h2>
+      <p>
+        It’s easy to think about a Medigap policy primarily in terms of what it pays when you receive medical care. But your
+        premium is also a healthcare expense—and you pay it whether you use medical services or not.
+      </p>
+      <p>
+        Suppose you’re paying more each month for a traditional Medigap policy than you would for a high-deductible
+        alternative. Over 12 months, that premium difference can become significant.
+      </p>
+      <p>The important comparison isn’t simply which plan pays more of your medical bills.</p>
+      <p>It’s:</p>
+      <p><strong>How much am I paying in premiums to avoid those potential out-of-pocket expenses?</strong></p>
+
+      <h2>High-Deductible Plan G Offers a Different Approach</h2>
+      <p>High-Deductible Plan G is designed around a different tradeoff.</p>
+      <p>
+        You generally pay a lower monthly premium, but you assume more of your Medicare-approved expenses yourself until you
+        satisfy the plan’s annual high deductible.
+      </p>
+      <p>
+        After the high deductible is satisfied, the policy provides the benefits of Plan G for the remainder of the calendar
+        year.
+      </p>
+      <p>
+        That doesn’t make High-Deductible Plan G better than traditional Plan G. And it certainly isn’t appropriate for
+        everyone.
+      </p>
+      <p>
+        But for someone who is comfortable assuming more of the smaller and routine expenses in exchange for lower premiums,
+        it can be worth examining.
+      </p>
+      <p>A Medigap comparison should not begin with:</p>
+      <p><em>“Which plan provides the most coverage?”</em> or <em>“Does this plan have deductible?”</em></p>
+      <p>It should begin with:</p>
+      <p><strong>“Which balance of premium, coverage and potential out-of-pocket expense makes the most sense for me?”</strong></p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-2 m-0">Want a plain-English comparison of what you have now?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure review by phone or Zoom screen share.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>New York and Connecticut Give You an Important Opportunity to Reconsider</h2>
+      <p>This is where living in New York or Connecticut can make a meaningful difference.</p>
+      <p>
+        In many states, someone who wants to change Medigap policies after the initial Medigap Open Enrollment Period may
+        have to go through medical underwriting and may not qualify for the new policy.
+      </p>
+      <p>New York and Connecticut provide broader guaranteed-issue protections.</p>
+      <p>
+        As a result, your health generally doesn’t prevent you from taking another look at your Medigap coverage simply
+        because many years have passed since you first enrolled.
+      </p>
+      <p>That flexibility makes periodically reviewing your coverage particularly worthwhile.</p>
+
+      <h2>A Review Doesn’t Mean You Have to Change Anything</h2>
+      <p>Sometimes the best result of a Medicare review is discovering that you’re already in the right plan.</p>
+      <p>
+        Other times, the comparison may reveal an opportunity to reduce your premiums while maintaining a level of protection
+        you’re comfortable with.
+      </p>
+      <p>
+        <strong>The objective isn’t to change your coverage. It’s to make sure you’re still comfortable with what you’re
+        getting for what you’re paying.</strong>
+      </p>
+
+      <h2>See Whether Your Current Coverage Still Makes Sense</h2>
+      <p>
+        I can compare your existing Medigap coverage with the alternatives available to you and explain the differences in
+        plain English—including the potential savings and the additional financial responsibility that can come with a
+        high-deductible approach.
+      </p>
+      <p>Then you can decide whether staying exactly where you are or making a change makes more sense.</p>
+      <p>
+        Learn more about <a href="/services/high-deductible-medicare-supplement">High-Deductible Medicare Supplement Insurance</a>
+        or <a href="/services/medicare-supplement">traditional Medigap</a>.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          This page is educational and general; plan benefits, costs, and availability vary by insurer and location and are not
+          guaranteed. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Already on Medicare? Let’s see whether your coverage still makes sense." />
+</BaseLayout>

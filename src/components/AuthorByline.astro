@@ -15,6 +15,8 @@ const { compact = false } = Astro.props;
       <span class="font-medium text-navy-900">{AGENT.fullName}</span>
       <span class="mx-1">&middot;</span>
       <span>{AGENT.title}</span>
+      <span class="mx-1">&middot;</span>
+      <span class="italic">{AGENT.tagline}</span>
     </div>
   </div>
 ) : (
@@ -25,7 +27,8 @@ const { compact = false } = Astro.props;
         <div class="font-semibold text-lg text-navy-900">
           <a href="/about" class="hover:text-crst-primary transition-colors">{AGENT.fullName}</a>
         </div>
-        <div class="text-sm text-navy-600 mb-2">{AGENT.title} &middot; {BUSINESS.name}</div>
+        <div class="text-sm text-navy-600">{AGENT.title} &middot; {BUSINESS.name}</div>
+        <div class="text-xs italic text-navy-500 mb-2">{AGENT.tagline}</div>
         <p class="text-sm text-navy-700 leading-relaxed">{AGENT.bioShort}</p>
       </div>
     </div>

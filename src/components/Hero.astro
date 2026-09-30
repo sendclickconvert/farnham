@@ -22,14 +22,11 @@ import { BUSINESS, AGENT } from '../data/site';
         A Smarter, More Cost-Effective <span class="text-crst-gold">Approach to Medicare</span>
       </h1>
 
-      <!-- Video placeholder -->
+      <!-- Intro video -->
       <div class="relative w-full rounded-2xl overflow-hidden bg-navy-900/60 border border-white/10 shadow-2xl mb-8" style="aspect-ratio: 16/9;">
-        <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-crst-gold/90 flex items-center justify-center shadow-lg">
-            <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <p class="text-white/50 text-sm font-heading">Video coming soon</p>
-        </div>
+        <video controls preload="metadata" playsinline poster="/video/farnham-intro-poster.jpg" class="absolute inset-0 w-full h-full object-cover">
+          <source src="/video/farnham-intro.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <!-- Buttons -->

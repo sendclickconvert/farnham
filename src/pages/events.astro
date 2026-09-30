@@ -2,36 +2,57 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
-import { BUSINESS, AGENT, FORMS } from '../data/site';
+import { BUSINESS, AGENT } from '../data/site';
+import { MEDICARE_101_DESCRIPTION, REGISTRATION_NOTE, upcomingEvents } from '../data/events';
 
 const title = 'No-Cost Medicare 101 Classes';
-const description = 'Join a no-cost, no-pressure “Medicare 101” class with Jim Farnham. Plain-English education on how Medicare works — online and at local libraries and learning centers.';
+const description = 'Join a no-cost, no-pressure “Medicare 101” webinar with Jim Farnham. Plain-English education on how Medicare works — eligibility, enrollment, Parts A, B, C and D, and your coverage options.';
 
-// ⚠️ CONFIRM — replace with real scheduled sessions (date/time/registration link).
-// These are placeholders so the Event schema + UI pattern are in place.
-const events = [
-  { name: 'Medicare 101 — Online (Zoom)', date: '2026-07-15T18:00:00-04:00', mode: 'online', location: 'Zoom (link provided on registration)' },
-  { name: 'Medicare 101 — Online (Zoom)', date: '2026-08-12T18:00:00-04:00', mode: 'online', location: 'Zoom (link provided on registration)' },
-];
+const EVENT_NAME = 'Medicare 101 — Online Webinar (Zoom)';
+const TZ = 'America/New_York';
+
+// Dates and times are rendered in New York time regardless of where the site is built.
+const events = upcomingEvents();
+
+const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+const fmtTime = (iso: string) => {
+  const d = new Date(iso);
+  const parts = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit', hour12: true }).formatToParts(d);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+  const hour = get('hour');
+  const minute = get('minute');
+  const period = get('dayPeriod');
+  if (hour === '12' && minute === '00' && period === 'PM') return '12:00 Noon';
+  return `${hour}:${minute} ${period}`;
+};
+
+const fmtWhen = (start: string, end: string) => `${fmtDate(start)} · ${fmtTime(start)} – ${fmtTime(end)}`;
 
 const eventSchema = {
   '@context': 'https://schema.org',
   '@graph': events.map((e) => ({
     '@type': 'EducationEvent',
-    name: e.name,
-    startDate: e.date,
+    name: EVENT_NAME,
+    startDate: e.start,
+    endDate: e.end,
     eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
     eventStatus: 'https://schema.org/EventScheduled',
-    location: { '@type': 'VirtualLocation', url: BUSINESS.url + '/events' },
+    location: { '@type': 'VirtualLocation', url: e.registerUrl },
     organizer: { '@id': `${BUSINESS.url}/#organization` },
     performer: { '@id': `${BUSINESS.url}/#agent` },
     isAccessibleForFree: true,
-    description: 'A no-cost, plain-English class on how Medicare works — Parts A, B, C, and D, and how Medigap fits in. No sales pitch.',
+    offers: {
+      '@type': 'Offer',
+      url: e.registerUrl,
+      price: 0,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    description: MEDICARE_101_DESCRIPTION,
   })),
 };
-
-const fmt = (iso: string) =>
-  new Date(iso).toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
 ---
 
 <BaseLayout title={title} description={description} schema={eventSchema}>
@@ -46,26 +67,44 @@ const fmt = (iso: string) =>
       <div class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary mb-10">
         <p class="lead text-xl text-navy-700">
           {AGENT.shortName} has taught Medicare 101 for libraries, schools, colleges, universities, and adult-education programs for years.
-          Each session walks through Original Medicare, Medigap, Medicare Advantage, and Part D in plain English — so you leave knowing
-          how the pieces fit together.
         </p>
+        <p>{MEDICARE_101_DESCRIPTION}</p>
+      </div>
+
+      <div class="card mb-10">
+        <h2 class="font-heading font-semibold text-lg text-crst-primary mb-3">How to register</h2>
+        <ul class="list-disc pl-5 space-y-1 text-navy-700">
+          {REGISTRATION_NOTE.map((line) => <li>{line}</li>)}
+        </ul>
       </div>
 
       <h2 class="text-2xl font-display text-crst-primary mb-6">Upcoming sessions</h2>
-      <div class="space-y-4">
-        {events.map((e) => (
-          <div class="card flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h3 class="font-heading font-semibold text-lg text-crst-primary">{e.name}</h3>
-              <p class="text-sm text-navy-600 mt-1">{fmt(e.date)}</p>
-              <p class="text-sm text-navy-500">{e.location}</p>
+      {events.length > 0 ? (
+        <div class="space-y-4">
+          {events.map((e) => (
+            <div class="card flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 class="font-heading font-semibold text-lg text-crst-primary">Medicare 101</h3>
+                <p class="text-sm text-navy-600 mt-1">
+                  <time datetime={e.start}>{fmtWhen(e.start, e.end)}</time>
+                </p>
+                <p class="text-sm text-navy-500">Online webinar (Zoom)</p>
+              </div>
+              <a href={e.registerUrl} target="_blank" rel="noopener" class="btn-primary shrink-0">Register — no cost</a>
             </div>
-            <a href={FORMS.webinarRegistrationUrl} class="btn-primary shrink-0">Register — no cost</a>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div class="card">
+          <p class="text-navy-700">
+            No sessions are scheduled at the moment — new dates are added regularly. Call {BUSINESS.phone} or
+            <a href="/contact" class="text-crst-accent underline">get in touch</a> to hear about the next class.
+          </p>
+        </div>
+      )}
       <p class="text-sm text-navy-500 mt-6">
-        Dates above are placeholders pending confirmation. To ask about an upcoming class or request one for your group,
+        This list updates automatically as new sessions are scheduled and past dates are removed. To request a Medicare 101
+        class for your library, organization, or group,
         <a href="/contact" class="text-crst-accent underline">get in touch</a> or call {BUSINESS.phone}.
       </p>
     </div>

@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS } from '../data/site';
+
+const title = 'Your First Medicare Decisions and Beyond';
+const description = 'When to enroll in Parts A and B, then how to handle the costs Medicare leaves: Medigap or High-Deductible Medigap plus Part D, or Medicare Advantage.';
+const today = '2026-09-30';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Article', headline: title, description, author: { '@id': `${BUSINESS.url}/#agent` }, publisher: { '@id': `${BUSINESS.url}/#organization` }, datePublished: today, dateModified: today, mainEntityOfPage: `${BUSINESS.url}/your-first-medicare-decisions` },
+    { '@type': 'WebPage', '@id': `${BUSINESS.url}/your-first-medicare-decisions#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    title="Your First Medicare Decisions and Beyond"
+    subtitle="When to enroll in Original Medicare, then how to handle the costs and coverage it doesn’t provide by itself."
+    breadcrumbs={[{ label: 'Your First Medicare Decisions and Beyond' }]}
+  />
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <p class="lead text-xl text-navy-700">
+        As you approach Medicare eligibility, your first step is determining when to enroll in Medicare Part A and Part B.
+        Those two Parts are often referred to as Original Medicare. Once you have Original Medicare, your next decision is
+        how you want to handle the costs and coverage that Medicare doesn’t provide by itself.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — Licensed Agent / Insurance Broker (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <p>
+        I help you evaluate High-Deductible Medicare Supplement Insurance alongside traditional Medigap, Part D and Medicare
+        Advantage — so you can choose what truly fits your situation.
+      </p>
+
+      <p>You generally have two paths:</p>
+
+      <h2>Option 1: Original Medicare + Medigap/High Deductible Medigap + Part D</h2>
+      <p>
+        Stay with Original Medicare (Parts A and B), then add a Medicare Supplement Insurance Plan (Medigap) to help with
+        Medicare’s deductibles and cost sharing and choose a Part D Prescription Drug Plan for medication coverage. For more
+        info, see our <a href="/turning-65">Turning 65 and Medicare</a> and
+        <a href="/services/high-deductible-medicare-supplement">High-Deductible Medicare Supplement Insurance</a> pages.
+      </p>
+
+      <p class="text-center font-heading font-semibold text-crst-primary">or</p>
+
+      <h2>Option 2: Medicare Advantage (Part C)</h2>
+      <p>
+        Choose a Medicare Advantage Plan offered by a private insurance company as an alternative way to receive your
+        Medicare benefits. Most Medicare Advantage plans include Part D prescription drug coverage and may include additional
+        benefits. For more info, see our <a href="/services/medicare-advantage">Medicare Advantage Plans (Part C)</a> page.
+      </p>
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-2 m-0">Not sure which path fits you?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure conversation by phone or Zoom screen share.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <h2>Medigap Rules Are Different Depending on Where You Live</h2>
+      <p>
+        Although Medigap policies are federally standardized, the rules governing when you can enroll—or change plans—vary
+        from state to state. Understanding those differences can have a significant impact on which Medigap plan is the best
+        long-term choice.
+      </p>
+
+      <h3>New York and Connecticut</h3>
+      <p>
+        Residents of New York and Connecticut enjoy one of the strongest consumer protections in the country. After your
+        initial Medigap Open Enrollment Period ends, you generally continue to have guaranteed issue rights. That means you
+        can usually change from one Medigap plan to another without being denied coverage because of your health or being
+        charged more due to pre-existing medical conditions.
+      </p>
+      <p>
+        Because changing plans remains an option later, you may have greater flexibility if your healthcare needs change
+        over time.
+      </p>
+
+      <h3>Most Other States</h3>
+      <p>
+        In most other states, everyone receives the same important protection during their one-time Medigap Open Enrollment
+        Period, which begins when you are both age 65 or older and enrolled in Medicare Part B.
+      </p>
+      <p>During that six-month period:</p>
+      <ul>
+        <li>Insurance companies cannot deny your application because of your health.</li>
+        <li>They cannot charge you a higher premium because of pre-existing conditions.</li>
+        <li>They cannot impose waiting periods for pre-existing conditions.</li>
+      </ul>
+      <p>However, after that enrollment period ends, the rules are different.</p>
+      <p>
+        If you later decide to switch Medigap plans, insurance companies in most states are generally allowed to review your
+        health history through medical underwriting. Depending on your health, your application may be approved, declined,
+        or offered under different terms.
+      </p>
+
+      <h3>Why This Matters</h3>
+      <p>
+        Your state’s Medigap rules can influence which plan makes the most sense—not just today, but years from now.
+      </p>
+      <p>
+        For example, in states where changing plans later may require medical underwriting, some beneficiaries choose to
+        purchase more comprehensive coverage initially because they may not be able to qualify for it later if their health
+        changes.
+      </p>
+      <p>
+        On the other hand, some beneficiaries may find that a High-Deductible Medigap Plan G is an appropriate fit. It
+        typically has a lower monthly premium, while still providing the protection of a Medigap policy after the annual
+        deductible has been met.
+      </p>
+      <p>Whether a high-deductible plan is appropriate depends on factors such as:</p>
+      <ul>
+        <li>Your current health</li>
+        <li>How often you typically use medical services</li>
+        <li>Your comfort with paying a larger deductible in exchange for lower monthly premiums</li>
+        <li>The Medigap enrollment rules in your state</li>
+      </ul>
+
+      <h3>Choosing the Right Strategy</h3>
+      <p>There is no single Medigap plan that is best for everyone.</p>
+      <p>
+        The right choice depends on your health, your budget, your expected healthcare usage, and the enrollment rules where
+        you live. Understanding how your state’s rules affect your future options can help you make a more informed decision.
+      </p>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          This page is educational and general; plan benefits, costs, and availability vary by insurer and location and are not
+          guaranteed. NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
+          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="New to Medicare? Let’s work through your first decisions together." />
+</BaseLayout>

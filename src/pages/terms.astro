@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import { BUSINESS } from '../data/site';
 
 const title = 'Terms of Use';
 const description = 'Terms of Use for the Farnham Senior Health Advisors website.';
@@ -14,7 +15,7 @@ const description = 'Terms of Use for the Farnham Senior Health Advisors website
 
       <p>The information provided on this website is for educational purposes only and is not intended as a substitute for personalized advice. Individual needs and circumstances vary, and plan availability depends on your location and eligibility. Potential savings are not guaranteed and will vary based on plan selection, healthcare usage, and other factors. Past results or examples do not guarantee future outcomes.</p>
 
-      <p>This website is owned and operated by a licensed insurance agent and is intended to provide educational information about Medicare and related insurance products, including High-Deductible Medicare Supplement Insurance, Medicare Supplement Insurance, Medicare Advantage Plans, and Medicare Part D Prescription Drug Plans.</p>
+      <p>This website is owned and operated by {BUSINESS.legalName}, a licensed insurance agency, and is intended to provide educational information about Medicare and related insurance products, including High-Deductible Medicare Supplement Insurance, Medicare Supplement Insurance, Medicare Advantage Plans, and Medicare Part D Prescription Drug Plans.</p>
 
       <p>This website is not intended to provide medical, legal, or financial advice.</p>
 
