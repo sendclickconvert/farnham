@@ -13,17 +13,8 @@ const currentYear = new Date().getFullYear();
 
         <!-- Company info -->
         <div>
-          <a href="/" title={`${BUSINESS.name} — Home`} class="inline-flex items-center gap-2.5 mb-4">
-            <svg class="w-9 h-9 shrink-0" viewBox="0 0 64 64" aria-hidden="true">
-              <rect width="64" height="64" rx="14" fill="#ffffff"/>
-              <rect x="23" y="18" width="7" height="30" rx="1.8" fill="#1A5F6A"/>
-              <rect x="23" y="18" width="21" height="7" rx="1.8" fill="#1A5F6A"/>
-              <rect x="23" y="29.5" width="15" height="6.5" rx="1.8" fill="#1A5F6A"/>
-            </svg>
-            <span class="font-display text-2xl text-white leading-none">
-              Farnham<span class="text-crst-gold">.</span>
-              <span class="block text-xs font-heading font-medium tracking-widest uppercase text-white/50 mt-1">Senior Health Advisors</span>
-            </span>
+          <a href="/" title={`${BUSINESS.name} — Home`} class="inline-block mb-5">
+            <img src="/images/farnham-logo-white.svg" alt={`${BUSINESS.name} — a non-government health insurance agent`} width="3228" height="1067" class="w-72 max-w-full h-auto" loading="lazy" />
           </a>
           <p class="text-sm leading-relaxed text-white/60 mb-5">
             Clear, no-pressure Medicare guidance from a licensed agent who answers his own phone. Specializing in High-Deductible Medicare Supplement Insurance for New York and Connecticut.

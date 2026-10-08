@@ -7,27 +7,18 @@ import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS } from '../../data/site';
 
 const title = 'Medicare Part D Prescription Drug Plans Explained';
-const description = 'Medicare Part D covers prescription drugs through private plans. Learn how Part D works, what it costs, the new out-of-pocket cap, and how to avoid the late-enrollment penalty.';
+const description = 'Medicare Part D covers prescription drugs through private plans. Learn how Part D works, what it costs, and how to avoid the late-enrollment penalty.';
 const today = '2026-06-03';
 
-const faqs = [
-  { q: 'What is Medicare Part D?', a: 'Part D is prescription drug coverage offered through private plans approved by Medicare. You can add a standalone Part D plan to Original Medicare (often alongside a Medigap plan), or get drug coverage bundled inside most Medicare Advantage plans.' },
-  { q: 'How much does Medicare Part D cost?', a: 'Costs vary by plan and include a monthly premium, a possible deductible, and copays or coinsurance based on the plan’s formulary tiers. Higher earners may pay an income-related amount added to the premium. Comparing total expected cost for your specific drugs matters more than premium alone.' },
-  { q: 'Is there a cap on Part D out-of-pocket costs?', a: 'Yes. Starting in 2025, Part D includes an annual cap on what you pay out of pocket for covered drugs — about $2,000, set by Medicare and adjusted each year. Once you reach it, you pay nothing more for covered drugs for the rest of the year.' },
-  { q: 'What is the Part D late-enrollment penalty?', a: 'If you go 63 days or more without creditable drug coverage after your Initial Enrollment Period, Medicare can add a permanent penalty to your Part D premium. Enrolling on time, or keeping creditable coverage, avoids it.' },
-  { q: 'Do I need Part D if I take no medications?', a: 'Even if you take few or no drugs now, enrolling on time (or keeping creditable coverage) avoids the late-enrollment penalty later. A low-premium plan can serve as inexpensive protection against both future drug needs and the penalty.' },
-];
-
 const serviceSchema = { '@context': 'https://schema.org', '@type': 'Service', name: 'Medicare Part D Prescription Drug Plans', serviceType: 'Medicare Prescription Drug Plan', provider: { '@id': `${BUSINESS.url}/#organization` }, areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }], description };
-const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${BUSINESS.url}/services/prescription-drug-plans#webpage`, name: title, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] } };
-const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faqSchema, speakableSchema] };
+const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, speakableSchema] };
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>
   <PageHero
     title="Medicare Part D (Prescription Drug Plans)"
-    subtitle="How drug coverage works under Medicare — what it costs, the new out-of-pocket cap, and how to avoid the late-enrollment penalty."
+    subtitle="How drug coverage works under Medicare — what it costs and how to avoid the late-enrollment penalty."
     breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Part D Drug Plans' }]}
   />
 
@@ -71,13 +62,6 @@ const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faq
         cost — not just the premium — is the way to choose.
       </p>
 
-      <h2>The new out-of-pocket cap</h2>
-      <p>
-        Starting in 2025, Part D includes a yearly cap on what you pay out of pocket for covered drugs — about $2,000, set by
-        Medicare and adjusted annually. Once you hit it, you pay nothing more for covered drugs for the rest of the year. This is a
-        meaningful protection for anyone with high prescription costs.
-      </p>
-
       <h2>Avoiding the late-enrollment penalty</h2>
       <p>
         If you go without creditable drug coverage for 63 days or more after your Initial Enrollment Period, Medicare can add a
@@ -90,13 +74,9 @@ const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faq
         <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
       </div>
 
-      <h2>Frequently asked questions</h2>
-      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
-
       <p>
-        Related: <a href="/medicare-basics">Medicare basics</a>,
-        <a href="/services/medicare-supplement">Medicare Supplement</a>, and
-        <a href="/turning-65">turning 65</a>.
+        Related: <a href="/medicare-basics">Medicare basics</a> and
+        <a href="/services/medicare-supplement">Medicare Supplement</a>.
       </p>
 
       <AuthorByline />
@@ -104,8 +84,8 @@ const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, faq
       <div class="not-prose mt-8">
         <Disclaimer variant="tpmo" />
         <p class="text-xs text-navy-500 mt-3 leading-relaxed">
-          Plan costs, formularies, and the out-of-pocket cap are set by Medicare and plans and change annually; the cap figure is
-          approximate and adjusted each year. This page is educational and not individualized advice. NY producer license #:
+          Plan costs and formularies are set by Medicare and plans and change annually. This page is educational and not
+          individualized advice. NY producer license #:
           {' '}{BUSINESS.nyLicense}.
         </p>
         <p class="text-xs text-navy-500 mt-2 leading-relaxed">

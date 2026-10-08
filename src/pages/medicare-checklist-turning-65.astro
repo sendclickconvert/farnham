@@ -26,7 +26,7 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
   <PageHero
     title="Your Medicare Checklist Before 65"
     subtitle="A short, ordered list to keep your transition to Medicare smooth — and your deadlines safely met."
-    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Turning 65', href: '/turning-65' }, { label: 'Pre-65 Checklist' }]}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Basics', href: '/medicare-basics' }, { label: 'Pre-65 Checklist' }]}
   />
 
   <div class="bg-crst-light border-b border-navy-100">
@@ -77,8 +77,8 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
 
       <h2>4. Compare your options</h2>
       <p>
-        Within your chosen path, compare specific plans on cost and fit. If you’re leaning Medigap, the
-        <a href="/medicare-supplement-plans-comparison">plans comparison</a> is a good starting point. An independent agent can line
+        Within your chosen path, compare specific plans on cost and fit. If you’re leaning Medigap, our
+        <a href="/services/medicare-supplement">Medicare Supplement overview</a> is a good starting point. An independent agent can line
         up the options available to you.
       </p>
 
@@ -97,7 +97,7 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
       {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
 
       <p>
-        Start with <a href="/turning-65">Turning 65 and Medicare</a> for the big picture.
+        Start with <a href="/medicare-basics">Medicare basics</a> for the big picture.
       </p>
 
       <AuthorByline />
