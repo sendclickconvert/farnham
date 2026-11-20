@@ -135,9 +135,21 @@ export function createApp({ distDir = path.resolve('dist'), env = process.env, f
   const RATE_WINDOW_MS = 60 * 60 * 1000;
   const MIN_ELAPSED_MS = 3000;
 
-  const clientIp = (req) => (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || '';
+  const MAX_TRACKED = 5000;
+  // The left-most X-Forwarded-For entry is client-controlled, so count in from the right: the proxy in front
+  // of us (Replit) appends the address it saw. TRUSTED_PROXY_HOPS = proxies between the visitor and this server
+  // (default 1). Verify after the first deploy that the logged bucket is the visitor, not the proxy.
+  const hops = Math.max(1, Number(env.TRUSTED_PROXY_HOPS) || 1);
+  const clientIp = (req) => {
+    const parts = String(req.headers['x-forwarded-for'] || '').split(',').map((x) => x.trim()).filter(Boolean);
+    return parts[parts.length - hops] || req.socket.remoteAddress || '';
+  };
   const allowed = (ip) => {
     const t = now();
+    if (hits.size > MAX_TRACKED) {
+      for (const [k, v] of hits) if (!v.length || t - v[v.length - 1] >= RATE_WINDOW_MS) hits.delete(k);
+      if (hits.size > MAX_TRACKED) hits.clear();
+    }
     const recent = (hits.get(ip) || []).filter((x) => t - x < RATE_WINDOW_MS);
     if (recent.length >= RATE_LIMIT) { hits.set(ip, recent); return false; }
     recent.push(t);
@@ -220,8 +232,11 @@ export function createApp({ distDir = path.resolve('dist'), env = process.env, f
     if (zip && !/^\d{5}$/.test(zip)) return fail(400, 'validation: zip', 'Please check your ZIP code.');
 
     // 3. Time check: a form posted within seconds of loading is a bot.
+    // The page script stamps `t` at load time; a missing, future-dated or stale value is refused too.
     const loadedAt = Number(str('t', 20));
-    if (loadedAt && now() - loadedAt < MIN_ELAPSED_MS) return fail(400, 'too fast', 'Please take a moment and try again.');
+    const age = now() - loadedAt;
+    if (!Number.isFinite(loadedAt) || !loadedAt) return fail(400, 'no timestamp', 'Please turn on JavaScript for this form, or call us.');
+    if (age < MIN_ELAPSED_MS || age > 7 * 24 * 3600 * 1000) return fail(400, 'bad timing', 'Please reload the page and try again.');
 
     // 4. Turnstile, verified here. Launch mode fails closed if the secret is missing.
     if (env.TURNSTILE_SECRET_KEY) {
@@ -268,7 +283,10 @@ export function createApp({ distDir = path.resolve('dist'), env = process.env, f
       }
       if (req.method !== 'GET' && req.method !== 'HEAD') { securityHeaders(res, null); return send(res, 405, 'Method Not Allowed', { Allow: 'GET, HEAD, POST' }); }
       if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
-        res.writeHead(301, { Location: url.pathname.replace(/\/+$/, '') + url.search });
+        // Same-origin path only: collapse leading slashes so this can never become a protocol-relative URL.
+        let target = url.pathname.replace(/\/+$/, '').replace(/^\/+/, '/');
+        if (!target.startsWith('/') || target.startsWith('//') || target.startsWith('/\\')) target = '/';
+        res.writeHead(301, { Location: target + url.search });
         return res.end();
       }
       const file = resolveFile(url.pathname);

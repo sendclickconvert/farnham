@@ -93,6 +93,33 @@ test('validation rejects before the CRM is touched', async () => {
   await s.close();
 });
 
+test('missing, future or stale timestamps are refused', async () => {
+  const s = await start(HOOK);
+  const { t, ...noT } = good();
+  assert.equal((await post(s.base, noT)).status, 400);
+  assert.equal((await post(s.base, { ...good(), t: String(Date.now() + 60000) })).status, 400);
+  assert.equal((await post(s.base, { ...good(), t: String(Date.now() - 8 * 24 * 3600 * 1000) })).status, 400);
+  assert.equal(s.calls.length, 0);
+  await s.close();
+});
+
+test('rate limit keys on the proxy-added address, not a spoofed first entry', async () => {
+  const s = await start(HOOK);
+  for (let i = 0; i < 5; i++) assert.equal((await post(s.base, good(), { 'X-Forwarded-For': `spoof${i}, 7.7.7.7` })).status, 200);
+  assert.equal((await post(s.base, good(), { 'X-Forwarded-For': 'spoof9, 7.7.7.7' })).status, 429);
+  await s.close();
+});
+
+test('trailing-slash redirect can never leave the site', async () => {
+  const s = await start();
+  for (const p of ['///evil.com/', '/\evil.com/', '//evil.com//', '/a//']) {
+    const r = await fetch(s.base + p, { redirect: 'manual' });
+    const loc = r.headers.get('location') || '';
+    assert.ok(!loc || (loc.startsWith('/') && !loc.startsWith('//')), `${p} -> ${loc}`);
+  }
+  await s.close();
+});
+
 test('time check rejects an instant submit', async () => {
   const s = await start(HOOK);
   assert.equal((await post(s.base, { ...good(), t: String(Date.now()) })).status, 400);

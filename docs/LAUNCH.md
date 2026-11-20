@@ -36,9 +36,9 @@ The deployment is `autoscale` running `npm run start` = `node server.mjs` (no de
 
 ## Form: layers and end-to-end test (into GHL)
 
-Layers in `server.mjs` (`POST /api/lead`): same-origin check, rate limit (5 per IP per hour), honeypot field `website`
+Layers in `server.mjs` (`POST /api/lead`): same-origin check, rate limit (5 per IP per hour, keyed on the proxy-added address; `TRUSTED_PROXY_HOPS`, default 1, must be checked on the first live deploy so the bucket is the visitor and not Replit's proxy), honeypot field `website`
 (silent success, nothing sent), validation before anything else (name, 10+ digit phone, optional email and ZIP, consent
-ticked), time check (under 3 seconds = bot), Turnstile verified server-side, then the CRM. A lead is never reported as
+ticked), time check (the page script stamps the load time; missing, future, stale or under 3 seconds is refused, so the form needs JavaScript and shows the phone number otherwise), Turnstile verified server-side, then the CRM. A lead is never reported as
 sent unless the CRM accepted it; otherwise the visitor sees the phone number.
 
 Needs from the team: a GHL inbound-webhook workflow in Jim's sub-account that creates/updates the contact from
