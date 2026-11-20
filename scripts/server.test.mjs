@@ -171,3 +171,11 @@ test('a lead is never reported as sent when the CRM is missing or rejects it', a
   assert.equal((await post(down.base, good())).status, 502);
   await down.close();
 });
+
+test('IPv6 addresses in one /64 share a rate-limit bucket', async () => {
+  const s = await start(HOOK);
+  for (let i = 0; i < 5; i++) assert.equal((await post(s.base, good(), { 'X-Forwarded-For': `2001:db8:1:2:${i}::${i + 1}` })).status, 200);
+  assert.equal((await post(s.base, good(), { 'X-Forwarded-For': '2001:db8:1:2:ffff::9' })).status, 429);
+  assert.equal((await post(s.base, good(), { 'X-Forwarded-For': '2001:db8:1:3::1' })).status, 200);
+  await s.close();
+});

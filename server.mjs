@@ -144,16 +144,28 @@ export function createApp({ distDir = path.resolve('dist'), env = process.env, f
     const parts = String(req.headers['x-forwarded-for'] || '').split(',').map((x) => x.trim()).filter(Boolean);
     return parts[parts.length - hops] || req.socket.remoteAddress || '';
   };
-  const allowed = (ip) => {
+  // IPv6 visitors can rotate through a whole /64, so bucket them by it.
+  const bucket = (ip) => {
+    if (!ip.includes(':') || ip.includes('.')) return ip;
+    const [head, tail = ''] = ip.split('::');
+    const a = head ? head.split(':') : [];
+    const b = tail ? tail.split(':') : [];
+    const groups = ip.includes('::') ? [...a, ...Array(Math.max(0, 8 - a.length - b.length)).fill('0'), ...b] : a;
+    return groups.slice(0, 4).map((g) => g.toLowerCase().replace(/^0+(?=.)/, '')).join(':') + '::/64';
+  };
+  const allowed = (rawIp) => {
     const t = now();
-    if (hits.size > MAX_TRACKED) {
-      for (const [k, v] of hits) if (!v.length || t - v[v.length - 1] >= RATE_WINDOW_MS) hits.delete(k);
-      if (hits.size > MAX_TRACKED) hits.clear();
-    }
+    const ip = bucket(rawIp);
     const recent = (hits.get(ip) || []).filter((x) => t - x < RATE_WINDOW_MS);
     if (recent.length >= RATE_LIMIT) { hits.set(ip, recent); return false; }
     recent.push(t);
+    hits.delete(ip); // re-insert so the Map's insertion order stays least-recently-used first
     hits.set(ip, recent);
+    // Over the cap: drop expired entries, then the least recently used. Never wipe everyone's counts.
+    if (hits.size > MAX_TRACKED) {
+      for (const [k, v] of hits) if (t - v[v.length - 1] >= RATE_WINDOW_MS) hits.delete(k);
+      while (hits.size > MAX_TRACKED) hits.delete(hits.keys().next().value);
+    }
     return true;
   };
 
