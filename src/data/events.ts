@@ -37,6 +37,7 @@ export const REGISTRATION_NOTE = [
   'You must self-register in advance for this educational event.',
   'After registering, you will receive an attendance email containing information on joining the webinar.',
   'At the online registration page, please fill in your first name only and leave your last name blank.',
+  'Please self-register, again, with your first name only, at one of the following:',
 ];
 
 export interface MedicareEvent {

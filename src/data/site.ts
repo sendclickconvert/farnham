@@ -135,7 +135,7 @@ export const SERVICES = [
       'High-Deductible Plan G offers the same standardized benefits as regular Plan G, but with a lower monthly premium in exchange for a higher annual deductible ($2,950 in 2026). For many people — especially in New York and Connecticut — it is one of the most cost-effective ways to cover the gaps in Original Medicare.',
   },
   {
-    title: 'Medicare Supplement (Medigap)',
+    title: 'Medicare Supplement Insurance (Medigap)',
     slug: 'medicare-supplement',
     icon: 'check-shield',
     summary: 'Standardized plans that pay the gaps Original Medicare leaves behind — predictable costs, any doctor that takes Medicare.',

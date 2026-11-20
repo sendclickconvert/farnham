@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
 import Disclaimer from '../components/Disclaimer.astro';
-import { MEDICARE_2026, pendingMarker } from '../data/site';
+import { MEDICARE_2026 } from '../data/site';
 
 const title = 'Medicare FAQ';
 const description = 'Answers to common questions about High-Deductible Medigap, switching plans, costs, and consultations.';
@@ -14,7 +14,7 @@ const faqs = [
   { q: 'What if I get sick after enrolling?', a: 'Your Medicare Supplement coverage cannot be canceled because you get sick. However, in most states, switching to a different plan later may be limited by medical underwriting.' },
   { q: 'How much is the High-Deductible Plan G deductible?', a: `In ${MEDICARE_2026.year} it is ${MEDICARE_2026.hdDeductible}. The Part B deductible (${MEDICARE_2026.partBDeductible}) counts toward it. After the deductible is met, the plan pays 100% of Medicare-approved costs for the rest of the year.` },
   { q: 'Do you charge for consultations?', a: 'No — consultations are at no cost and come with no obligation.' },
-  { q: 'Do you only work in New York?', a: 'New York and Connecticut are my primary focus, and I am also licensed in several other states. The easiest way to confirm I can help where you live is to call or request a review.' },
+  { q: 'Do you only work in New York and Connecticut?', a: 'No! In addition to New York and Connecticut, I am also licensed and appointed in Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, Tennessee' },
   { q: 'How do you get paid?', a: 'I may be compensated by insurance companies when you enroll in a plan. That compensation does not change the cost of your coverage.' },
 ];
 
@@ -29,7 +29,6 @@ const faqSchema = {
   <PageHero title="Frequently Asked Questions" subtitle="Straight answers, no jargon." breadcrumbs={[{ label: 'FAQ' }]} />
   <section class="py-14 lg:py-18">
     <div class="container-narrow space-y-4">
-      <Fragment set:html={pendingMarker('licensed-states list: FAQ says licensed in several other states; not yet reconfirmed by Jim')} />
       {faqs.map((f) => (
         <details class="group card cursor-pointer">
           <summary class="flex items-center justify-between font-heading font-semibold text-lg text-crst-primary list-none">

@@ -48,6 +48,11 @@ const schema = {
       <aside class="space-y-6">
         <div class="rounded-xl overflow-hidden border border-navy-100 bg-navy-50">
           <img src={AGENT.photo} alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full aspect-[4/5] object-cover bg-navy-100" />
+          <div class="p-4 text-center">
+            <div class="font-heading font-semibold text-navy-900">{AGENT.fullName}</div>
+            <div class="text-sm text-navy-600">{AGENT.title}</div>
+            <div class="text-sm italic text-navy-500">{AGENT.tagline}</div>
+          </div>
         </div>
 
         <div class="card">
