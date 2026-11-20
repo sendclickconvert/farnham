@@ -112,7 +112,7 @@ test('rate limit keys on the proxy-added address, not a spoofed first entry', as
 
 test('trailing-slash redirect can never leave the site', async () => {
   const s = await start();
-  for (const p of ['///evil.com/', '/\evil.com/', '//evil.com//', '/a//']) {
+  for (const p of ['///evil.com/', '/\\evil.com/', '//evil.com//', '/a//']) {
     const r = await fetch(s.base + p, { redirect: 'manual' });
     const loc = r.headers.get('location') || '';
     assert.ok(!loc || (loc.startsWith('/') && !loc.startsWith('//')), `${p} -> ${loc}`);
