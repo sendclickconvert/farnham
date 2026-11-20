@@ -4,10 +4,10 @@ import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
-import { BUSINESS } from '../../data/site';
+import { BUSINESS, pendingMarker } from '../../data/site';
 
 const title = 'Where and How I Work — Farnham Senior Health Advisors';
-const description = 'Jim Farnham serves Medicare beneficiaries in New York, Connecticut, Florida, New Jersey, North Carolina, Pennsylvania, South Carolina, and Tennessee. No-cost, individualized Medicare analysis — by phone or Zoom screen-share.';
+const description = 'Jim Farnham serves Medicare beneficiaries in New York, Connecticut and six other states, with no-cost, individualized analysis by phone or Zoom screen-share.';
 const today = '2026-06-03';
 
 const faqs = [
@@ -65,6 +65,7 @@ const schema = {
 
   <article class="py-14 lg:py-18">
     <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+      <Fragment set:html={pendingMarker('licensed-states list (8 states) not yet reconfirmed by Jim')} />
 
       <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
         <p class="text-navy-800 leading-relaxed m-0">

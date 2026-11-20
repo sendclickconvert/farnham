@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BUSINESS } from '../data/site';
+---
+
+<BaseLayout title="Page Not Found" description="That page could not be found. Call Jim Farnham or browse the main sections of the site." noIndex={true}>
+  <section class="py-24 lg:py-32">
+    <div class="container-narrow text-center">
+      <h1 class="text-3xl sm:text-4xl font-display text-crst-primary mb-4">That Page Could Not Be Found</h1>
+      <p class="text-lg text-navy-600 max-w-xl mx-auto mb-8">
+        The page may have moved. These are the places most people are looking for.
+      </p>
+      <ul class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-10 text-crst-accent underline">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services">Medicare plans</a></li>
+        <li><a href="/medicare-basics">Medicare basics</a></li>
+        <li><a href="/events">Medicare 101 classes</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-8 py-3.5">Call {BUSINESS.phone}</a>
+    </div>
+  </section>
+</BaseLayout>

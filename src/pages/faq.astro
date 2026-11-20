@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
 import Disclaimer from '../components/Disclaimer.astro';
-import { MEDICARE_2026 } from '../data/site';
+import { MEDICARE_2026, pendingMarker } from '../data/site';
 
 const title = 'Medicare FAQ';
 const description = 'Answers to common questions about High-Deductible Medigap, switching plans, costs, and consultations.';
@@ -29,6 +29,7 @@ const faqSchema = {
   <PageHero title="Frequently Asked Questions" subtitle="Straight answers, no jargon." breadcrumbs={[{ label: 'FAQ' }]} />
   <section class="py-14 lg:py-18">
     <div class="container-narrow space-y-4">
+      <Fragment set:html={pendingMarker('licensed-states list: FAQ says licensed in several other states; not yet reconfirmed by Jim')} />
       {faqs.map((f) => (
         <details class="group card cursor-pointer">
           <summary class="flex items-center justify-between font-heading font-semibold text-lg text-crst-primary list-none">

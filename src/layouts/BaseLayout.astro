@@ -1,5 +1,5 @@
 ---
-import { BUSINESS, AGENT } from '../data/site';
+import { BUSINESS, AGENT, IS_PUBLISH, pendingMarker } from '../data/site';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -15,23 +15,33 @@ export interface Props {
 
 const {
   title,
-  description = `${BUSINESS.name} — clear, no-pressure Medicare guidance from licensed agent Jim Farnham. Specializing in High-Deductible Medicare Supplement Insurance for New York and Connecticut.`,
+  description = `Clear, no-pressure Medicare guidance from licensed agent Jim Farnham. High-Deductible Medicare Supplement Insurance for New York and Connecticut.`,
   canonical,
   ogImage = '/images/farnham-og.jpg',
   schema,
   noIndex = false,
 } = Astro.props;
 
+// Titles stay at or under 60 characters: the brand suffix is dropped when it
+// would push a page title over the limit.
+const withBrand = `${title} | ${BUSINESS.shortName}`;
 const fullTitle =
   title === 'Home'
-    ? `${BUSINESS.name} | Medicare Help in ${BUSINESS.address.city}, NY`
-    : `${title} | ${BUSINESS.shortName}`;
+    ? `${BUSINESS.name} | Medicare in ${BUSINESS.address.city}, NY`
+    : withBrand.length <= 60 ? withBrand : title;
+
+// Demo (preview) builds are noindex until PUBLISH=1 is set for the launch build.
+const robotsNoIndex = noIndex || !IS_PUBLISH;
+const pendingMarkers = [
+  !BUSINESS.domainConfirmed && 'final domain: farnhamseniorhealth.com is not registered or confirmed',
+  !BUSINESS.addressConfirmed && 'office/verification address for Google Business Profile (street address and geo withheld from schema)',
+].filter(Boolean).map((l) => pendingMarker(l as string)).join('');
 
 const canonicalUrl = canonical || new URL(Astro.url.pathname, BUSINESS.url).href;
 
 // ---------------------------------------------------------------------
 // Default site-wide schema: InsuranceAgency (a LocalBusiness subtype),
-// built as a STOREFRONT — public address + geo so it can be mapped.
+// service-area business until the verification address is confirmed.
 // Jim is also modeled as a Person (E-E-A-T) and tied in as the agent.
 // ---------------------------------------------------------------------
 const organizationSchema = {
@@ -46,19 +56,18 @@ const organizationSchema = {
   image: `${BUSINESS.url}/images/farnham-og.jpg`,
   logo: `${BUSINESS.url}/images/farnham-logo-1200.png`,
   priceRange: 'No-cost consultation',
+  // Street address and geo only once Jim supplies a real one (service-area business until then).
   address: {
     '@type': 'PostalAddress',
-    streetAddress: BUSINESS.address.street,
+    ...(BUSINESS.addressConfirmed ? { streetAddress: BUSINESS.address.street } : {}),
     addressLocality: BUSINESS.address.city,
     addressRegion: BUSINESS.address.state,
-    postalCode: BUSINESS.address.zip,
+    ...(BUSINESS.addressConfirmed ? { postalCode: BUSINESS.address.zip } : {}),
     addressCountry: 'US',
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: BUSINESS.geo.latitude,
-    longitude: BUSINESS.geo.longitude,
-  },
+  ...(BUSINESS.addressConfirmed
+    ? { geo: { '@type': 'GeoCoordinates', latitude: BUSINESS.geo.latitude, longitude: BUSINESS.geo.longitude } }
+    : {}),
   areaServed: [
     { '@type': 'State', name: 'New York' },
     { '@type': 'State', name: 'Connecticut' },
@@ -100,7 +109,8 @@ const schemaGraph = schema
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
 
-  {noIndex && <meta name="robots" content="noindex, nofollow" />}
+  {robotsNoIndex && <meta name="robots" content="noindex, nofollow" />}
+  <Fragment set:html={pendingMarkers} />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />

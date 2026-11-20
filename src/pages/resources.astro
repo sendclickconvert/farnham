@@ -4,10 +4,10 @@ import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import AuthorByline from '../components/AuthorByline.astro';
-import { BUSINESS } from '../data/site';
+import { BUSINESS, pendingMarker } from '../data/site';
 
 const title = 'Medicare Resources — Official Government Sources';
-const description = 'A curated list of official government Medicare resources — Medicare.gov, SSA.gov, CMS.gov, and state-specific sites for NY, CT, NJ, PA, and FL. Compiled by Jim Farnham for Medicare 101 class attendees.';
+const description = 'Official government Medicare resources: Medicare.gov, SSA.gov, CMS.gov and state sites for NY, CT, NJ, PA and FL, compiled by Jim Farnham for his classes.';
 const today = '2026-06-03';
 
 const schema = {
@@ -136,6 +136,7 @@ const ext = 'rel="nofollow noopener" target="_blank"';
       <!-- STATE SECTIONS -->
 
       <h2>State Resources</h2>
+      <Fragment set:html={pendingMarker('licensed-states list (8 states) not yet reconfirmed by Jim')} />
       <p>
         Jim is licensed in New York, Connecticut, New Jersey, Pennsylvania, Florida, North Carolina, South Carolina, and
         Tennessee. Below are official resources specific to the states he works with most.

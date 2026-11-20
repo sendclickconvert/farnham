@@ -22,22 +22,25 @@ export const BUSINESS = {
   // ⚠️ CONFIRM — replace personal Gmail with a domain email once the domain is live
   email: 'jimfarnham1000@gmail.com',
 
-  // ----- STOREFRONT ADDRESS (built as a storefront / mapped business) -----
-  // ⚠️ CONFIRM — this MUST be a real in-area office with permanent signage,
-  // staffed during posted hours, where clients can be received. Google will
-  // suspend a storefront listing that is really an unstaffed home/PO box.
-  // Placeholder uses New Paltz; swap for the confirmed office address + suite.
+  // ----- OFFICE ADDRESS: PENDING (service-area business, address hidden) -----
+  // Jim never meets in person (phone + Zoom only), so Google Business Profile
+  // is set up as a service-area business with the address hidden. Google still
+  // needs a real verification address from Jim. Until `addressConfirmed` is
+  // true NO street address and NO map pin is shown or put in schema; the site
+  // says only what is true today. The build guard fails a PUBLISH=1 build while
+  // this is false (scripts/guard.mjs). Never invent a street address here.
+  addressConfirmed: false,
   address: {
-    street: '000 PLACEHOLDER STREET, Suite 000', // ⚠️ CONFIRM
+    street: '', // set with addressConfirmed once Jim supplies the verification address
     city: 'New Paltz',
     state: 'NY',
     zip: '12561',
-    full: '000 PLACEHOLDER STREET, Suite 000, New Paltz, NY 12561', // ⚠️ CONFIRM
+    full: '',
   },
-  // ⚠️ CONFIRM geo to the exact office once the address is set (drop a pin in Maps)
+  // Only emitted in schema when addressConfirmed is true (drop a pin at the exact address first).
   geo: {
-    latitude: 41.7473,
-    longitude: -74.0868,
+    latitude: 0,
+    longitude: 0,
   },
 
   // Mailing address (from client docs) — used ONLY in legal/privacy "contact"
@@ -45,11 +48,15 @@ export const BUSINESS = {
   mailingAddress: 'P.O. Box 85, New Paltz, NY 12561',
 
   owner: 'James W. Farnham',
-  // ⚠️ CONFIRM final production domain
+  // PENDING: farnhamseniorhealth.com is a placeholder name. Checked 20 Nov 2026:
+  // it is NOT registered (RDAP 404, NXDOMAIN) and nobody holds it. Set
+  // `domainConfirmed` to true only after the domain is registered under CRST's
+  // delegate access and the same value is in astro.config.mjs `site`.
+  domainConfirmed: false,
   domain: 'farnhamseniorhealth.com',
   url: 'https://farnhamseniorhealth.com',
 
-  // ⚠️ CONFIRM — NY producer license shown in disclosures
+  // NY producer license number: confirmed by Jim (round 3, p11: NYS number only).
   nyLicense: 'LA-799338',
 
   hours: 'By appointment — phone and Zoom screen-share consultations',
@@ -94,7 +101,12 @@ export const AGENT = {
     { degree: 'B.A., Sociology', school: 'State University of New York at New Paltz', year: '1979' },
   ],
 
-  // ⚠️ CONFIRM current active states. Docs list these; onboarding adds Tennessee.
+  // PENDING: this 8-state list comes from Jim's original documents (onboarding
+  // adds Tennessee). In round 3 he said "focus first on NY and CT" and that the
+  // "Also licensed in..." line needs his confirmed list, which has not arrived.
+  // Pages that state it carry a pending marker; the PUBLISH=1 build fails until
+  // `licensedStatesConfirmed` is true. Never add or drop a state without Jim.
+  licensedStatesConfirmed: false,
   licensedStates: ['New York', 'Connecticut', 'New Jersey', 'Pennsylvania', 'North Carolina', 'South Carolina', 'Tennessee', 'Florida'],
 
   knowsAbout: [
@@ -281,6 +293,10 @@ export const DISCLAIMERS = {
   compensation:
     'We may be compensated by insurance companies when you enroll in a plan. This compensation may vary by plan and carrier. It does not affect the cost of your coverage.',
 
+  // Jim's contact-form consent paragraph, verbatim (round 3). Do not reword.
+  tcpaConsent:
+    'By completing this form, you agree that an authorized representative or licensed insurance agent may contact you by phone, text or email to answer your questions and provide additional information about Medicare Supplement Insurance, Part D and Medicare Advantage Plans. You are making no commitments and are under no obligations. You understand that the person who will be discussing plan options with you may be compensated based on your enrollment in a plan.',
+
   noPHI:
     'Please do not submit sensitive personal or health information (such as medical conditions, medications, or Medicare numbers) through this website. A licensed agent will gather any necessary information securely during a private consultation.',
 
@@ -289,11 +305,13 @@ export const DISCLAIMERS = {
 } as const;
 
 // =====================================================================
-// CRM / FORMS
-// ⚠️ CONFIRM — wire to client's CRM (e.g. GoHighLevel webhook) at kickoff.
+// PENDING FACTS (demo-safe pattern)
+// Render a statement that is true TODAY and drop an HTML comment marker the
+// visitor never sees. scripts/guard.mjs greps dist for "<!--PENDING:" and warns
+// on a demo build, fails when PUBLISH=1.
 // =====================================================================
-export const FORMS = {
-  webhookUrl: '', // ⚠️ CONFIRM — paste CRM webhook URL
-  // ⚠️ CONFIRM — client's Medicare 101 webinar registration / Zoom link
-  webinarRegistrationUrl: '#',
-} as const;
+export const pendingMarker = (label: string) => `<!--PENDING: ${label}-->`;
+
+// One switch for demo vs launch. Set PUBLISH=1 in the build environment only
+// after Jim and his reviewers have approved in writing and the domain is live.
+export const IS_PUBLISH = typeof process !== 'undefined' && process.env.PUBLISH === '1';

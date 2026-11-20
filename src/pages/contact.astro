@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Disclaimer from '../components/Disclaimer.astro';
-import { BUSINESS, DISCLAIMERS, FORMS } from '../data/site';
+import { BUSINESS, DISCLAIMERS } from '../data/site';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
 
 const title = 'Contact Jim Farnham';
 const description = 'Call or text directly, or request a no-cost Medicare review. Serving New York and Connecticut.';
@@ -64,9 +66,16 @@ const schema = {
         <form
           class="card space-y-4"
           method="POST"
-          action={FORMS.webhookUrl || '#'}
+          action="/api/lead"
           data-form="lead"
         >
+          <!-- Honeypot: people never see or fill this; bots do. -->
+          <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" name="t" value="" />
+          <input type="hidden" name="consent_text" value={DISCLAIMERS.tcpaConsent} />
           <div>
             <label for="name" class="block text-sm font-heading font-medium text-navy-700 mb-1">Name</label>
             <input id="name" name="name" type="text" required autocomplete="name" class="w-full rounded-lg border border-navy-200 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-crst-accent" />
@@ -93,8 +102,14 @@ const schema = {
           <!-- Consent (TCPA) -->
           <label class="flex items-start gap-3 text-xs text-navy-600">
             <input type="checkbox" name="consent" required class="mt-1 shrink-0" />
-            <span>By completing this form, you agree that an authorized representative or licensed insurance agent may contact you by phone, text or email to answer your questions and provide additional information about Medicare Supplement Insurance, Part D and Medicare Advantage Plans. You are making no commitments and are under no obligations. You understand that the person who will be discussing plan options with you may be compensated based on your enrollment in a plan.</span>
+            <span>{DISCLAIMERS.tcpaConsent}</span>
           </label>
+
+          {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>}
+
+          <p data-form-error role="alert" class="hidden rounded-lg bg-red-50 border border-red-200 text-red-800 text-sm px-4 py-3">
+            Something went wrong sending your request. Please call or text {BUSINESS.phone} and I will help right away.
+          </p>
 
           <button type="submit" class="btn-primary w-full">Request my call</button>
 
@@ -107,4 +122,7 @@ const schema = {
       <Disclaimer variant="tpmo" />
     </div>
   </section>
+
+  {turnstileSiteKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
+  <script src="/js/lead-form.js" defer is:inline></script>
 </BaseLayout>

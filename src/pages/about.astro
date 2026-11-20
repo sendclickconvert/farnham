@@ -2,10 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
-import { AGENT, BUSINESS } from '../data/site';
+import { AGENT, BUSINESS, pendingMarker } from '../data/site';
 
 const title = 'About Jim Farnham';
-const description = `${AGENT.fullName} has spent ${BUSINESS.stats.yearsInsurance} years in insurance and financial services, the last ${BUSINESS.stats.yearsMedicare} focused almost exclusively on Medicare. Education-first, no-pressure guidance for New York and Connecticut.`;
+const description = `James W. Farnham, MS, MBA, has 30+ years in insurance, 13 of them focused on Medicare. Education-first, no-pressure guidance for New York and Connecticut.`;
 
 // Person schema is already emitted site-wide in BaseLayout; this adds the AboutPage wrapper.
 const schema = {
@@ -47,9 +47,7 @@ const schema = {
       <!-- Sidebar -->
       <aside class="space-y-6">
         <div class="rounded-xl overflow-hidden border border-navy-100 bg-navy-50">
-          <!-- ⚠️ Client to supply headshot → /public/images/jim-farnham.jpg -->
-          <img src={AGENT.photo} alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full aspect-[4/5] object-cover bg-navy-100" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="hidden aspect-[4/5] items-center justify-center text-center text-navy-400 text-sm font-heading p-6" style="display:none;">Jim Farnham headshot<br/>(client to supply)</div>
+          <img src={AGENT.photo} alt={`${AGENT.fullName}, ${AGENT.title}`} class="w-full aspect-[4/5] object-cover bg-navy-100" />
         </div>
 
         <div class="card">
@@ -66,7 +64,7 @@ const schema = {
 
         <div class="card">
           <h3 class="font-heading font-semibold text-crst-primary mb-3">Licensed In</h3>
-          <p class="text-sm text-navy-600 leading-relaxed">{AGENT.licensedStates.join(', ')}.</p>
+          <p class="text-sm text-navy-600 leading-relaxed"><Fragment set:html={pendingMarker('licensed-states list (8 states) not yet reconfirmed by Jim')} />{AGENT.licensedStates.join(', ')}.</p>
           <p class="text-xs text-navy-500 mt-3">NY producer license #: {BUSINESS.nyLicense}</p>
         </div>
 

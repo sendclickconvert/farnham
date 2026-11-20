@@ -3,8 +3,8 @@
 Astro + Tailwind site for **Farnham Senior Health Advisors, Inc.** (Jim Farnham),
 specializing in High-Deductible Medicare Supplement Insurance for New York & Connecticut.
 
-Built as a **storefront** business (public address + map pin + `InsuranceAgency` schema).
-Can be switched to a service-area business later by hiding the address and using `areaServed`.
+Built as a **service-area business** (phone and Zoom only, no street address shown) with `InsuranceAgency` schema.
+A street address and map pin are added only when Jim supplies a verification address.
 
 ---
 
@@ -17,9 +17,11 @@ npm run build      # production build -> ./dist
 npm run preview    # preview the build
 ```
 
-Node 18+ required. Adapter: `@astrojs/node` (middleware). Output: `hybrid`
-(all pages currently prerender to static; the node adapter keeps server-render
-available if a form endpoint is added later).
+Node 20+ required. Output is static (`dist/`). In production `node server.mjs` serves `dist/`, sets the
+security headers and handles the contact form (`POST /api/lead`); no adapter, no database.
+`npm run audit` runs the pre-launch checks and `npm test` the form and header tests.
+
+**Launch runbook, pending facts and form/DNS/GBP plans: [docs/LAUNCH.md](docs/LAUNCH.md).**
 
 ---
 
