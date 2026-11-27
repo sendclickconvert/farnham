@@ -5,10 +5,7 @@ import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS, MEDICARE_2026 } from '../../data/site';
-import { NY_RATES, money } from '../../data/medigap-rates';
 
-const mh = NY_RATES.regions.midHudson;
-const wc = NY_RATES.regions.westchester;
 const title = 'Medicare in Westchester County, NY — Local Agent';
 const description = 'Local Medicare help for Westchester County, NY: White Plains, Yonkers and New Rochelle. Independent guidance on Medigap, Plan G, Advantage and Part D.';
 const today = '2026-06-03';
@@ -103,18 +100,18 @@ const schema = { '@context': 'https://schema.org', '@graph': [
         clear-eyed comparison — before or after you decide.
       </p>
 
-      <h2>What your ZIP code means for your premium</h2>
+      <h2>How we meet</h2>
       <p>
-        White Plains ZIP codes begin with 106, within the Westchester range of 105 to 109. Monthly premiums the state lists for that region, effective {NY_RATES.effective}, run {money(wc.planG.min)} to {money(wc.planG.max)} for standard Plan G and {money(wc.hdG.min)} to {money(wc.hdG.max)} for High-Deductible Plan G. That spread is wide because insurers price the same standardized plan differently. Read the <a href="/medigap-plan-g-cost-new-york">cost guide</a> for how to use it, or <a href="/contact">ask for a review</a> at your ZIP code.
+        A phone call or Zoom screen-share handles the whole review, so distance from the Hudson Valley is never a factor — and
+        you’ll have my direct line afterward, not a queue. <a href="/contact">Request a no-cost review</a> or call {BUSINESS.phone}.
       </p>
 
       <h2>Frequently asked questions</h2>
       {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
 
       <p class="text-sm text-navy-500">
-        Nearby: <a href="/service-areas/ulster-county">Ulster County</a> ·
+        Nearby: <a href="/service-areas/orange-county">Orange County</a> ·
         <a href="/service-areas/dutchess-county">Dutchess County</a> ·
-        <a href="/service-areas/orange-county">Orange County</a> ·
         <a href="/service-areas">all service areas</a>.
       </p>
 

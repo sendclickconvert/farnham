@@ -7,7 +7,6 @@ import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS } from '../../data/site';
 
 const title = 'Dental, Vision, Hearing and Hospital';
-const seoTitle = 'Dental, Vision, Hearing and Hospital Plans, NY and CT';
 const description = 'Original Medicare generally doesn’t cover routine dental, vision, or hearing care. Stand-alone plans and hospital indemnity coverage can help fill those gaps.';
 
 const serviceSchema = {
@@ -21,7 +20,7 @@ const serviceSchema = {
 };
 ---
 
-<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={serviceSchema}>
+<BaseLayout title={title} description={description} schema={serviceSchema}>
   <PageHero
     title={title}
     subtitle={'Coverage for the everyday needs Original Medicare generally leaves out, and cash benefits for a hospital stay.'}
@@ -32,20 +31,6 @@ const serviceSchema = {
       <p class="lead text-xl text-navy-700">Original Medicare generally does not cover routine dental, vision, or hearing care — yet these are some of the most common everyday expenses in retirement.</p>
       <h2>Filling the everyday gaps</h2>
       <p>Stand-alone dental, vision, and hearing plans can help cover some of these shortfalls. Coverage and value vary by plan, so it’s worth matching a plan to what you actually expect to use.</p>
-      <h2>What Original Medicare does and doesn’t cover</h2>
-      <ul>
-        <li><strong>Eyes:</strong> routine eye exams for glasses or contact lenses are not covered. A yearly glaucoma screening for people at high risk is, and so is one pair of glasses or contacts after cataract surgery that implants a lens.</li>
-        <li><strong>Hearing:</strong> hearing aids and exams to fit them are not covered. Diagnostic hearing and balance exams ordered by your doctor are.</li>
-        <li><strong>Teeth:</strong> in most cases cleanings, fillings, extractions and dentures are not covered. Dental services tied to a covered medical treatment may be.</li>
-      </ul>
-      <p>
-        The details, with links to Medicare.gov, are in
-        <a href="/does-medicare-plan-g-cover-eye-exams-hearing-aids-dental">does Plan G pay for eye exams, hearing aids or dental care</a>.
-        Plan G and other Medigap plans help with Original Medicare’s costs but don’t add these benefits; see
-        <a href="/what-medigap-plan-g-does-not-cover">what Plan G does not cover</a>. Some
-        <a href="/services/medicare-advantage">Medicare Advantage plans</a> include extra benefits like vision, hearing or dental, so check what each one pays.
-      </p>
-
       <h2>How I help</h2>
       <p>I’ll help you decide whether stand-alone coverage makes sense for you and compare some options available in your area.</p>
 

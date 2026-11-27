@@ -5,10 +5,7 @@ import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS, MEDICARE_2026 } from '../../data/site';
-import { NY_RATES, money } from '../../data/medigap-rates';
 
-const mh = NY_RATES.regions.midHudson;
-const wc = NY_RATES.regions.westchester;
 const title = 'Medicare in Ulster County, NY — Local Agent';
 const description = 'Local Medicare help for Ulster County, NY: New Paltz, Kingston, Saugerties and Woodstock. Independent guidance on Medigap, Plan G, Advantage and Part D.';
 const today = '2026-06-03';
@@ -104,9 +101,11 @@ const schema = { '@context': 'https://schema.org', '@graph': [
         location and travel habits factor in.
       </p>
 
-      <h2>What your ZIP code means for your premium</h2>
+      <h2>How we meet</h2>
       <p>
-        Kingston ZIP codes begin with 124 and New Paltz ZIP codes begin with 125, so both sit in the state’s Mid-Hudson table. For that region, effective {NY_RATES.effective}, the state lists {money(mh.planG.min)} to {money(mh.planG.max)} for standard Plan G and {money(mh.hdG.min)} to {money(mh.hdG.max)} for High-Deductible Plan G each month. These are ranges rather than quotes; the <a href="/medigap-plan-g-cost-new-york">cost guide</a> explains them, and I can look up what is offered at your ZIP code when you <a href="/contact">ask for a review</a>.
+        Everything happens by phone or Zoom screen-share — a quick call, or a Zoom session where we look at the options together
+        on screen. Either way, you’ll get my direct line afterward — not a call-center queue. <a href="/contact">Request a no-cost
+        review</a> or call {BUSINESS.phone}.
       </p>
 
       <h2>Frequently asked questions</h2>
@@ -115,7 +114,6 @@ const schema = { '@context': 'https://schema.org', '@graph': [
       <p class="text-sm text-navy-500">
         Nearby: <a href="/service-areas/dutchess-county">Dutchess County</a> ·
         <a href="/service-areas/orange-county">Orange County</a> ·
-        <a href="/service-areas/westchester-county">Westchester County</a> ·
         <a href="/service-areas">all service areas</a>.
       </p>
 

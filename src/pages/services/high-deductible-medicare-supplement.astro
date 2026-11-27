@@ -6,7 +6,6 @@ import Disclaimer from '../../components/Disclaimer.astro';
 import { BUSINESS, MEDICARE_2026 } from '../../data/site';
 
 const title = 'High-Deductible Medicare Supplement Insurance (Plan G)';
-const seoTitle = 'High-Deductible Medigap Plan G in New York and Connecticut';
 const description = 'High-Deductible Plan G is a Medigap plan with the same benefits as standard Plan G, a lower premium and a higher deductible. See if it fits your situation.';
 const today = '2026-06-03';
 
@@ -19,7 +18,7 @@ const schema = {
 };
 ---
 
-<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={schema}>
   <PageHero
     title="High-Deductible Medicare Supplement Insurance"
     subtitle="The same coverage as standard Plan G — at a lower monthly premium. Here's how it works and who it fits."
@@ -92,8 +91,7 @@ const schema = {
 
       <p>
         Which plan is more appropriate? It depends on where you live, how much care you expect to use, and how you prefer to
-        manage cost. See the full side-by-side in <a href="/high-deductible-plan-g-vs-plan-g">High-Deductible Plan G vs. standard Plan G</a>,
-        and the state-published premium ranges in <a href="/medigap-plan-g-cost-new-york">what Medigap Plan G costs in New York</a>.
+        manage cost. See the full side-by-side in <a href="/high-deductible-plan-g-vs-plan-g">High-Deductible Plan G vs. standard Plan G</a>.
       </p>
 
       <h2>Can you switch out of a High-Deductible Plan later?</h2>

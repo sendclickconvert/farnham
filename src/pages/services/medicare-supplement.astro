@@ -3,10 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
-import { BUSINESS, MEDICARE_2026, MEDICARE_2027 } from '../../data/site';
+import { BUSINESS, MEDICARE_2026 } from '../../data/site';
 
 const title = 'Medicare Supplement Insurance (Medigap)';
-const seoTitle = 'Medicare Supplement (Medigap) in New York and Connecticut';
 const description = 'A Medicare Supplement (Medigap) plan works alongside Original Medicare to pay the deductibles, copays and coinsurance it leaves. Learn which plan fits you.';
 const today = '2026-06-03';
 
@@ -19,7 +18,7 @@ const schema = {
 };
 ---
 
-<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={schema}>
   <PageHero
     title="Medicare Supplement Insurance (Medigap)"
     subtitle="Private insurance that works alongside Original Medicare — paying the gaps it leaves behind, with the freedom to see any provider that accepts Medicare."
@@ -62,52 +61,12 @@ const schema = {
         Medigap plans are labeled by letter, and each letter is standardized — so Plan G covers the same core benefits from
         any insurer.
       </p>
-      <p>
-        Plan G is the one most people ask about. According to the
-        <a href="https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits" rel="nofollow noopener" target="_blank">Medicare.gov benefits chart</a>,
-        a standard Plan G pays the Part A coinsurance and hospital costs (up to an additional 365 days after Medicare benefits are used),
-        the Part B coinsurance or copayment, the first 3 pints of blood, hospice coinsurance, skilled nursing facility coinsurance,
-        the Part A deductible and Part B excess charges, and 80% of foreign travel emergency care up to plan limits. It does not pay the
-        yearly Part B deductible ({MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year}, {MEDICARE_2027.partBDeductible} in {MEDICARE_2027.year}).
-        The full list is in <a href="/what-medigap-plan-g-does-not-cover">what Plan G does not cover</a>.
-      </p>
-
-      <h2>Medigap in New York and Connecticut</h2>
-      <p>
-        Because the benefits are standardized, the difference between insurers is price, and price varies a great deal. The State of New York
-        publishes its own tables, and I’ve summarized the ranges for the Hudson Valley in
-        <a href="/medigap-plan-g-cost-new-york">what Medigap Plan G costs in New York</a>. Connecticut publishes its own rate sheet as well.
-        If you’d rather lower the monthly premium and accept a deductible, the
-        <a href="/services/high-deductible-medicare-supplement">High-Deductible Medigap plan</a> is the other option to weigh, and
-        <a href="/high-deductible-plan-g-worth-it">is a high-deductible plan worth it</a> walks through the trade-off.
-      </p>
-
-      <h2>What Medigap doesn’t do</h2>
-      <p>
-        A Medigap plan doesn’t cover prescription drugs, and it doesn’t add routine dental, vision or hearing coverage. For drugs, see
-        <a href="/services/prescription-drug-plans">Part D plans</a>; for the rest, see
-        <a href="/services/dental-vision-hearing">dental, vision, hearing and hospital coverage</a> and
-        <a href="/does-medicare-plan-g-cover-eye-exams-hearing-aids-dental">what Original Medicare covers for your eyes, ears and teeth</a>.
-        If you already have a plan and are wondering about a change, read
-        <a href="/medicare-supplement/when-can-you-change-your-medigap-plan">when you can change your Medigap plan</a> and
-        <a href="/medigap-pros-and-cons">the pros and cons of Medigap</a>.
-      </p>
 
       <h2>When you can enroll in Medigap</h2>
       <p>
         Nationwide, everyone has a 6-month Medigap Open Enrollment Period that begins when you're 65 or older and enrolled
         in Part B — during which, you can't be turned down. New York and Connecticut go further, allowing guaranteed-issue
         enrollment all year. See <a href="/medigap-open-enrollment">when you can enroll in Medigap</a>.
-      </p>
-
-      <h2>Why the federal enrollment window matters elsewhere</h2>
-      <p>
-        Under federal law, the one-time 6-month Medigap Open Enrollment Period starts the first month you have Part B and are 65 or older.
-        During it, a company can’t refuse to sell you any policy it offers or use medical underwriting, and it can’t charge you more because
-        of pre-existing health problems. Outside that window in many states you may pay more, have fewer options, or be denied
-        (<a href="https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy" rel="nofollow noopener" target="_blank">Medicare.gov</a>).
-        New York and Connecticut protect you beyond that window, which is why people moving to or from those states should check the rules
-        before they change coverage. See <a href="/switch-high-deductible-plan-g-to-plan-g">switching plans later</a> for how this plays out.
       </p>
 
       <h2>Medigap vs. Medicare Advantage</h2>

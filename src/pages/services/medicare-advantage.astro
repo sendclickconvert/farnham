@@ -7,7 +7,6 @@ import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS } from '../../data/site';
 
 const title = 'Medicare Advantage Plans (Part C)';
-const seoTitle = 'Medicare Advantage Plans in New York and Connecticut';
 const description = 'Medicare Advantage bundles hospital, medical and usually drug coverage into one private plan. Often lower premiums, with networks and copays to weigh.';
 
 const serviceSchema = {
@@ -21,7 +20,7 @@ const serviceSchema = {
 };
 ---
 
-<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={serviceSchema}>
+<BaseLayout title={title} description={description} schema={serviceSchema}>
   <PageHero
     title={title}
     breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Advantage' }]}
@@ -29,35 +28,8 @@ const serviceSchema = {
   <article class="py-14 lg:py-18">
     <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
       <p class="lead text-xl text-navy-700">Medicare Advantage (Part C) plans are an alternative to Original Medicare, offered by private insurance companies approved by Medicare. They bundle Part A and Part B — and usually Part D drug coverage — into a single plan.</p>
-      <h2>What Medicare health plans are</h2>
-      <p>
-        <a href="https://www.medicare.gov/health-drug-plans/health-plans" rel="nofollow noopener" target="_blank">Medicare.gov</a> describes
-        Medicare health plans as plans that provide your Part A (Hospital Insurance) and Part B (Medical Insurance) benefits, generally
-        offered by private companies that contract with Medicare. Medicare Advantage Plans (Part C) are the most common type; the others
-        include Medicare Cost Plans, demonstration and pilot programs, and the Program of All-inclusive Care for the Elderly (PACE). This page
-        is about Medicare Advantage.
-      </p>
-
       <h2>What to weigh</h2>
       <p>Medicare Advantage plans often have lower monthly premiums, but coverage works through provider networks and a pay-as-you-go structure of copays and coinsurance. That can be a good fit for some people and a poor fit for others. The right answer depends on your doctors, your medications, your budget, and how you prefer to manage risk.</p>
-      <h2>Questions to ask about any plan</h2>
-      <ul>
-        <li><strong>Are my doctors and hospitals in the network?</strong> Check each one by name before you enroll.</li>
-        <li><strong>Are my medications covered?</strong> Most plans include drug coverage, so check the formulary and the tier for each drug you take.</li>
-        <li><strong>What would a heavy-care year cost?</strong> Look at the copays and coinsurance for hospital stays and specialists, not only the monthly premium.</li>
-        <li><strong>What extras are included?</strong> Some plans offer benefits Original Medicare doesn’t, like vision, hearing or dental. Ask what each one actually pays.</li>
-      </ul>
-
-      <h2>How it differs from Medigap</h2>
-      <p>
-        Medicare Advantage replaces Original Medicare with a single private plan, while a <a href="/services/medicare-supplement">Medigap</a>
-        plan works alongside Original Medicare and is used with it. The two are different routes, and the choice usually comes down to
-        provider freedom against monthly premium and cost-sharing. Read
-        <a href="/medicare-advantage-vs-medigap">Medigap vs. Medicare Advantage</a> and
-        <a href="/medicare-advantage-pros-and-cons">the pros and cons of Medicare Advantage</a> for the full comparison, and see
-        <a href="/medigap-plan-g-cost-new-york">what Medigap Plan G costs in New York</a> if you want the other side of the numbers.
-      </p>
-
       <h2>How I help</h2>
       <p>I’ll walk you through how a specific Medicare Advantage plan compares with a Medicare Supplement approach for your situation — including what each would likely cost you in a healthy year and a heavy-care year — so the decision is based on real numbers, not a sales pitch.</p>
 
