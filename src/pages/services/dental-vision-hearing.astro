@@ -6,14 +6,14 @@ import Disclaimer from '../../components/Disclaimer.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS } from '../../data/site';
 
-const title = 'Dental, Vision & Hearing Insurance';
-const description = 'Original Medicare generally doesn’t cover routine dental, vision, or hearing care. Stand-alone plans can help fill those gaps based on what you use.';
+const title = 'Dental, Vision, Hearing and Hospital';
+const description = 'Original Medicare generally doesn’t cover routine dental, vision, or hearing care. Stand-alone plans and hospital indemnity coverage can help fill those gaps.';
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: title,
-  serviceType: 'Dental, Vision, and Hearing Insurance',
+  serviceType: 'Dental, Vision, Hearing and Hospital Indemnity Insurance',
   provider: { '@id': `${BUSINESS.url}/#organization` },
   areaServed: [{ '@type': 'State', name: 'New York' }, { '@type': 'State', name: 'Connecticut' }],
   description,
@@ -23,8 +23,8 @@ const serviceSchema = {
 <BaseLayout title={title} description={description} schema={serviceSchema}>
   <PageHero
     title={title}
-    subtitle={'Coverage for the everyday needs Original Medicare generally leaves out.'}
-    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Dental, Vision & Hearing' }]}
+    subtitle={'Coverage for the everyday needs Original Medicare generally leaves out, and cash benefits for a hospital stay.'}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Dental, Vision, Hearing and Hospital' }]}
   />
   <article class="py-14 lg:py-18">
     <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
@@ -33,6 +33,13 @@ const serviceSchema = {
       <p>Stand-alone dental, vision, and hearing plans can help cover some of these shortfalls. Coverage and value vary by plan, so it’s worth matching a plan to what you actually expect to use.</p>
       <h2>How I help</h2>
       <p>I’ll help you decide whether stand-alone coverage makes sense for you and compare some options available in your area.</p>
+
+      <h2>Hospital Indemnity Insurance</h2>
+      <p>Hospital Indemnity insurance pays a fixed cash benefit if you’re admitted to the hospital, which can help offset deductibles, copays, and other out-of-pocket costs.</p>
+      <h3>When it’s useful</h3>
+      <p>Hospital Indemnity coverage is often paired with a Medicare Advantage or high-deductible strategy, where a hospital stay could otherwise create meaningful out-of-pocket costs. The cash benefit is yours to use however you need.</p>
+      <h3>How I help with hospital indemnity</h3>
+      <p>I’ll help you decide whether hospital indemnity coverage fits your overall Medicare strategy and budget.</p>
 
       <AuthorByline />
       <div class="not-prose mt-8"><Disclaimer variant="tpmo" /></div>

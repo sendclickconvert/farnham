@@ -159,20 +159,12 @@ export const SERVICES = [
       'Medicare Part D plans cover prescription medications. Cost and formularies vary widely from plan to plan, so reviewing your specific medications and pharmacies each year matters.',
   },
   {
-    title: 'Dental, Vision & Hearing',
+    title: 'Dental, Vision, Hearing and Hospital',
     slug: 'dental-vision-hearing',
     icon: 'eye',
-    summary: 'Coverage for the everyday needs Original Medicare generally doesn’t include.',
+    summary: 'Coverage for the everyday needs Original Medicare generally doesn’t include, plus cash benefits that help offset the cost of a hospital stay.',
     description:
-      'Original Medicare generally does not cover routine dental, vision, or hearing care. Stand-alone plans can help fill those gaps based on what you actually use.',
-  },
-  {
-    title: 'Hospital Indemnity',
-    slug: 'hospital-indemnity',
-    icon: 'building',
-    summary: 'Cash benefits that help offset out-of-pocket costs from a hospital stay.',
-    description:
-      'Hospital Indemnity insurance pays a fixed cash benefit if you are hospitalized, which can help offset deductibles and other out-of-pocket costs — often paired with a Medicare Advantage or high-deductible strategy.',
+      'Original Medicare generally does not cover routine dental, vision, or hearing care. Stand-alone plans can help fill those gaps based on what you actually use. Hospital Indemnity insurance pays a fixed cash benefit if you are hospitalized, which can help offset deductibles and other out-of-pocket costs.',
   },
 ] as const;
 
@@ -223,8 +215,7 @@ export const NAV_ITEMS = [
       { label: 'Medicare Supplement Insurance (Medigap)', href: '/services/medicare-supplement' },
       { label: 'Prescription Drug Plans (Part D)', href: '/services/prescription-drug-plans' },
       { label: 'Medicare Advantage (Part C)', href: '/services/medicare-advantage' },
-      { label: 'Dental, Vision & Hearing', href: '/services/dental-vision-hearing' },
-      { label: 'Hospital Indemnity', href: '/services/hospital-indemnity' },
+      { label: 'Dental, Vision, Hearing and Hospital', href: '/services/dental-vision-hearing' },
     ],
   },
   {

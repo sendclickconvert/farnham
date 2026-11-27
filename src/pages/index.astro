@@ -13,7 +13,6 @@ const SERVICE_ORDER = [
   'prescription-drug-plans',
   'medicare-advantage',
   'dental-vision-hearing',
-  'hospital-indemnity',
 ];
 const orderedServices = [...SERVICES].sort((a, b) => {
   const ia = SERVICE_ORDER.indexOf(a.slug);
@@ -32,7 +31,7 @@ const audiences = [
   {
     tag: 'Already on Medicare?',
     title: 'Does Your Current Coverage Still Make Sense?',
-    body: 'Many people pick a plan at 65 and never revisit it — even as premiums climb.',
+    body: 'Many people pick a plan at 65 and never revisit it. Explore what your options could be if you’re already on Medicare.',
     href: '/does-your-coverage-still-make-sense',
     cta: 'Review your coverage',
   },

@@ -27,7 +27,7 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
   <PageHero
     title="High-Deductible Plan G in New York"
     subtitle="Where New York’s rules and a lower-premium plan line up — often bigger savings, with the freedom to change your mind anytime."
-    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'New York Medicare Supplement', href: '/new-york-medicare-supplement' }, { label: 'High-Deductible Plan G' }]}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'High-Deductible Medigap', href: '/services/high-deductible-medicare-supplement' }, { label: 'High-Deductible Plan G in New York' }]}
   />
 
   <div class="bg-crst-light border-b border-navy-100">
@@ -82,8 +82,7 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
         This is the part that lowers the risk. In most states, choosing a high-deductible plan can be hard to undo later without
         passing medical underwriting. In New York, you can move to standard Plan G or another plan in any month, with no health
         questions — so trying the high-deductible route doesn’t trap you. See
-        <a href="/switch-high-deductible-plan-g-to-plan-g">switching out of High-Deductible Plan G</a> and the broader
-        <a href="/new-york-medicare-supplement">New York Medicare Supplement rules</a>.
+        <a href="/switch-high-deductible-plan-g-to-plan-g">switching out of High-Deductible Plan G</a>.
       </p>
 
       <h2>Is it right for you in New York?</h2>
@@ -104,8 +103,7 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
       {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
 
       <p>
-        Start with the <a href="/services/high-deductible-medicare-supplement">complete guide to High-Deductible Plan G</a> or the
-        <a href="/new-york-medicare-supplement">New York Medicare Supplement overview</a>.
+        Start with the <a href="/services/high-deductible-medicare-supplement">complete guide to High-Deductible Plan G</a>.
       </p>
 
       <AuthorByline />
@@ -116,9 +114,6 @@ const schema = { '@context': 'https://schema.org', '@graph': [articleSchema, faq
           New York guaranteed-issue and community-rating rules reflect state law as of {MEDICARE_2026.year} and may change.
           High-Deductible Plan G involves higher out-of-pocket costs before coverage begins and is not suitable for everyone.
           Potential savings vary and are not guaranteed. NY producer license #: {BUSINESS.nyLicense}.
-        </p>
-        <p class="text-xs text-navy-500 mt-2 leading-relaxed">
-          Source: <a href="https://www.medicare.gov/health-drug-plans/medigap" rel="nofollow noopener" target="_blank">Medicare.gov — Medicare Supplement (Medigap)</a>.
         </p>
       </div>
     </div>
