@@ -257,6 +257,14 @@ export const MEDICARE_2026 = {
   // Anyone newly eligible (turning 65 now) uses HD Plan G.
 } as const;
 
+// 2027 figures, read on Medicare.gov (Compare Medigap Plan Benefits) and the CMS
+// October 2026 high-deductible announcement on 27 Nov 2026. Update each year.
+export const MEDICARE_2027 = {
+  year: 2027,
+  hdDeductible: '$3,050',
+  partBDeductible: '$292',
+} as const;
+
 // =====================================================================
 // COMPLIANCE DISCLAIMERS (CMS / TPMO / state). Centralized so legal copy
 // is edited in ONE place. Rendered via <Disclaimer /> and the Footer.

@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026, MEDICARE_2027 } from '../data/site';
+
+const title = 'What Doesn’t Medicare Plan G Cover?';
+const seoTitle = 'What Medigap Plan G Does Not Cover';
+const description = 'Plan G pays most of what Original Medicare leaves behind, but not the Part B deductible, drug costs or routine dental, vision and hearing care.';
+
+const faqs = [
+  { q: 'Does Plan G cover prescription drugs?', a: 'No. Medigap helps with Original Medicare’s costs. Drug coverage is separate: you can add a stand-alone Part D plan, or get drug coverage inside most Medicare Advantage plans.' },
+  { q: 'Does Plan G pay the Part B deductible?', a: `No. You pay the yearly Part B deductible yourself: ${MEDICARE_2026.partBDeductible} in ${MEDICARE_2026.year} and ${MEDICARE_2027.partBDeductible} in ${MEDICARE_2027.year}. After that, Plan G pays the Part B coinsurance.` },
+  { q: 'Does Plan G cover routine dental, vision or hearing aids?', a: 'No. Original Medicare does not cover them, and a Medigap plan does not add them. Stand-alone dental, vision and hearing plans, or some Medicare Advantage plans, are the usual ways to cover them.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${BUSINESS.url}/what-medigap-plan-g-does-not-cover#webpage`,
+      name: title,
+      description,
+      about: [{ '@type': 'Thing', name: 'Medigap', sameAs: 'https://en.wikipedia.org/wiki/Medigap' }],
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] },
+    },
+    { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+};
+---
+
+<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={schema}>
+  <PageHero
+    title={title}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Supplement Insurance (Medigap)', href: '/services/medicare-supplement' }, { label: 'What Plan G does not cover' }]}
+  />
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          Medicare Supplement Insurance (Medigap) Plan G pays most of the costs Original Medicare leaves behind, but it does not pay the
+          yearly Part B deductible, it does not cover prescription drugs, and it does not add routine dental, vision or hearing coverage.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        Plan G is popular because it fills nearly every gap in Original Medicare’s cost-sharing. “Nearly” is the important word, so here
+        is exactly where the line falls.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — Licensed Agent / Insurance Broker (NY license {BUSINESS.nyLicense}).
+      </p>
+
+      <h2>What Plan G does pay</h2>
+      <p>
+        Medigap is extra insurance from a private company that helps pay your share of out-of-pocket costs in Original Medicare. The
+        <a href="https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits" rel="nofollow noopener" target="_blank">Medicare.gov benefits chart</a>
+        shows a standard Plan G paying:
+      </p>
+      <ul>
+        <li>Part A coinsurance and hospital costs, up to an additional 365 days after Medicare benefits are used</li>
+        <li>Part B coinsurance or copayment</li>
+        <li>Blood (the first 3 pints)</li>
+        <li>Part A hospice care coinsurance or copayment</li>
+        <li>Skilled nursing facility care coinsurance</li>
+        <li>The Part A deductible</li>
+        <li>Part B excess charges</li>
+        <li>Foreign travel emergency care (80%, up to plan limits)</li>
+      </ul>
+
+      <h2>What Plan G does not pay</h2>
+      <h3>The yearly Part B deductible</h3>
+      <p>
+        This is the one cost-sharing item Plan G leaves to you. It is {MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year} and
+        {MEDICARE_2027.partBDeductible} in {MEDICARE_2027.year}. Once you have paid it, Plan G pays the Part B coinsurance for the rest
+        of the year. With High-Deductible Plan G, your Part B deductible payment counts toward the plan’s own deductible
+        ({MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year}).
+      </p>
+
+      <h3>Prescription drugs</h3>
+      <p>
+        Drug coverage is separate from Medigap. You can add a stand-alone
+        <a href="/services/prescription-drug-plans">Part D prescription drug plan</a> to Original Medicare, or get drug coverage inside
+        most Medicare Advantage plans. Even if you don’t take prescription drugs now,
+        <a href="https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover" rel="nofollow noopener" target="_blank">Medicare suggests considering drug coverage</a>,
+        and enrolling late can add a
+        <a href="/medicare-part-d-late-enrollment-penalty">permanent penalty</a>.
+      </p>
+
+      <h3>Routine dental, vision and hearing care</h3>
+      <p>
+        The benefits in the chart above are the standardized Medigap benefits, and routine dental, vision and hearing care are not among
+        them. Original Medicare itself does not cover routine eye exams for glasses, hearing aids, or most dental care, and Medigap helps
+        with Original Medicare’s costs rather than adding those benefits. Read
+        <a href="/does-medicare-plan-g-cover-eye-exams-hearing-aids-dental">does Plan G pay for eye exams, hearing aids or dental care</a>
+        for what Original Medicare does cover, and
+        <a href="/services/dental-vision-hearing">how stand-alone dental, vision and hearing plans fit in</a>.
+      </p>
+
+      <h3>Anything that Original Medicare doesn’t cover</h3>
+      <p>
+        You can only buy Medigap if you have Original Medicare, and a Medigap plan is built around that coverage. If a service falls
+        outside both Original Medicare and the Medigap benefits list, Plan G does not pay for it. Ask before you rely on a service being
+        covered.
+      </p>
+
+      <h2>Filling the gaps</h2>
+      <ul>
+        <li><strong>Drugs:</strong> a stand-alone <a href="/services/prescription-drug-plans">Part D plan</a>.</li>
+        <li><strong>Dental, vision and hearing:</strong> a <a href="/services/dental-vision-hearing">stand-alone plan</a>, or some Medicare Advantage plans include these as extra benefits.</li>
+        <li><strong>Hospital stays:</strong> some people look at <a href="/services/dental-vision-hearing">hospital indemnity coverage</a> as a cash benefit on top of their other coverage.</li>
+        <li><strong>A lower premium:</strong> the <a href="/services/high-deductible-medicare-supplement">high-deductible version of Plan G</a> trades a higher deductible for a lower premium. See <a href="/medigap-plan-g-cost-new-york">what Plan G costs in New York</a>.</li>
+      </ul>
+
+      <h2>Common questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-2 m-0">Not sure what your plan covers?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure review, by phone or Zoom screen-share.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Plan availability, benefits and costs vary and are not guaranteed. Figures shown are {MEDICARE_2026.year} and
+          {MEDICARE_2027.year} amounts set by Medicare and change annually. This page is educational and not individualized advice.
+          NY producer license #: {BUSINESS.nyLicense}.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Let’s find the coverage that fits you" />
+</BaseLayout>

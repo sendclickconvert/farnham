@@ -80,9 +80,9 @@ const eventSchema = {
 
       <h2 class="text-2xl font-display text-crst-primary mb-6">Upcoming sessions</h2>
       {events.length > 0 ? (
-        <div class="space-y-4">
+        <div class="space-y-4" data-sessions>
           {events.map((e) => (
-            <div class="card flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="card flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-session-end={e.end}>
               <div>
                 <h3 class="font-heading font-semibold text-lg text-crst-primary">Medicare 101</h3>
                 <p class="text-sm text-navy-600 mt-1">
@@ -95,7 +95,15 @@ const eventSchema = {
           ))}
         </div>
       ) : (
-        <div class="card">
+        <div class="card" data-no-sessions>
+          <p class="text-navy-700">
+            No sessions are scheduled at the moment — new dates are added regularly. Call {BUSINESS.phone} or
+            <a href="/contact" class="text-crst-accent underline">get in touch</a> to hear about the next class.
+          </p>
+        </div>
+      )}
+      {events.length > 0 && (
+        <div class="card hidden" data-no-sessions-later>
           <p class="text-navy-700">
             No sessions are scheduled at the moment — new dates are added regularly. Call {BUSINESS.phone} or
             <a href="/contact" class="text-crst-accent underline">get in touch</a> to hear about the next class.
@@ -109,6 +117,8 @@ const eventSchema = {
       </p>
     </div>
   </section>
+
+  <script src="/js/events-expiry.js" defer is:inline></script>
 
   <CTASection headline="Prefer a one-on-one conversation?" text="You don’t have to wait for a class. Call or text Jim directly for a no-cost, no-obligation review of your options." />
 </BaseLayout>

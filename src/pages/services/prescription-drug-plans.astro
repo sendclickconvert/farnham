@@ -7,6 +7,7 @@ import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS } from '../../data/site';
 
 const title = 'Medicare Part D Prescription Drug Plans Explained';
+const seoTitle = 'Medicare Part D Drug Plans in New York and Connecticut';
 const description = 'Medicare Part D covers prescription drugs through private plans. Learn how Part D works, what it costs, and how to avoid the late-enrollment penalty.';
 const today = '2026-06-03';
 
@@ -15,7 +16,7 @@ const speakableSchema = { '@context': 'https://schema.org', '@type': 'WebPage', 
 const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, speakableSchema] };
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={schema}>
   <PageHero
     title="Medicare Part D (Prescription Drug Plans)"
     breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Part D Drug Plans' }]}
@@ -59,6 +60,46 @@ const schema = { '@context': 'https://schema.org', '@graph': [serviceSchema, spe
         Expect a monthly premium, a possible deductible, and copays or coinsurance based on your plan’s tiers. Higher earners may pay
         an income-related amount on top of the premium. Because the variable is your own drug list, comparing total expected annual
         cost — not just the premium — is the way to choose.
+      </p>
+
+      <h2>What every plan must cover</h2>
+      <p>
+        According to <a href="https://www.medicare.gov/health-drug-plans/part-d/what-drug-plans-cover" rel="nofollow noopener" target="_blank">Medicare.gov</a>,
+        Part D is extra coverage that Medicare-approved private plans offer, and all plans must cover a wide range of the prescription drugs
+        people with Medicare take, including most drugs in certain protected classes, like drugs to treat cancer, HIV/AIDS or depression.
+        Each plan has its own formulary, which is its list of covered drugs. Medicare also suggests considering drug coverage even if you
+        don’t take prescription drugs now.
+      </p>
+
+      <h2>Help paying for drug costs</h2>
+      <p>
+        “Extra Help” is a Medicare program that helps people with limited income and resources pay Part D premiums, deductibles, coinsurance
+        and other costs, and you don’t pay a Part D late-enrollment penalty while you get it. You get Extra Help automatically if you have
+        full-benefit Medicaid, get help from your state paying your Part B premiums through a Medicare Savings Program, or receive
+        Supplemental Security Income (SSI) payments. Otherwise you can apply. For 2026, the limits on
+        <a href="https://www.medicare.gov/basics/costs/help/drug-costs" rel="nofollow noopener" target="_blank">Medicare.gov</a>
+        are income of $23,940 and resources of $18,090 for an individual, and income of $32,460 and resources of $36,100 for a married couple.
+        Limits can change each year. Your State Health Insurance Assistance Program (SHIP) can help you apply at no cost.
+      </p>
+
+      <h2>Part D with Medigap, or inside Medicare Advantage</h2>
+      <p>
+        A Medigap plan does not cover prescription drugs, so people who pair Original Medicare with Medigap usually add a stand-alone Part D
+        plan. See <a href="/services/medicare-supplement">Medicare Supplement (Medigap)</a> and
+        <a href="/what-medigap-plan-g-does-not-cover">what Plan G does not cover</a>. Most
+        <a href="/services/medicare-advantage">Medicare Advantage plans</a> include drug coverage in the plan itself, so in that case you would
+        not buy a separate Part D plan.
+      </p>
+
+      <h2>What to compare</h2>
+      <ul>
+        <li><strong>Your own medications.</strong> Check that each drug is on the plan’s formulary and note which tier it is in.</li>
+        <li><strong>Your pharmacy.</strong> Plans can price the same drug differently depending on the pharmacy you use.</li>
+        <li><strong>The deductible and the copay or coinsurance.</strong> The premium is only part of what you pay.</li>
+        <li><strong>The total for the year.</strong> Add the premium to what you would expect to pay for your drugs, and compare plans on that number.</li>
+      </ul>
+      <p>
+        I can run that comparison for your medication list and your pharmacy, by phone or Zoom screen-share, at no cost to you.
       </p>
 
       <h2>Avoiding the late-enrollment penalty</h2>

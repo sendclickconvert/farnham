@@ -11,6 +11,7 @@ export interface Props {
   ogImage?: string;
   schema?: object;
   noIndex?: boolean;
+  seoTitle?: string;
 }
 
 const {
@@ -20,15 +21,17 @@ const {
   ogImage = '/images/farnham-og.jpg',
   schema,
   noIndex = false,
+  seoTitle,
 } = Astro.props;
 
 // Titles stay at or under 60 characters: the brand suffix is dropped when it
 // would push a page title over the limit.
-const withBrand = `${title} | ${BUSINESS.shortName}`;
+const baseTitle = seoTitle || title;
+const withBrand = `${baseTitle} | ${BUSINESS.shortName}`;
 const fullTitle =
   title === 'Home'
     ? `${BUSINESS.name} | Medicare in ${BUSINESS.address.city}, NY`
-    : withBrand.length <= 60 ? withBrand : title;
+    : withBrand.length <= 60 ? withBrand : baseTitle;
 
 // Demo (preview) builds are noindex until PUBLISH=1 is set for the launch build.
 const robotsNoIndex = noIndex || !IS_PUBLISH;
@@ -44,7 +47,30 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, BUSINESS.url).href
 // service-area business until the verification address is confirmed.
 // Jim is also modeled as a Person (E-E-A-T) and tied in as the agent.
 // ---------------------------------------------------------------------
-const organizationSchema = {
+const isHome = Astro.url.pathname === '/';
+const WIKI = (p: string) => `https://en.wikipedia.org/wiki/${p}`;
+// Places and topics tied to Wikipedia so Google knows exactly which entities are meant.
+// (The business's own sameAs stays its own profiles, added when they exist.)
+const places = [
+  { '@type': 'State', name: 'New York', sameAs: WIKI('New_York_(state)') },
+  { '@type': 'State', name: 'Connecticut', sameAs: WIKI('Connecticut') },
+  { '@type': 'AdministrativeArea', name: 'Ulster County, New York', sameAs: WIKI('Ulster_County,_New_York') },
+  { '@type': 'AdministrativeArea', name: 'Dutchess County, New York', sameAs: WIKI('Dutchess_County,_New_York') },
+  { '@type': 'AdministrativeArea', name: 'Orange County, New York', sameAs: WIKI('Orange_County,_New_York') },
+  { '@type': 'AdministrativeArea', name: 'Westchester County, New York', sameAs: WIKI('Westchester_County,_New_York') },
+  { '@type': 'City', name: 'New Paltz, New York', sameAs: WIKI('New_Paltz,_New_York') },
+  { '@type': 'City', name: 'Kingston, New York', sameAs: WIKI('Kingston,_New_York') },
+  { '@type': 'City', name: 'Poughkeepsie, New York', sameAs: WIKI('Poughkeepsie,_New_York') },
+];
+const topics = [
+  { '@type': 'Thing', name: 'Medicare', sameAs: WIKI('Medicare_(United_States)') },
+  { '@type': 'Thing', name: 'Medigap', sameAs: WIKI('Medigap') },
+  { '@type': 'Thing', name: 'Medicare Advantage', sameAs: WIKI('Medicare_Advantage') },
+  { '@type': 'Thing', name: 'Medicare Part D', sameAs: WIKI('Medicare_Part_D') },
+  { '@type': 'Thing', name: 'Centers for Medicare & Medicaid Services', sameAs: WIKI('Centers_for_Medicare_%26_Medicaid_Services') },
+];
+
+const businessSchema = {
   '@context': 'https://schema.org',
   '@type': 'InsuranceAgency',
   '@id': `${BUSINESS.url}/#organization`,
@@ -68,13 +94,10 @@ const organizationSchema = {
   ...(BUSINESS.addressConfirmed
     ? { geo: { '@type': 'GeoCoordinates', latitude: BUSINESS.geo.latitude, longitude: BUSINESS.geo.longitude } }
     : {}),
-  areaServed: [
-    { '@type': 'State', name: 'New York' },
-    { '@type': 'State', name: 'Connecticut' },
-  ],
+  areaServed: places,
   founder: { '@id': `${BUSINESS.url}/#agent` },
   employee: { '@id': `${BUSINESS.url}/#agent` },
-  knowsAbout: [...AGENT.knowsAbout],
+  knowsAbout: [...topics, ...AGENT.knowsAbout],
   disambiguatingDescription:
     'Independent insurance agency specializing in High-Deductible Medicare Supplement Insurance. Not affiliated with or endorsed by the federal government or the Medicare program.',
 };
@@ -92,10 +115,27 @@ const agentSchema = {
   telephone: AGENT.phone,
 };
 
-// Page-specific schema is merged in via the `schema` prop; org + agent always present.
-const schemaGraph = schema
-  ? [organizationSchema, agentSchema, schema]
-  : [organizationSchema, agentSchema];
+// The full business block (InsuranceAgency) goes on the home page only; every other page carries a
+// short Organization record with the same @id. Page-specific schema is merged in via the `schema` prop.
+const organizationLite = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${BUSINESS.url}/#organization`,
+  name: BUSINESS.legalName,
+  url: BUSINESS.url,
+  logo: `${BUSINESS.url}/images/farnham-logo-1200.png`,
+  telephone: BUSINESS.phone,
+};
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${BUSINESS.url}/#website`,
+  url: BUSINESS.url,
+  name: BUSINESS.name,
+  publisher: { '@id': `${BUSINESS.url}/#organization` },
+};
+const base = isHome ? [businessSchema, websiteSchema, agentSchema] : [organizationLite, agentSchema];
+const schemaGraph = schema ? [...base, schema] : base;
 ---
 
 <!DOCTYPE html>

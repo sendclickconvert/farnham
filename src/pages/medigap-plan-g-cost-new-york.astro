@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import { BUSINESS, MEDICARE_2026 } from '../data/site';
+import { MEDICARE_2027 } from '../data/site';
+import { NY_RATES, money } from '../data/medigap-rates';
+
+const title = 'What Medigap Plan G Costs in New York';
+const seoTitle = 'Medigap Plan G Cost in New York (2026 Rates)';
+const description = `State-published monthly Plan G and High-Deductible Plan G premiums for Mid-Hudson and Westchester ZIP codes, effective ${NY_RATES.effective}.`;
+const mh = NY_RATES.regions.midHudson;
+const wc = NY_RATES.regions.westchester;
+
+const faqs = [
+  { q: 'Do all insurers charge the same for Plan G?', a: 'No. Plans with the same letter offer the same basic benefits from every insurer, so price is the difference. In the state’s tables the same plan is listed at very different monthly premiums.' },
+  { q: 'Does my county decide my Medigap price in New York?', a: 'No. In the state’s tables your ZIP code’s first three digits place you in a region. For example, ZIP codes 124 through 127 are Mid-Hudson, and 105 through 109 are Westchester.' },
+  { q: 'Is the High-Deductible Plan G premium the whole cost?', a: `No. You pay Medicare-covered costs up to the deductible first: ${MEDICARE_2026.hdDeductible} in ${MEDICARE_2026.year} and ${MEDICARE_2027.hdDeductible} in ${MEDICARE_2027.year}. Your Part B deductible payment counts toward it.` },
+  { q: 'Are these Jim Farnham’s quotes?', a: 'No. They are the lowest and highest premiums the New York State Department of Financial Services lists for each plan and region. Jim does not represent every insurer listed. Ask for a current quote.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${BUSINESS.url}/medigap-plan-g-cost-new-york#webpage`,
+      name: title,
+      description,
+      dateModified: NY_RATES.checkedIso,
+      about: [{ '@type': 'Thing', name: 'Medigap', sameAs: 'https://en.wikipedia.org/wiki/Medigap' }],
+      mentions: [
+        { '@type': 'AdministrativeArea', name: 'Ulster County, New York', sameAs: 'https://en.wikipedia.org/wiki/Ulster_County,_New_York' },
+        { '@type': 'AdministrativeArea', name: 'Westchester County, New York', sameAs: 'https://en.wikipedia.org/wiki/Westchester_County,_New_York' },
+      ],
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.lead', 'h2'] },
+    },
+    { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+};
+---
+
+<BaseLayout title={title} seoTitle={seoTitle} description={description} schema={schema}>
+  <PageHero
+    title={title}
+    breadcrumbs={[{ label: 'Medicare Plans', href: '/services' }, { label: 'Medicare Supplement Insurance (Medigap)', href: '/services/medicare-supplement' }, { label: 'Plan G cost in New York' }]}
+  />
+
+  <article class="py-14 lg:py-18">
+    <div class="container-narrow prose prose-lg max-w-none prose-headings:font-display prose-headings:text-crst-primary prose-a:text-crst-accent">
+
+      <div class="not-prose mb-8 rounded-xl border-l-4 border-crst-gold bg-navy-50 p-5">
+        <p class="text-navy-800 leading-relaxed m-0">
+          In the <a href={NY_RATES.sourceUrl} rel="nofollow noopener" target="_blank">{NY_RATES.sourceName}’s tables</a> effective
+          {NY_RATES.effective}, a standard Medigap Plan G listed from <strong>{money(mh.planG.min)} to {money(mh.planG.max)} a month</strong>
+          for ZIP codes beginning {mh.zips} (the state’s {mh.name} region, which includes Kingston, New Paltz and Poughkeepsie).
+          High-Deductible Plan G listed from <strong>{money(mh.hdG.min)} to {money(mh.hdG.max)} a month</strong>.
+        </p>
+      </div>
+
+      <p class="lead text-xl text-navy-700">
+        Cost is the first question most people ask about Medigap, so here are the state’s own numbers, what they do and don’t tell
+        you, and how to turn them into a figure for your ZIP code.
+      </p>
+      <p class="text-sm text-navy-500 -mt-2">
+        Written by <a href="/about">Jim Farnham, MS, MBA</a> — Licensed Agent / Insurance Broker (NY license {BUSINESS.nyLicense}).
+        Premiums checked {NY_RATES.checked}.
+      </p>
+
+      <h2>Monthly premiums the state lists, by region</h2>
+      <div class="not-prose overflow-x-auto my-6">
+        <table class="w-full text-left text-sm sm:text-base border border-navy-100 rounded-lg">
+          <caption class="text-left text-sm text-navy-500 mb-2">Monthly premiums effective {NY_RATES.effective}, lowest to highest listed. Source: {NY_RATES.sourceName}.</caption>
+          <thead class="bg-navy-50 text-navy-800">
+            <tr>
+              <th class="p-3 font-heading">State region (ZIP code starts)</th>
+              <th class="p-3 font-heading">Standard Plan G</th>
+              <th class="p-3 font-heading">High-Deductible Plan G</th>
+            </tr>
+          </thead>
+          <tbody class="text-navy-700">
+            <tr class="border-t border-navy-100">
+              <td class="p-3">{mh.name} ({mh.zips})</td>
+              <td class="p-3">{money(mh.planG.min)} to {money(mh.planG.max)} ({mh.planG.insurers} insurers listed)</td>
+              <td class="p-3">{money(mh.hdG.min)} to {money(mh.hdG.max)} ({mh.hdG.insurers} insurers listed)</td>
+            </tr>
+            <tr class="border-t border-navy-100">
+              <td class="p-3">{wc.name} ({wc.zips})</td>
+              <td class="p-3">{money(wc.planG.min)} to {money(wc.planG.max)} ({wc.planG.insurers} insurers listed)</td>
+              <td class="p-3">{money(wc.hdG.min)} to {money(wc.hdG.max)} ({wc.hdG.insurers} insurers listed)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How to read the table</h2>
+      <ul>
+        <li><strong>Your ZIP code sets the region, not your county.</strong> New Paltz (125), Kingston (124) and Poughkeepsie (126) fall in the Mid-Hudson column. White Plains (106) is in the Westchester column. Orange County is split: Newburgh (125) is Mid-Hudson, while Middletown and Goshen (109) fall in the Westchester column.</li>
+        <li><strong>These are ranges, not quotes.</strong> They are the lowest and highest premiums the state lists across the insurers shown, and an insurer can list more than one premium in a region.</li>
+        <li><strong>They are not Jim’s own prices.</strong> The state lists insurers Jim does not represent, and Jim does not offer every plan available in your area (see the disclosure below).</li>
+        <li><strong>Premiums change.</strong> The state also posts tables for January 2027. Ask for a current quote before you decide.</li>
+      </ul>
+
+      <h2>Why the range is so wide</h2>
+      <p>
+        Medigap plans are standardized: policies with the same letter offer the same basic benefits no matter which insurance company
+        you buy from, and price is the only difference between them
+        (<a href="https://www.medicare.gov/health-drug-plans/medigap/basics" rel="nofollow noopener" target="_blank">Medicare.gov</a>).
+        That is why comparing insurers for the same plan matters more than comparing letters.
+      </p>
+
+      <h2>What a standard Plan G pays</h2>
+      <p>According to the <a href="https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits" rel="nofollow noopener" target="_blank">Medicare.gov benefits chart</a>, Plan G pays:</p>
+      <ul>
+        <li>Part A coinsurance and hospital costs, up to an additional 365 days after Medicare benefits are used</li>
+        <li>Part B coinsurance or copayment</li>
+        <li>Blood (the first 3 pints)</li>
+        <li>Part A hospice care coinsurance or copayment</li>
+        <li>Skilled nursing facility care coinsurance</li>
+        <li>The Part A deductible</li>
+        <li>Part B excess charges</li>
+        <li>Foreign travel emergency care (80%, up to plan limits)</li>
+      </ul>
+      <p>
+        It does not pay the yearly Part B deductible, which is {MEDICARE_2026.partBDeductible} in {MEDICARE_2026.year} and
+        {MEDICARE_2027.partBDeductible} in {MEDICARE_2027.year}. See <a href="/what-medigap-plan-g-does-not-cover">what Plan G does not cover</a>.
+      </p>
+
+      <h2>High-Deductible Plan G: the premium is only part of the cost</h2>
+      <p>
+        With the high-deductible option you pay Medicare-covered costs (coinsurance, copayments and deductibles) up to the deductible
+        before the plan pays anything: {MEDICARE_2026.hdDeductible} in {MEDICARE_2026.year} and {MEDICARE_2027.hdDeductible} in
+        {MEDICARE_2027.year} (<a href="https://www.cms.gov/medicare/health-drug-plans/medigap/f-g-j-deductible-announcements" rel="nofollow noopener" target="_blank">CMS</a>).
+        Your Part B deductible payment counts toward it. After that, the plan pays like a standard Plan G for the rest of the
+        calendar year.
+      </p>
+      <p>
+        To compare the two, add twelve months of the high-deductible premium to the deductible: that is the most you would pay toward
+        covered costs in a year with that plan. Put it next to twelve months of the standard Plan G premium. Which comes out lower
+        depends on how much care you use, and savings are not guaranteed. The
+        <a href="/services/high-deductible-medicare-supplement">High-Deductible Medigap page</a> and
+        <a href="/high-deductible-plan-g-worth-it">is a high-deductible plan worth it</a> go through the trade-off.
+      </p>
+
+      <h2>Connecticut</h2>
+      <p>
+        The Connecticut Insurance Department publishes
+        <a href={NY_RATES.ctSourceUrl} rel="nofollow noopener" target="_blank">monthly Medicare Supplement rates for standardized plans</a>,
+        including Plan G and High-Deductible Plan G. Its sheet lists rate changes by approval and effective date, so check the
+        current version for the company and date you care about.
+      </p>
+
+      <h2>Get the number for your ZIP code</h2>
+      <p>
+        I can look up the plans and premiums available at your ZIP code and walk through them with you by phone or Zoom screen-share,
+        at no cost and with no obligation. See also how this plays out in
+        <a href="/service-areas/ulster-county">Ulster County</a>,
+        <a href="/service-areas/dutchess-county">Dutchess County</a>,
+        <a href="/service-areas/orange-county">Orange County</a> and
+        <a href="/service-areas/westchester-county">Westchester County</a>.
+      </p>
+
+      <h2>Common questions</h2>
+      {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
+
+      <div class="not-prose my-10 rounded-xl bg-crst-primary p-6 text-center">
+        <p class="text-white font-heading text-lg mb-2 m-0">Want today’s premiums for your ZIP code?</p>
+        <p class="text-white/70 text-sm mb-4 m-0">A no-cost, no-pressure comparison across the plans available to you.</p>
+        <a href={`tel:${BUSINESS.phoneClean}`} class="btn-accent text-base px-7 py-3">Call {BUSINESS.phone}</a>
+      </div>
+
+      <AuthorByline />
+
+      <div class="not-prose mt-8">
+        <Disclaimer variant="tpmo" />
+        <p class="text-xs text-navy-500 mt-3 leading-relaxed">
+          Premium ranges are copied from the {NY_RATES.sourceName}’s published tables (effective {NY_RATES.effective}, checked
+          {NY_RATES.checked}) and are not quotes. Plan availability, benefits and costs vary and are not guaranteed. Potential savings
+          are not guaranteed and vary based on plan selection, healthcare usage and other factors. NY producer license #:
+          {BUSINESS.nyLicense}.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <CTASection headline="Let’s find the Medigap plan that fits you" />
+</BaseLayout>

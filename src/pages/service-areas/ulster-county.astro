@@ -5,7 +5,10 @@ import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS, MEDICARE_2026 } from '../../data/site';
+import { NY_RATES, money } from '../../data/medigap-rates';
 
+const mh = NY_RATES.regions.midHudson;
+const wc = NY_RATES.regions.westchester;
 const title = 'Medicare in Ulster County, NY — Local Agent';
 const description = 'Local Medicare help for Ulster County, NY: New Paltz, Kingston, Saugerties and Woodstock. Independent guidance on Medigap, Plan G, Advantage and Part D.';
 const today = '2026-06-03';
@@ -101,11 +104,12 @@ const schema = { '@context': 'https://schema.org', '@graph': [
         location and travel habits factor in.
       </p>
 
-      <h2>How we meet</h2>
+      <h2>What your ZIP code means for your premium</h2>
       <p>
-        Everything happens by phone or Zoom screen-share — a quick call, or a Zoom session where we look at the options together
-        on screen. Either way, you’ll get my direct line afterward — not a call-center queue. <a href="/contact">Request a no-cost
-        review</a> or call {BUSINESS.phone}.
+        New York sets Medigap premium tables by region, using the first three digits of your ZIP code rather than your county. Ulster County residents fall in the state’s Mid-Hudson region. Kingston ZIP codes begin with 124 and New Paltz ZIP codes begin with 125, both within the Mid-Hudson range of 124 to 127.
+        The state’s tables, effective {NY_RATES.effective}, list {money(mh.planG.min)} to {money(mh.planG.max)} a month for standard Plan G and {money(mh.hdG.min)} to {money(mh.hdG.max)} for High-Deductible Plan G in the Mid-Hudson region. These are ranges across the insurers the state lists, not quotes, and I don’t represent every insurer shown. See
+        <a href="/medigap-plan-g-cost-new-york">what Medigap Plan G costs in New York</a> for the full table and how to read it, or
+        <a href="/contact">request a no-cost review</a> and call {BUSINESS.phone} for plans and premiums at your own ZIP code.
       </p>
 
       <h2>Frequently asked questions</h2>
@@ -114,6 +118,7 @@ const schema = { '@context': 'https://schema.org', '@graph': [
       <p class="text-sm text-navy-500">
         Nearby: <a href="/service-areas/dutchess-county">Dutchess County</a> ·
         <a href="/service-areas/orange-county">Orange County</a> ·
+        <a href="/service-areas/westchester-county">Westchester County</a> ·
         <a href="/service-areas">all service areas</a>.
       </p>
 

@@ -107,11 +107,11 @@ else {
   for (const l of locs) {
     const p = l.replace(ORIGIN, '') || '/';
     if (!exists(p)) fail.push(`sitemap lists missing page ${l}`);
-    if (/thank-you|\/404/.test(l)) fail.push(`sitemap lists ${l}`);
+    if (/thank-you|\/404|\/privacy|\/terms|\/disclosures|\/contact/.test(l)) fail.push(`sitemap lists ${l}`);
   }
   const unlisted = pages
     .map(urlOf)
-    .filter((u) => !['/thank-you', '/404'].includes(u) && !locs.includes(ORIGIN + (u === '/' ? '' : u)));
+    .filter((u) => !['/thank-you', '/404', '/privacy', '/terms', '/disclosures', '/contact'].includes(u) && !locs.includes(ORIGIN + (u === '/' ? '' : u)));
   if (unlisted.length) warn.push(`pages not in sitemap: ${unlisted.join(', ')}`);
 }
 

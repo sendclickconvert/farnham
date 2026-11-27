@@ -5,7 +5,10 @@ import CTASection from '../../components/CTASection.astro';
 import Disclaimer from '../../components/Disclaimer.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import { BUSINESS, MEDICARE_2026 } from '../../data/site';
+import { NY_RATES, money } from '../../data/medigap-rates';
 
+const mh = NY_RATES.regions.midHudson;
+const wc = NY_RATES.regions.westchester;
 const title = 'Medicare in Westchester County, NY — Local Agent';
 const description = 'Local Medicare help for Westchester County, NY: White Plains, Yonkers and New Rochelle. Independent guidance on Medigap, Plan G, Advantage and Part D.';
 const today = '2026-06-03';
@@ -100,18 +103,21 @@ const schema = { '@context': 'https://schema.org', '@graph': [
         clear-eyed comparison — before or after you decide.
       </p>
 
-      <h2>How we meet</h2>
+      <h2>What your ZIP code means for your premium</h2>
       <p>
-        A phone call or Zoom screen-share handles the whole review, so distance from the Hudson Valley is never a factor — and
-        you’ll have my direct line afterward, not a queue. <a href="/contact">Request a no-cost review</a> or call {BUSINESS.phone}.
+        New York sets Medigap premium tables by region, using the first three digits of your ZIP code rather than your county. Westchester County residents fall in the state’s Westchester region. White Plains ZIP codes begin with 106, within the Westchester range of 105 to 109.
+        The state’s tables, effective {NY_RATES.effective}, list {money(wc.planG.min)} to {money(wc.planG.max)} a month for standard Plan G and {money(wc.hdG.min)} to {money(wc.hdG.max)} for High-Deductible Plan G in the Westchester region. These are ranges across the insurers the state lists, not quotes, and I don’t represent every insurer shown. See
+        <a href="/medigap-plan-g-cost-new-york">what Medigap Plan G costs in New York</a> for the full table and how to read it, or
+        <a href="/contact">request a no-cost review</a> and call {BUSINESS.phone} for plans and premiums at your own ZIP code.
       </p>
 
       <h2>Frequently asked questions</h2>
       {faqs.map((f) => (<div class="mb-5"><h3 class="text-xl">{f.q}</h3><p>{f.a}</p></div>))}
 
       <p class="text-sm text-navy-500">
-        Nearby: <a href="/service-areas/orange-county">Orange County</a> ·
+        Nearby: <a href="/service-areas/ulster-county">Ulster County</a> ·
         <a href="/service-areas/dutchess-county">Dutchess County</a> ·
+        <a href="/service-areas/orange-county">Orange County</a> ·
         <a href="/service-areas">all service areas</a>.
       </p>
 
